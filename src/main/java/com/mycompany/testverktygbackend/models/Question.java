@@ -27,14 +27,13 @@ public class Question implements Serializable {
     @JsonIgnore
     private Test test;
     
-    @OneToOne
-    @JsonBackReference
-    @JsonIgnore
-    private Response response;
+    @OneToMany(mappedBy = "question")
+    @JsonManagedReference
+    private List<Response> responses;
 
     @OneToMany(mappedBy = "question")
     @JsonManagedReference
-    List<QuestionOption> questionOptions;
+    private List<QuestionOption> questionOptions;
 
     public Question() {
     }
