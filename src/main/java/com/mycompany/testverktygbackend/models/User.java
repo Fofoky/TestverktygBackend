@@ -2,6 +2,7 @@ package com.mycompany.testverktygbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.persistence.ManyToMany;
 
 
 @Entity
-public class User {
+public class User implements Serializable {
     
     @Id@GeneratedValue
     private int userId;
