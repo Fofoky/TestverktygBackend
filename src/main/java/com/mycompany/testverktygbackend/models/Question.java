@@ -27,14 +27,13 @@ public class Question implements Serializable {
     @JsonIgnore
     private Test test;
     
-    @OneToOne
-    @JsonBackReference
-    @JsonIgnore
-    private Response response;
+    @OneToMany(mappedBy = "question")
+    @JsonManagedReference
+    private List<Response> responses;
 
     @OneToMany(mappedBy = "question")
     @JsonManagedReference
-    List<QuestionOption> questionOptions;
+    private List<QuestionOption> questionOptions;
 
     public Question() {
     }
@@ -64,9 +63,14 @@ public class Question implements Serializable {
         this.test = test;
     }
 
-    public void setResponse(Response response) {
-        this.response = response;
+    public List<Response> getResponses() {
+        return responses;
     }
+    
+
+    public void setResponses(List<Response> responses) {
+        this.responses = responses;
+    }   
 
     public List<QuestionOption> getQuestionOptions() {
         return questionOptions;
