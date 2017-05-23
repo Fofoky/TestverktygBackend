@@ -2,7 +2,6 @@ package com.mycompany.testverktygbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -23,11 +21,6 @@ public class User {
     private String title;
     private String isbn;
     private String description;
-    
-    @ManyToOne
-    @JsonManagedReference  
-    @JsonIgnore
-    Course cource;
     
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
@@ -72,17 +65,12 @@ public class User {
         this.description = description;
     }
 
-    public Course getCource() {
-        return cource;
-    }
-
-    public void setCource(Course cource) {
-        this.cource = cource;
-    }
-
     public List<Course> getCources() {
         return cources;
     }
-    
+
+    public void setCources(List<Course> cources) {
+        this.cources = cources;
+    }
     
 }
