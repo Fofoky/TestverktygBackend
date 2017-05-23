@@ -5,19 +5,26 @@
  */
 package com.mycompany.testverktygbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 
-/**
- *
- * @author rille
- */
-public class Response {
+@Entity
+public class Response implements Serializable{
     @Id@GeneratedValue
     private int responseId;
     private String response;
     private int userId;
+    
+    @ManyToOne
+    @JsonBackReference
+    @JsonIgnore
+    private Question question;
     
     public Response(int responseId, String response, int userId){
         this.responseId = responseId;
