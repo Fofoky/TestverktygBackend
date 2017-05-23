@@ -5,20 +5,39 @@
  */
 package com.mycompany.testverktygbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 
+@Entity
+public class Question implements Serializable {
 
-public class Question {
+    @Id
+    @GeneratedValue
     private int questionId;
     private String question;
+
+    @ManyToOne
+    @JsonBackReference
+    @JsonIgnore
+    private Test test;
     
-    Test test;
-    Response response;
-    
+    @OneToOne
+    @JsonBackReference
+    @JsonIgnore
+    private Response response;
+
+    @OneToMany(mappedBy = "question")
+    @JsonManagedReference
     List<QuestionOption> questionOptions;
-    
-    public Question(){}
-    
+
+    public Question() {
+    }
 
     public Question(int questionId, String question) {
         this.questionId = questionId;
@@ -45,7 +64,6 @@ public class Question {
         this.test = test;
     }
 
-
     public void setResponse(Response response) {
         this.response = response;
     }
@@ -57,9 +75,5 @@ public class Question {
     public void setQuestionOptions(List<QuestionOption> questionOptions) {
         this.questionOptions = questionOptions;
     }
-    
-    
-    
-    
-    
+
 }
