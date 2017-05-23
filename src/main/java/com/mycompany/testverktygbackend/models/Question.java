@@ -63,9 +63,14 @@ public class Question implements Serializable {
         this.test = test;
     }
 
-    public void setResponse(Response response) {
-        this.response = response;
+    public List<Response> getResponses() {
+        return responses;
     }
+    
+
+    public void setResponses(List<Response> responses) {
+        this.responses = responses;
+    }   
 
     public List<QuestionOption> getQuestionOptions() {
         return questionOptions;
