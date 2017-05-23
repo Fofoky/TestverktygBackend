@@ -7,6 +7,7 @@ package com.mycompany.testverktygbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,7 +22,7 @@ import javax.persistence.OneToMany;
  * @author rille
  */
 @Entity
-public class Course {
+public class Course implements Serializable {
     
     @Id@GeneratedValue
     private int courseId;
