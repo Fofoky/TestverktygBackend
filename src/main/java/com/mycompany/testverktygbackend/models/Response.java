@@ -5,6 +5,8 @@
  */
 package com.mycompany.testverktygbackend.models;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -13,7 +15,8 @@ import javax.persistence.Id;
  *
  * @author rille
  */
-public class Response {
+@Entity
+public class Response implements Serializable{
     @Id@GeneratedValue
     private int responseId;
     private String response;
@@ -50,8 +53,5 @@ public class Response {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-    
-    
-    
-    
+ 
 }
