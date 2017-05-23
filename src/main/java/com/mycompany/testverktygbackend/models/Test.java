@@ -5,20 +5,31 @@
  */
 package com.mycompany.testverktygbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author ULTRA
  */
-public class Test {
+@Entity 
+public class Test implements Serializable {
     
+   
+    @Id@GeneratedValue
     private int idTest; 
     private String title; 
     private Date start; 
     private Date stop; 
+    @OneToMany(mappedBy = "question")//kolla name i Question klass
+    @JsonBackReference   
     List<Questions> questions; 
     
     
