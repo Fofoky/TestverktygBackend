@@ -28,7 +28,7 @@ public class Test implements Serializable {
     private String title; 
     private Date start; 
     private Date stop; 
-    @OneToMany(mappedBy = "question")//kolla name i Question klass
+    @OneToMany(mappedBy = "test")//kolla name i Question klass
     @JsonBackReference   
     List<Question> questions; 
     
