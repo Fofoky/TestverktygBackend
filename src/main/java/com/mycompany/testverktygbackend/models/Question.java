@@ -5,10 +5,27 @@
  */
 package com.mycompany.testverktygbackend.models;
 
-/**
- *
- * @author annafock
- */
+import java.util.List;
+
+
 public class Question {
+    private int questionId;
+     
+    Test test;
+    Response response;
+    
+    List<QuestionOption> questionOptions;
+    
+    public Question(){}
+    
+
+    public Question(int questionId, Test test, Response response, <any> questionOptions) {
+        this.questionId = questionId;
+        this.test = test;
+        this.response = response;
+        this.questionOptions = questionOptions;
+    }
+    
+    
     
 }
