@@ -30,7 +30,7 @@ public class Test implements Serializable {
     private Date stop; 
     @OneToMany(mappedBy = "question")//kolla name i Question klass
     @JsonBackReference   
-    List<Questions> questions; 
+    List<Question> questions; 
     
     
 public Test(){
@@ -76,11 +76,11 @@ public Test(int idTest, String title, Date start, Date stop) {
         this.stop = stop;
     }
 
-    public List<Questions> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Questions> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 
