@@ -5,16 +5,23 @@
  */
 package com.mycompany.testverktygbackend.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  *
  * @author ULTRA
  */
-public class Test {
+@Entity 
+public class Test implements Serializable {
     
+   
+    @Id@GeneratedValue
     private int idTest; 
     private String title; 
     private Date start; 
