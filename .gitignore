@@ -1,4 +1,2 @@
 /target
-/TestverktygFrontend/build/
-/TestverktygFrontend/dist/
-/TestverktygFrontend/nbproject/private/
+/src/main/resources/hibernate.cfg.xml
