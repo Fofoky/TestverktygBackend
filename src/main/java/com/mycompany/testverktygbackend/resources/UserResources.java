@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.testverktygbackend.resources;
 
 import com.mycompany.testverktygbackend.models.User;
@@ -21,24 +16,22 @@ import javax.ws.rs.core.MediaType;
 public class UserResources {
 
     UserService userService = new UserService();
-     
+
     @POST //Producerar ett objekt (team - return) och konsumerar ett objekt (team - inargumentet)
     public User addUser(User user) {
         System.out.println("UserResource addUser");
         return userService.addUser(user);
     }
-    
+
     @GET
     @Path("/{userId}")
-    public User getUser(@PathParam("userId") int userId){    
+    public User getUser(@PathParam("userId") int userId) {
         return userService.getUser(userId);
     }
-    
+
     @Path("/{userId}/courses")
-    public CourseResource getCourseResource(){
+    public CourseResource course() {
         return new CourseResource();
     }
-    
-    
-    
+
 }
