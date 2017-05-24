@@ -50,6 +50,12 @@ public Test(int idTest, String title, Date start, Date stop) {
     this.questions = new ArrayList(); 
 } 
 
+    public List<Question> getQuestions() {
+        return questions;
+    }
+    
+
+
     public int getIdTest() {
         return idTest;
     }
