@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="testverktygfrontend.LogInController">
+   <children>
+      <BorderPane prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <VBox alignment="CENTER" fillWidth="false" layoutX="239.0" layoutY="178.0" prefHeight="50.0" prefWidth="170.0" spacing="3.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="textFieldUserName" />
+                  <TextField fx:id="textFieldPassword" />
+                  <Pane>
+                     <children>
+                        <Button fx:id="btnLogIn" mnemonicParsing="false" onAction="#handleButtonAction" text="Logga in" />
+                     </children>
+                  </Pane>
+                  <Label fx:id="labelLogInMessage" text="Label" />
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

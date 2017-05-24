@@ -19,4 +19,13 @@ public class UserRepository {
         session.close();
         return user;
     }
+    
+    public User getUser(int userId){
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+        User user = (User)session.get(User.class, userId);
+        session.getTransaction().commit();
+        session.close();
+        return user;
+    }
 }
