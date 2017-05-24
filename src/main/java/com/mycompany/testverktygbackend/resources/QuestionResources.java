@@ -4,7 +4,7 @@ package com.mycompany.testverktygbackend.resources;
 
 import javax.ws.rs.Path;
 
- 
+@Path("/") 
 class QuestionResources {
     
     

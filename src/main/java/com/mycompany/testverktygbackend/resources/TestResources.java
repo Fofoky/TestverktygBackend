@@ -8,7 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
-@Path("/tests")
+@Path("/")
 public class TestResources {
 
     @POST
@@ -19,6 +19,23 @@ public class TestResources {
         TestServices ts = new TestServices();
         return ts.addTest(test);
     }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     @Path("/{testId}/questions")
     public QuestionResources question() {
