@@ -27,18 +27,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 
 @Path("/tests")
-
 @Produces(MediaType.APPLICATION_JSON)
-
 @Consumes(MediaType.APPLICATION_JSON)    
 
 public class TestResources {
-
-    
-
-        TestServices ts = new TestServices();
-
-        
+       TestServices ts = new TestServices();
 
 @GET
 
