@@ -5,9 +5,11 @@
  */
 package com.mycompany.testverktygbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -26,9 +28,9 @@ public class Course implements Serializable {
     private int courseId;
     private String name;
 
-    @ManyToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<User> users;
+    @ManyToMany(mappedBy = "courses",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<User> users = new ArrayList();
     
     @OneToMany(mappedBy = "course")
     @JsonManagedReference

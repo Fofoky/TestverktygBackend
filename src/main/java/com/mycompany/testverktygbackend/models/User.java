@@ -2,8 +2,9 @@ package com.mycompany.testverktygbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -26,12 +27,12 @@ public class User implements Serializable {
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonManagedReference
     @JsonIgnore
     @JoinTable(name = "User_Course",
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "courseId"))
-    private List<Course> courses;
+    private List<Course> courses = new ArrayList();
 
     public User() {
     }
@@ -42,6 +43,10 @@ public class User implements Serializable {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
     }
 
     public void setCourses(List<Course> courses) {
