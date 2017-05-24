@@ -5,10 +5,8 @@
  */
 package com.mycompany.testverktygbackend.resources;
 
-/**
- *
- * @author annafock
- */
+
 public class UserResources {
+    UserService userService = new UserService();
     
 }
