@@ -26,12 +26,9 @@ import javax.ws.rs.POST;
 
 import javax.ws.rs.PathParam;
 
-@Path("/tests")
-
+@Path("/")
 @Produces(MediaType.APPLICATION_JSON)
-
 @Consumes(MediaType.APPLICATION_JSON)    
-
 public class TestResources {
 
     
@@ -63,7 +60,22 @@ public List<Test> getAllTest() {
 
     }
 
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     @Path("/{testId}/questions")
 
