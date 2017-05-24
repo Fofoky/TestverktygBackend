@@ -5,10 +5,18 @@
  */
 package com.mycompany.testverktygbackend.repositories;
 
-/**
- *
- * @author annafock
- */
+import com.mycompany.testverktygbackend.models.User;
+import org.hibernate.Session;
+
 public class UserRepository {
-    
+
+    public User addUser(User user) {
+        System.out.println("UserRepository addUser");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(user);
+        session.getTransaction().commit();
+        session.close();
+        return user;
+    }
 }
