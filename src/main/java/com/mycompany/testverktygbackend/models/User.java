@@ -1,6 +1,5 @@
 package com.mycompany.testverktygbackend.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
@@ -32,9 +31,17 @@ public class User implements Serializable {
     @JoinTable(name = "User_Course",
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "courseId"))
-    private List<Course> courses = new ArrayList();
+    private List<Course> courses = new ArrayList<>();
 
     public User() {
+    }
+
+    public User(int userId, String Name, String userRole, String password, String email) {
+        this.userId = userId;
+        this.Name = Name;
+        this.userRole = userRole;
+        this.password = password;
+        this.email = email;
     }
 
     public int getUserId() {

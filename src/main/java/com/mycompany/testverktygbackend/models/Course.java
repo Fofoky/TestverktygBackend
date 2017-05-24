@@ -28,20 +28,20 @@ public class Course implements Serializable {
     private int courseId;
     private String name;
 
-    @ManyToMany(mappedBy = "courses",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "courses", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
-    private List<User> users = new ArrayList();
-    
+    private List<User> users = new ArrayList<>();
+
     @OneToMany(mappedBy = "course")
     @JsonManagedReference
-    private List<Test> tests;
+    private List<Test> tests = new ArrayList<>();
+
+    public Course() {
+    }
 
     public Course(int courseId, String name) {
         this.courseId = courseId;
         this.name = name;
-    }
-
-    public Course() {
     }
 
     public void setUsers(List<User> users) {

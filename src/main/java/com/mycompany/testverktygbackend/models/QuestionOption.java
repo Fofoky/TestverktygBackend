@@ -17,7 +17,7 @@ public class QuestionOption implements Serializable {
     @GeneratedValue
     private int questionOptionId;
     private boolean trueFalse;
-    private String option;
+    private String questionOption;
 
     @ManyToOne
     @JsonBackReference
@@ -26,6 +26,14 @@ public class QuestionOption implements Serializable {
 
     public QuestionOption() {
     }
+
+    public QuestionOption(int questionOptionId, boolean trueFalse, String questionOption, Question question) {
+        this.questionOptionId = questionOptionId;
+        this.trueFalse = trueFalse;
+        this.questionOption = questionOption;
+    }
+    
+    
 
     public int getQuestionOptionId() {
         return questionOptionId;
@@ -43,12 +51,12 @@ public class QuestionOption implements Serializable {
         this.trueFalse = trueFalse;
     }
 
-    public String getOption() {
-        return option;
+    public String getQuestionOption() {
+        return questionOption;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setQuestionOption(String questionOption) {
+        this.questionOption = questionOption;
     }
 
     public void setQuestion(Question question) {
