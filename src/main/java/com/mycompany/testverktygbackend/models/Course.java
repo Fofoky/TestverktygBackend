@@ -6,8 +6,11 @@
 package com.mycompany.testverktygbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,48 +20,38 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-/**
- *
- * @author rille
- */
 @Entity
 public class Course implements Serializable {
-    
-    @Id@GeneratedValue
+
+    @Id
+    @GeneratedValue
     private int courseId;
     private String name;
-    
-    @ManyToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
+    @ManyToMany(mappedBy = "courses", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<User> users = new ArrayList<>();
+
+    @OneToMany(mappedBy = "course")
     @JsonManagedReference
-    private List<User> Users;
-    
-    @OneToMany(mappedBy ="course")
-    @JsonBackReference        
-    private List <Test> tests;
-    
-    public Course(int courseId, String name){
+    private List<Test> tests = new ArrayList<>();
+
+    public Course() {
+    }
+
+    public Course(int courseId, String name) {
         this.courseId = courseId;
         this.name = name;
     }
-    
-    public Course(){}
 
-    public List<User> getUsers() {
-        return Users;
-    }
-
-    public void setUsers(List<User> Users) {
-        this.Users = Users;
-    }
-
-    public List<Test> getTests() {
-        return tests;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public void setTests(List<Test> tests) {
         this.tests = tests;
     }
-    
+
     public int getCourseId() {
         return courseId;
     }
@@ -74,5 +67,5 @@ public class Course implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-      
+
 }

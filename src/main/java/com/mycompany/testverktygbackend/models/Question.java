@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,11 +30,11 @@ public class Question implements Serializable {
     
     @OneToMany(mappedBy = "question")
     @JsonManagedReference
-    private List<Response> responses;
+    private List<Response> responses = new ArrayList<>();
 
     @OneToMany(mappedBy = "question")
     @JsonManagedReference
-    private List<QuestionOption> questionOptions;
+    private List<QuestionOption> questionOptions = new ArrayList<>();;
 
     public Question() {
     }
@@ -63,18 +64,9 @@ public class Question implements Serializable {
         this.test = test;
     }
 
-    public List<Response> getResponses() {
-        return responses;
-    }
-    
-
     public void setResponses(List<Response> responses) {
         this.responses = responses;
     }   
-
-    public List<QuestionOption> getQuestionOptions() {
-        return questionOptions;
-    }
 
     public void setQuestionOptions(List<QuestionOption> questionOptions) {
         this.questionOptions = questionOptions;
