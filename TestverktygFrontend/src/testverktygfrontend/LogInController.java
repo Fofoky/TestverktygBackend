@@ -34,6 +34,9 @@ public class LogInController implements Initializable {
     @FXML
     private void handleLogInButton(ActionEvent event) throws IOException {
         
+        
+        ///HÄr ska nog namnet på anchorPanen stå istället.
+        
         //Går till nästa scen
         Parent root = FXMLLoader.load(getClass().getResource("Primary.fxml"));//skapar träd
 
