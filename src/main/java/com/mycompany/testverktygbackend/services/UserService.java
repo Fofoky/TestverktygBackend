@@ -17,4 +17,8 @@ public class UserService {
         
         return user;
     }
+    
+    public User getUser(int userId){
+        return userRepository.getUser(userId);
+    }
 }

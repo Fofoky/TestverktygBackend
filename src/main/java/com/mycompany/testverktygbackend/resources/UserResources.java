@@ -8,8 +8,10 @@ package com.mycompany.testverktygbackend.resources;
 import com.mycompany.testverktygbackend.models.User;
 import com.mycompany.testverktygbackend.services.*;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -25,6 +27,13 @@ public class UserResources {
         System.out.println("UserResource addUser");
         return userService.addUser(user);
     }
+    
+    @GET
+    @Path("/{userId}")
+    public User getUser(@PathParam("userId") int userId){    
+        return userService.getUser(userId);
+    }
+    
     
     
 }
