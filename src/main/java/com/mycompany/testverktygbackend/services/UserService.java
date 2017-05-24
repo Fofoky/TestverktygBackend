@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.testverktygbackend.services;
 
 import com.mycompany.testverktygbackend.models.User;
@@ -16,5 +11,9 @@ public class UserService {
         userRepository.addUser(user);
         
         return user;
+    }
+    
+    public User getUser(int userId){
+        return userRepository.getUser(userId);
     }
 }
