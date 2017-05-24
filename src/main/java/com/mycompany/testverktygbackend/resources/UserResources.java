@@ -34,6 +34,11 @@ public class UserResources {
         return userService.getUser(userId);
     }
     
+    @Path("/{userId}/courses")
+    public CourseResource getCourseResource(){
+        return new CourseResource();
+    }
+    
     
     
 }
