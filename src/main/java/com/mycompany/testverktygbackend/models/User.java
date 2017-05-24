@@ -19,9 +19,10 @@ public class User implements Serializable {
     
     @Id@GeneratedValue
     private int userId;
-    private String title;
-    private String isbn;
-    private String description;
+    private String Name;
+    private String role;
+    private String password;
+    private String email;
     
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
@@ -42,30 +43,6 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public List<Course> getCources() {
         return cources;
     }
@@ -73,5 +50,38 @@ public class User implements Serializable {
     public void setCources(List<Course> cources) {
         this.cources = cources;
     }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
     
 }
