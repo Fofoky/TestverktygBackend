@@ -5,10 +5,20 @@
  */
 package com.mycompany.testverktygbackend.services;
 
+import com.mycompany.testverktygbackend.models.Test;
+import com.mycompany.testverktygbackend.repositories.TestRepository;
+import java.util.List;
+
 /**
  *
  * @author ULTRA
  */
 public class TestServices {
+    
+    TestRepository tr = new TestRepository();
+
+    public List<Test> getAllTests() {
+        return tr.getAllTest();
+    }
     
 }
