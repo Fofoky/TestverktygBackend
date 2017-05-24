@@ -24,14 +24,6 @@ public class TestRepository {
                 t.getQuestions().size();
             }
          return tests;
-        
-        
-//        List<Drivers> drivers = session.createCriteria(Drivers.class).list();
-//        for(Drivers d : drivers){
-//            d.getRaces().size();
-//        }
-//        return drivers;
-        
     }
     
 }
