@@ -3,6 +3,7 @@ package com.mycompany.testverktygbackend.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,27 +14,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-
 @Entity
 public class User implements Serializable {
-    
-    @Id@GeneratedValue
+
+    @Id
+    @GeneratedValue
     private int userId;
     private String Name;
-    private String role;
+    private String userRole;
     private String password;
     private String email;
-    
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
     @JsonIgnore
-    @JoinTable(name="User_Course",
-            joinColumns = @JoinColumn(name="userId"),
-            inverseJoinColumns = @JoinColumn(name="courseId"))
-    private List<Course> cources;
-    
-    
-    public User(){}
+    @JoinTable(name = "User_Course",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "courseId"))
+    private List<Course> courses;
+
+    public User() {
+    }
 
     public int getUserId() {
         return userId;
@@ -43,12 +44,8 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public List<Course> getCources() {
-        return cources;
-    }
-
-    public void setCources(List<Course> cources) {
-        this.cources = cources;
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
     public String getName() {
@@ -59,12 +56,12 @@ public class User implements Serializable {
         this.Name = Name;
     }
 
-    public String getRole() {
-        return role;
+    public String getUserRole() {
+        return userRole;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     public String getPassword() {
@@ -82,6 +79,5 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
+
 }

@@ -1,6 +1,7 @@
 package com.mycompany.testverktygbackend.models;
 
 // @author Anton
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
@@ -19,7 +20,7 @@ public class QuestionOption implements Serializable {
     private String option;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonBackReference
     @JsonIgnore
     Question question;
 
