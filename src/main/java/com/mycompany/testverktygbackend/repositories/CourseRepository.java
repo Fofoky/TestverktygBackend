@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.testverktygbackend.repositories;
 
-/**
- *
- * @author rille
- */
+import com.mycompany.testverktygbackend.models.Course;
+import org.hibernate.Session;
+
 public class CourseRepository {
-    
+
+    Session session;
+
+    public CourseRepository() {
+        session = HibernateUtil.getSession();
+    }
+
+    public Course getCourse(int courseId) {
+        Course course = (Course) session.get(Course.class, courseId);
+        return course;
+    }
+
 }
