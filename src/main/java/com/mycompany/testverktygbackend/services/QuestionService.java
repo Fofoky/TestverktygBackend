@@ -16,7 +16,6 @@ public class QuestionService {
     QuestionRepository questionRepository = new QuestionRepository();
     
     public Question addQuestion(int testId, Question question){
-        System.out.println("Kommer in i addQuestion i service.");
         return questionRepository.addQuestion(testId, question);
     }
 }

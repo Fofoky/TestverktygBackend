@@ -21,10 +21,10 @@ public class QuestionRepository {
     TestRepository testRepository = new TestRepository();
     
     public Question addQuestion(int testId, Question question){
-        System.out.println("Kommer in i addQuestion i repository.");
+        
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
-        System.out.println("Startar transaktionen.");
+        
         Question addQuestion = new Question();
         Test test = new Test();
         addQuestion.setQuestion(question.getQuestion());
@@ -33,23 +33,19 @@ public class QuestionRepository {
                 addQuestion.setTest(t);
             }
         }
+        
         session.save(addQuestion);
-        System.out.println("Skapar det nya objektet.");
         List<Response> responses=(List<Response>) question.getResponses();
         addQuestion.setResponses(responses);
         List<QuestionOption> questionOptions=(List<QuestionOption>) question.getQuestionOptions();
         addQuestion.setQuestionOptions(questionOptions);
         session.saveOrUpdate(addQuestion);
-        System.out.println("Lägger till listorna.");
+        
         session.getTransaction().commit();
-        System.out.println("Emellan commit/close.");
+        
         session.close();
-        System.out.println("Kommer förbi commit/close.");
+        
         return addQuestion;
     }
-    
-//    public Question getQuestion(int questionId){
-//        return question;
-//    }
-    
+
 }
