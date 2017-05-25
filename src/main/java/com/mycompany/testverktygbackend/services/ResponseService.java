@@ -5,10 +5,20 @@
  */
 package com.mycompany.testverktygbackend.services;
 
+import com.mycompany.testverktygbackend.models.Response;
+import com.mycompany.testverktygbackend.repositories.ResponseRepository;
+import java.util.List;
+
 /**
  *
  * @author rille
  */
 public class ResponseService {
+    
+    ResponseRepository rr = new ResponseRepository();
+
+    public List<Response> getAllResponses() {
+        return rr.getAllResponses();
+    }
     
 }
