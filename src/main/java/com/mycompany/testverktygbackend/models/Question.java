@@ -39,6 +39,14 @@ public class Question implements Serializable {
     public Question() {
     }
 
+    public List<Response> getResponses() {
+        return responses;
+    }
+
+    public List<QuestionOption> getQuestionOptions() {
+        return questionOptions;
+    }
+    
     public Question(int questionId, String question) {
         this.questionId = questionId;
         this.question = question;

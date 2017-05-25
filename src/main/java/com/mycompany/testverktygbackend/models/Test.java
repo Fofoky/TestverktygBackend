@@ -32,7 +32,7 @@ public class Test implements Serializable {
     
     @OneToMany(mappedBy = "test")
     @JsonManagedReference  
-    List<Question> questions = new ArrayList<>();; 
+    List<Question> questions = new ArrayList<>(); 
     
     @ManyToOne
     @JsonBackReference
