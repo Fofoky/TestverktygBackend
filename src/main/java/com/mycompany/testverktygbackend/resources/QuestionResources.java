@@ -22,4 +22,35 @@ public class QuestionResources {
     public Question addQuestion(@PathParam("testId") int testId, Question question){
         return questionService.addQuestion(testId, question);
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    @Path("/{questionId}/questionoption")
+    public QuestionOptionResource questionOption() {
+        return new QuestionOptionResource();
+    }
+    
+    @Path("/{questionId}/responses")
+    public ResponseResource response() {
+        return new ResponseResource();
+    }
+
 }
