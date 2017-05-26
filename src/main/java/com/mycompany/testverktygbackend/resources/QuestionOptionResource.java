@@ -4,8 +4,8 @@ package com.mycompany.testverktygbackend.resources;
 
 import com.mycompany.testverktygbackend.models.Question;
 import com.mycompany.testverktygbackend.models.QuestionOption;
-import com.mycompany.testverktygbackend.repositories.QuestionRepository;
 import com.mycompany.testverktygbackend.services.QuestionOptionService;
+import com.mycompany.testverktygbackend.services.QuestionService;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -17,8 +17,9 @@ public class QuestionOptionResource {
     
     
     @POST
-    public QuestionOption addTest(@PathParam("questionId") int questionId, QuestionOption option) {
-        QuestionRepository qs = new QuestionRepository();
+    public QuestionOption addQuestionOption(@PathParam("questionId") int questionId, QuestionOption option) {
+        System.out.println(option.isTrueFalse());
+        QuestionService qs = new QuestionService();
         Question question = qs.getQuestion(questionId);
         option.setQuestion(question);
         QuestionOptionService qOs = new QuestionOptionService();

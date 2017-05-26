@@ -18,11 +18,15 @@ import org.hibernate.Session;
  */
 public class QuestionRepository {
     
+    Session session;
     TestRepository testRepository = new TestRepository();
+
+    public QuestionRepository() {
+        session = HibernateUtil.getSession();
+    }
     
     public Question addQuestion(int testId, Question question){
         
-        Session session = HibernateUtil.getSession();
         session.beginTransaction();
         
         Question addQuestion = new Question();
@@ -46,6 +50,12 @@ public class QuestionRepository {
         session.close();
         
         return addQuestion;
+    }
+
+    public Question getQuestion(int questionId) {
+        
+        Question question = (Question) session.get(Question.class, questionId);
+        return question;
     }
 
 }

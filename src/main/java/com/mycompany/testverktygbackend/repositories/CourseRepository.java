@@ -1,12 +1,8 @@
 package com.mycompany.testverktygbackend.repositories;
 
 import com.mycompany.testverktygbackend.models.Course;
-import org.hibernate.Session;
-
-import com.mycompany.testverktygbackend.models.Course;
 import com.mycompany.testverktygbackend.models.User;
 import java.util.List;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
