@@ -4,15 +4,22 @@ package com.mycompany.testverktygbackend.services;
 
 import com.mycompany.testverktygbackend.models.QuestionOption;
 import com.mycompany.testverktygbackend.repositories.QuestionOptionRepository;
+import java.util.List;
 
  
 public class QuestionOptionService {
-
+    QuestionOptionRepository qOr = new QuestionOptionRepository();
+    
     public QuestionOption addQuestionOption(QuestionOption option) {
-        QuestionOptionRepository qOr = new QuestionOptionRepository();
         
         return qOr.addQuestionOption(option);
         
     }
+
+    public List<QuestionOption> getQuestionOption() {
+        return qOr.getQuestionOptions();
+    }
+    
+    
 
 }

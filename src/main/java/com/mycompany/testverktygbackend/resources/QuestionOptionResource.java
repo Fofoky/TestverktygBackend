@@ -6,15 +6,22 @@ import com.mycompany.testverktygbackend.models.Question;
 import com.mycompany.testverktygbackend.models.QuestionOption;
 import com.mycompany.testverktygbackend.services.QuestionOptionService;
 import com.mycompany.testverktygbackend.services.QuestionService;
+import java.util.List;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
  
-@Path("/") 
+@Path("/questionoption") 
 public class QuestionOptionResource {
     
+    QuestionOptionService qOs = new QuestionOptionService();
     
+    @GET
+    public List<QuestionOption> getQuestionOption(){
+        return qOs.getQuestionOption();
+    }
     
     @POST
     public QuestionOption addQuestionOption(@PathParam("questionId") int questionId, QuestionOption option) {
@@ -22,7 +29,6 @@ public class QuestionOptionResource {
         QuestionService qs = new QuestionService();
         Question question = qs.getQuestion(questionId);
         option.setQuestion(question);
-        QuestionOptionService qOs = new QuestionOptionService();
         return qOs.addQuestionOption(option);
     } 
 

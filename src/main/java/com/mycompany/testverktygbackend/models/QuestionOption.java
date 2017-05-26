@@ -31,6 +31,10 @@ public class QuestionOption implements Serializable {
         this.trueFalse = trueFalse;
         this.questionOption = questionOption;
     }
+
+    public Question getQuestion() {
+        return question;
+    }
     
     
 
