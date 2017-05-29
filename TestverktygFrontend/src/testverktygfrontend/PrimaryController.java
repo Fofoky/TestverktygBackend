@@ -69,25 +69,8 @@ public class PrimaryController implements Initializable {
 
 //    @FXML
 //    public void handleTreeView(MouseEvent event) throws IOException {
-////        TreeItem<String> selectedItem = (TreeItem<String>) treeViewMenu.getSelectionModel().getSelectedItem();
-////
-////        Stage stage;
-////        Parent root;
-////
-////        if (selectedItem == node1) {
-////
-////            //get reference to the button's stage         
-////            stage = (Stage) scene2.getScene().getWindow();
-////            //load up OTHER FXML document
-////            root = FXMLLoader.load(getClass().getResource("StudSelectedCourse.fxml"));
-////        } else {
-////            stage = (Stage) sceneArea.getScene().getWindow();
-////            root = FXMLLoader.load(getClass().getResource("Primary.fxml"));
-////        }
-////        //create a new scene with root and set the stage
-////        Scene scene = new Scene(root);
-////        stage.setScene(scene);
-////        stage.show();
+//        TreeItem<String> selectedItem = (TreeItem<String>) treeViewMenu.getSelectionModel().getSelectedItem();
+
 //    }
     
  
