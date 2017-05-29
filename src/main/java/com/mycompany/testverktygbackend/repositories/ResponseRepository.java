@@ -30,4 +30,13 @@ public class ResponseRepository {
         }
         return responses; 
     }
+    
+    public Response addResponse(Response response){
+        session.beginTransaction();
+        session.save(response);
+        session.getTransaction().commit();
+        session.close();
+        return response;
+    
+    }
 }

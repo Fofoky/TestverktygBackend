@@ -20,5 +20,9 @@ public class ResponseService {
     public List<Response> getAllResponses() {
         return rr.getAllResponses();
     }
+
+    public Response addResponse(Response response) {
+        return rr.addResponse(response);
+    }
     
 }
