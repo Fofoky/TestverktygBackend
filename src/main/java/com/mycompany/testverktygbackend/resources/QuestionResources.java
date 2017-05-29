@@ -3,6 +3,7 @@ package com.mycompany.testverktygbackend.resources;
 import com.mycompany.testverktygbackend.models.Question;
 import com.mycompany.testverktygbackend.services.QuestionService;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -32,11 +33,16 @@ public class QuestionResources {
     
     @PUT
     @Path("/{questionId}")
-    public Question updateQuestion(@PathParam("questionId") int questionId, Question question){
+    public Question updateQuestion(@PathParam("testId") int testId, @PathParam("questionId") int questionId, Question question){
         question.setQuestionId(questionId);
-        return questionService.updateQuestion(question);
+        return questionService.updateQuestion(question, testId);
     }
     
+    @DELETE
+    @Path("/{questionId}")
+    public void deleteQuestion(@PathParam("questionId") int questionId){
+        questionService.deleteQuestion(questionId);
+    }
     
     
     @Path("/{questionId}/questionoption")
