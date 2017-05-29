@@ -3,6 +3,7 @@ package com.mycompany.testverktygbackend.resources;
 import com.mycompany.testverktygbackend.models.Question;
 import com.mycompany.testverktygbackend.services.QuestionService;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -21,6 +22,12 @@ public class QuestionResources {
     @POST
     public Question addQuestion(@PathParam("testId") int testId, Question question){
         return questionService.addQuestion(testId, question);
+    }
+    
+    @GET
+    @Path("/{questionId}")
+    public Question getQuestion(@PathParam("questionId") int questionId){
+        return questionService.getQuestion(questionId);
     }
     
     
