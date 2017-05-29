@@ -61,4 +61,12 @@ public class QuestionRepository {
         return question;
     }
 
+    public void deleteQuestion(int questionId) {
+        session.beginTransaction();
+        Question persistentInstance = (Question) session.load(Question.class, questionId);
+        session.delete(persistentInstance);
+        session.getTransaction().commit();
+        session.close();
+    }
+
 }

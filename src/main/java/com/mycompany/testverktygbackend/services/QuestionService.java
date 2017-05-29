@@ -21,4 +21,8 @@ public class QuestionService {
     public Question updateQuestion(Question question) {
         return questionRepository.updateQuestion(question);
     }
+
+    public void deleteQuestion(int questionId) {
+        questionRepository.deleteQuestion(questionId);
+    }
 }
