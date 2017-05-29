@@ -4,9 +4,10 @@ package com.mycompany.testverktygbackend.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -20,13 +21,13 @@ public class Course implements Serializable {
     private int courseId;
     private String name;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(mappedBy = "courses", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
-    private List<User> users = new ArrayList<>();
+    private List<User> users;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Test> tests = new ArrayList<>();
+    private List<Test> tests;
 
     public Course() {
     }
@@ -59,5 +60,11 @@ public class Course implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public List<Test> getTests() {
+        return tests;
+    }
+    
+    
 
 }

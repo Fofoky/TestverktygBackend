@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.testverktygbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -32,7 +27,7 @@ public class Test implements Serializable {
     
     @OneToMany(mappedBy = "test")
     @JsonManagedReference  
-    List<Question> questions = new ArrayList<>(); 
+    List<Question> questions; 
     
     @ManyToOne
     @JsonBackReference

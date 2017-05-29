@@ -15,7 +15,14 @@ public class UserService {
     }
     
     public User getUser(int userId){
-        return userRepository.getUser(userId);
+        List<User> users = userRepository.getUsers();
+        User user = null;
+        for(User u : users){
+            if(u.getUserId() == userId){
+                user = u;
+            }
+        }
+        return user;
     }
 
     public List<User> getUsers() {

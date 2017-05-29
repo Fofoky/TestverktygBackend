@@ -3,7 +3,6 @@ package com.mycompany.testverktygbackend.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -30,7 +29,7 @@ public class User implements Serializable {
     @JoinTable(name = "User_Course",
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "courseId"))
-    private List<Course> courses = new ArrayList<>();
+    private List<Course> courses;
 
     public User() {
     }

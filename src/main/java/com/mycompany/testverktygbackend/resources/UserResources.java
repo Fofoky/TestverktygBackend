@@ -33,6 +33,8 @@ public class UserResources {
     public User getUser(@PathParam("userId") int userId) {
         return userService.getUser(userId);
     }
+    
+    
 
     @Path("/{userId}/courses")
     public CourseResource course() {

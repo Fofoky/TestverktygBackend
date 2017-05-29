@@ -24,6 +24,7 @@ public class CourseRepository {
         session.beginTransaction();
         
         User user = (User)session.get(User.class, userId);
+        user.getCourses().size();
         List<Course> courses = user.getCourses();
         session.getTransaction().commit();
         session.close();
