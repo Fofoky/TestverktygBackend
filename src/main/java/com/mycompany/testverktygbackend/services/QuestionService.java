@@ -15,7 +15,10 @@ public class QuestionService {
     }
 
     public Question getQuestion(int questionId) {
-        QuestionRepository qr = new QuestionRepository();
-        return qr.getQuestion(questionId);
+        return questionRepository.getQuestion(questionId);
+    }
+
+    public Question updateQuestion(Question question) {
+        return questionRepository.updateQuestion(question);
     }
 }

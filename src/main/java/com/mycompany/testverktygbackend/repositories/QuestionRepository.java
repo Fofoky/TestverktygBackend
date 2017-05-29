@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.testverktygbackend.repositories;
 
 import com.mycompany.testverktygbackend.models.Question;
@@ -55,6 +50,14 @@ public class QuestionRepository {
     public Question getQuestion(int questionId) {
         
         Question question = (Question) session.get(Question.class, questionId);
+        return question;
+    }
+
+    public Question updateQuestion(Question question) {
+        session.beginTransaction();
+        session.update(question);
+        session.getTransaction().commit();
+        session.close();
         return question;
     }
 
