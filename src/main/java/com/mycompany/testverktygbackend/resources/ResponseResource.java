@@ -2,7 +2,6 @@ package com.mycompany.testverktygbackend.resources;
 
 import com.mycompany.testverktygbackend.models.Question;
 import com.mycompany.testverktygbackend.models.Response;
-import com.mycompany.testverktygbackend.repositories.ResponseRepository;
 import com.mycompany.testverktygbackend.services.QuestionService;
 import com.mycompany.testverktygbackend.services.ResponseService;
 import java.util.List;
@@ -19,7 +18,7 @@ import javax.ws.rs.core.MediaType;
  * @author rille
  */
 
-@Path("/responses")
+@Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)  
 
