@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.testverktygbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -11,7 +6,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -30,9 +27,9 @@ public class Test implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endTime; 
     
-    @OneToMany(mappedBy = "test")
+    @OneToMany(mappedBy = "test", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference  
-    List<Question> questions = new ArrayList<>();; 
+    List<Question> questions; 
     
     @ManyToOne
     @JsonBackReference
@@ -49,6 +46,12 @@ public Test(int idTest, String title, Date start, Date stop) {
     this.endTime = stop; 
     this.questions = new ArrayList(); 
 } 
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+    
+
 
     public int getIdTest() {
         return idTest;

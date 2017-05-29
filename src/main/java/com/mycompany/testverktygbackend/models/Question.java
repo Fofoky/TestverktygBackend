@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.testverktygbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,17 +22,25 @@ public class Question implements Serializable {
     @JsonIgnore
     private Test test;
     
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Response> responses = new ArrayList<>();
+    private List<Response> responses;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<QuestionOption> questionOptions = new ArrayList<>();;
+    private List<QuestionOption> questionOptions;
 
     public Question() {
     }
 
+    public List<Response> getResponses() {
+        return responses;
+    }
+
+    public List<QuestionOption> getQuestionOptions() {
+        return questionOptions;
+    }
+    
     public Question(int questionId, String question) {
         this.questionId = questionId;
         this.question = question;

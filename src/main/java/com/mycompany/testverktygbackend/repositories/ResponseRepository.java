@@ -5,10 +5,38 @@
  */
 package com.mycompany.testverktygbackend.repositories;
 
+import com.mycompany.testverktygbackend.models.Response;
+import java.util.List;
+
+import org.hibernate.Session;
+
 /**
  *
  * @author rille
  */
 public class ResponseRepository {
     
+    Session session;
+
+    public ResponseRepository() {
+        session = HibernateUtil.getSession();
+    }
+    
+    public List<Response> getAllResponses() {
+        session.beginTransaction(); 
+        List<Response> responses = session.createCriteria(Response.class).list(); 
+        for(Response r: responses){
+            r.getResponseId();
+        }
+        return responses; 
+    }
+    
+    public Response addResponse(Response response){
+        session.beginTransaction();
+        session.save(response);
+        session.getTransaction().commit();
+        session.close();
+        return response;
+    
+    }
 }
