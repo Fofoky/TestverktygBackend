@@ -57,5 +57,15 @@ public class Response implements Serializable{
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+    
+    
  
 }

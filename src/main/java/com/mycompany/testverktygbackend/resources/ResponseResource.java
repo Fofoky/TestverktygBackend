@@ -1,7 +1,9 @@
 package com.mycompany.testverktygbackend.resources;
 
+import com.mycompany.testverktygbackend.models.Question;
 import com.mycompany.testverktygbackend.models.Response;
 import com.mycompany.testverktygbackend.repositories.ResponseRepository;
+import com.mycompany.testverktygbackend.services.QuestionService;
 import com.mycompany.testverktygbackend.services.ResponseService;
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -32,6 +34,9 @@ public List<Response> getAllResponse(@PathParam("questionId") int questionId) {
 
 @POST 
 public Response addResponse(@PathParam("questionId") int questionId, Response response){
+    QuestionService qs = new QuestionService(); // adding lines so it works, once paths is fixed I think we can remove these lines;
+    Question q = qs.getQuestion(questionId);
+    response.setQuestion(q);
     return rr.addResponse(response);
 }
 }
