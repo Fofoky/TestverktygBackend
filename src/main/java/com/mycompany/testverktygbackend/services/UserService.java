@@ -2,6 +2,7 @@ package com.mycompany.testverktygbackend.services;
 
 import com.mycompany.testverktygbackend.models.User;
 import com.mycompany.testverktygbackend.repositories.*;
+import java.util.List;
 
 
 public class UserService {
@@ -15,5 +16,9 @@ public class UserService {
     
     public User getUser(int userId){
         return userRepository.getUser(userId);
+    }
+
+    public List<User> getUsers() {
+        return userRepository.getUsers();
     }
 }

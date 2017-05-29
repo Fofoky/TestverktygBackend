@@ -2,6 +2,7 @@
 package com.mycompany.testverktygbackend.repositories;
 
 import com.mycompany.testverktygbackend.models.User;
+import java.util.List;
 import org.hibernate.Session;
 
 public class UserRepository {
@@ -26,5 +27,10 @@ public class UserRepository {
         session.getTransaction().commit();
         session.close();
         return user;
+    }
+
+    public List<User> getUsers() {
+        List<User> users = session.createCriteria(User.class).list();
+        return users;
     }
 }

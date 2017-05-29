@@ -4,7 +4,6 @@ import com.mycompany.testverktygbackend.models.Course;
 import com.mycompany.testverktygbackend.models.User;
 import java.util.List;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 public class CourseRepository {
 
@@ -21,8 +20,6 @@ public class CourseRepository {
 
     
     public List<Course> getCourses(int userId){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
         
         session.beginTransaction();
         

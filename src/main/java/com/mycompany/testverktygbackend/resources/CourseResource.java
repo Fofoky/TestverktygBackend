@@ -20,10 +20,6 @@ public class CourseResource {
         return courseService.getCourses(userId);
     }
     
-    
-    
-    
-    
     @Path("/{courseId}/tests")
     public TestResources test() {
         return new TestResources();
