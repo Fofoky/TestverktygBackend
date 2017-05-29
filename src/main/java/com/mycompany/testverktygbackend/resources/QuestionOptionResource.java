@@ -19,13 +19,12 @@ public class QuestionOptionResource {
     QuestionOptionService qOs = new QuestionOptionService();
     
     @GET
-    public List<QuestionOption> getQuestionOption(){
-        return qOs.getQuestionOption();
+    public List<QuestionOption> getQuestionOption(@PathParam("questionId") int questionId){
+        return qOs.getQuestionOption(questionId);
     }
     
     @POST
     public QuestionOption addQuestionOption(@PathParam("questionId") int questionId, QuestionOption option) {
-        System.out.println(option.isTrueFalse());
         QuestionService qs = new QuestionService();
         Question question = qs.getQuestion(questionId);
         option.setQuestion(question);
