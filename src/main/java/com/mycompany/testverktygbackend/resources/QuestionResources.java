@@ -5,6 +5,7 @@ import com.mycompany.testverktygbackend.services.QuestionService;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
@@ -28,6 +29,13 @@ public class QuestionResources {
     @Path("/{questionId}")
     public Question getQuestion(@PathParam("questionId") int questionId){
         return questionService.getQuestion(questionId);
+    }
+    
+    @PUT
+    @Path("/{questionId}")
+    public Question updateQuestion(@PathParam("questionId") int questionId, Question question){
+        question.setQuestionId(questionId);
+        return questionService.updateQuestion(question);
     }
     
     
