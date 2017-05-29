@@ -25,7 +25,7 @@ public class Course implements Serializable {
     @JsonBackReference
     private List<User> users;
 
-    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Test> tests;
 

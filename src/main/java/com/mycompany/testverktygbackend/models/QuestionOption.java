@@ -21,7 +21,7 @@ public class QuestionOption implements Serializable {
     @ManyToOne
     @JsonBackReference
     @JsonIgnore
-    Question question;
+    private Question question;
 
     public QuestionOption() {
     }
