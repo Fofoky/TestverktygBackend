@@ -9,11 +9,10 @@ import java.util.List;
 
  
 public class QuestionOptionService {
+    QuestionOptionRepository optionRepository = new QuestionOptionRepository();
 
     public QuestionOption addQuestionOption(QuestionOption option) {
-        QuestionOptionRepository qOr = new QuestionOptionRepository();
-        
-        return qOr.addQuestionOption(option);
+        return optionRepository.addQuestionOption(option);
         
     }
 
@@ -21,6 +20,14 @@ public class QuestionOptionService {
         QuestionService qS = new QuestionService();
         Question question = qS.getQuestion(questionId);
         return question.getQuestionOptions();
+    }
+
+    public QuestionOption updateOption(QuestionOption option, int questionId) {
+        
+        QuestionService qs = new QuestionService();
+        Question question = qs.getQuestion(questionId);
+        option.setQuestion(question);
+        return optionRepository.updateOption(option);
     }
 
 }

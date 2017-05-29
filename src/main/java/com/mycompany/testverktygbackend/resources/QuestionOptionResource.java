@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -35,6 +36,14 @@ public class QuestionOptionResource {
     @GET
     public List<QuestionOption> getOption(@PathParam("questionId") int questionId){
         return optionService.getOptionOptions(questionId);
+    }
+    
+    @PUT
+    @Path("/{optionId}")
+    public QuestionOption updateOption(@PathParam("questionId") int questionId, @PathParam("optionId") int optionId, QuestionOption option){
+        System.out.println(optionId);
+        option.setQuestionOptionId(optionId);
+        return optionService.updateOption(option, questionId);
     }
 
 }
