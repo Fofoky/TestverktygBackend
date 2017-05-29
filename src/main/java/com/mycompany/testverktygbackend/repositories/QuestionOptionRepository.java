@@ -20,4 +20,12 @@ public class QuestionOptionRepository {
         return option;
     }
 
+    public QuestionOption updateOption(QuestionOption option) {
+        session.beginTransaction();
+        session.update(option);
+        session.getTransaction().commit();
+        session.close();
+        return option;
+    }
+
 }
