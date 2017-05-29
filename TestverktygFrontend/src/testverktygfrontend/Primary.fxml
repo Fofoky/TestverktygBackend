@@ -5,19 +5,16 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.PrimaryController">
+<BorderPane fx:id="borderPanePrimary" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.PrimaryController">
    <left>
-      <TreeView fx:id="treeViewMenu" onContextMenuRequested="handlerTreeView" onMouseClicked="handlerTreeView" prefHeight="500.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pane>
+         <children>
+            <TreeView fx:id="treeViewMenu" prefHeight="500.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <Button fx:id="button1" layoutX="78.0" layoutY="379.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Button" />
+         </children>
+      </Pane>
    </left>
    <center>
-      <AnchorPane fx:id="sceneArea" prefHeight="500.0" prefWidth="500.0" BorderPane.alignment="CENTER">
-         <children>
-            <Text layoutX="63.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Välkommen! ">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
+      <Pane fx:id="content" prefHeight="500.0" prefWidth="500.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

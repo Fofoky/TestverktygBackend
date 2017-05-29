@@ -9,16 +9,28 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class PrimaryController implements Initializable {
+
+//    @FXML
+//    private AnchorPane sceneArea, scene2;
+    
+    @FXML Button button1, button2;
+    
+    @FXML Pane content;
 
     private TreeItem<String> root;
     private TreeItem<String> node1;
@@ -28,7 +40,6 @@ public class PrimaryController implements Initializable {
     private TreeItem<String> subNode1;
     private TreeItem<String> subNode2;
 
-    //@FXML private AnchorPane sceneArea;
     @FXML
     private TreeView treeViewMenu;
 
@@ -47,25 +58,44 @@ public class PrimaryController implements Initializable {
         treeViewMenu.setRoot(root);
 
     }
+    
+    @FXML
+    private void handleButtonAction(ActionEvent event) throws IOException {
+         System.out.println("click! taskBarButton2");
+        content.getChildren().clear();
+        content.getChildren().add(FXMLLoader.load(getClass().getResource("StudSelectedCourse.fxml")));
 
-    public void handleTreeAction(MouseEvent event) throws IOException {
-        TreeItem<String> selectedItem = (TreeItem<String>) treeViewMenu.getSelectionModel().getSelectedItem();
-
-        if (selectedItem == node1) {
-
-            Parent root = FXMLLoader.load(getClass().getResource("StudSelectedCourse.fxml"));//skapar träd
-            Scene s = new Scene(root);//lägger in trädet i ett nytt objekt av klassen Scene
-
-            Stage stage = (Stage) treeViewMenu.getScene().getWindow(); //Hämtar nuvarande scen
-            stage.setScene(s); //Byter ut nuvarande scen mot nya  
-
-        }
     }
+
+//    @FXML
+//    public void handleTreeView(MouseEvent event) throws IOException {
+////        TreeItem<String> selectedItem = (TreeItem<String>) treeViewMenu.getSelectionModel().getSelectedItem();
+////
+////        Stage stage;
+////        Parent root;
+////
+////        if (selectedItem == node1) {
+////
+////            //get reference to the button's stage         
+////            stage = (Stage) scene2.getScene().getWindow();
+////            //load up OTHER FXML document
+////            root = FXMLLoader.load(getClass().getResource("StudSelectedCourse.fxml"));
+////        } else {
+////            stage = (Stage) sceneArea.getScene().getWindow();
+////            root = FXMLLoader.load(getClass().getResource("Primary.fxml"));
+////        }
+////        //create a new scene with root and set the stage
+////        Scene scene = new Scene(root);
+////        stage.setScene(scene);
+////        stage.show();
+//    }
+    
+ 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadTreeViewMenu();
 
+       // loadTreeViewMenu();
     }
 
 }
