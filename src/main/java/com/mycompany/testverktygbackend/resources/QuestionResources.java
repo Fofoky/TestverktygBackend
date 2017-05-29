@@ -33,9 +33,9 @@ public class QuestionResources {
     
     @PUT
     @Path("/{questionId}")
-    public Question updateQuestion(@PathParam("questionId") int questionId, Question question){
+    public Question updateQuestion(@PathParam("testId") int testId, @PathParam("questionId") int questionId, Question question){
         question.setQuestionId(questionId);
-        return questionService.updateQuestion(question);
+        return questionService.updateQuestion(question, testId);
     }
     
     @DELETE
