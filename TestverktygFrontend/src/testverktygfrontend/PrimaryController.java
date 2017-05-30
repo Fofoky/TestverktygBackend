@@ -39,7 +39,7 @@ public class PrimaryController implements Initializable {
         for (int i = 0; i < user.getCourses().size(); i++) {
             node1 = new TreeItem<>(user.getCourses().get(i).getName());
             for (int j = 0; j < user.getCourses().get(i).getTests().size(); j++) {
-                subNode1 = new TreeItem<>(user.getCourses().get(i).getTests().get(j).getTitle());
+                subNode1 = new TreeItem<>("Test: " + user.getCourses().get(i).getTests().get(j).getTitle());
                 node1.getChildren().add(subNode1);
             }
 
