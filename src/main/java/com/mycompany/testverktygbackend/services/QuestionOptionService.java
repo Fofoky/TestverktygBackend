@@ -16,17 +16,29 @@ public class QuestionOptionService {
         
     }
 
-    public List<QuestionOption> getOptionOptions(int questionId) {
-        QuestionService qS = new QuestionService();
-        Question question = qS.getQuestion(questionId);
+    public List<QuestionOption> getOptionOptions(int questionId, int testId) {
+        QuestionService qs = new QuestionService();
+        Question question = null;
+        List<Question> questions = qs.getQuestions(testId);
+        for(Question q : questions){
+            if(q.getQuestionId() == questionId){
+                question = q;
+            }
+        }
+        
         return question.getQuestionOptions();
     }
 
-    public QuestionOption updateOption(QuestionOption option, int questionId) {
+    public QuestionOption updateOption(QuestionOption option, int questionId, int testId) {
         
         QuestionService qs = new QuestionService();
-        Question question = qs.getQuestion(questionId);
-        option.setQuestion(question);
+        List<Question> questions = qs.getQuestions(testId);
+        for(Question q : questions){
+            if(q.getQuestionId() == questionId){
+                option.setQuestion(q);
+            }
+        }
+        
         return optionRepository.updateOption(option);
     }
 

@@ -3,6 +3,8 @@ package com.mycompany.testverktygbackend.services;
 import com.mycompany.testverktygbackend.models.Question;
 import com.mycompany.testverktygbackend.models.Test;
 import com.mycompany.testverktygbackend.repositories.QuestionRepository;
+import com.mycompany.testverktygbackend.repositories.TestRepository;
+import java.util.List;
 
 /**
  *
@@ -16,8 +18,11 @@ public class QuestionService {
         return questionRepository.addQuestion(testId, question);
     }
 
-    public Question getQuestion(int questionId) {
-        return questionRepository.getQuestion(questionId);
+    public List<Question> getQuestions(int testId) {
+        TestRepository tr = new TestRepository();
+        Test test = tr.getTest(testId);
+  
+        return test.getQuestions();
     }
 
     public Question updateQuestion(Question question, int testId) {

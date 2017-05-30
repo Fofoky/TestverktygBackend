@@ -26,24 +26,29 @@ public class QuestionOptionResource {
     
     
     @POST
-    public QuestionOption addQuestionOption(@PathParam("questionId") int questionId, QuestionOption option) {
+    public QuestionOption addQuestionOption(@PathParam("testId") int testId, @PathParam("questionId") int questionId, QuestionOption option) {
         QuestionService qs = new QuestionService();
-        Question question = qs.getQuestion(questionId);
-        option.setQuestion(question);
+        List<Question> questions = qs.getQuestions(testId);
+        for(Question q : questions){
+            if(q.getQuestionId() == questionId){
+                option.setQuestion(q);
+            }
+        }
+        
         return optionService.addQuestionOption(option);
     } 
     
     @GET
-    public List<QuestionOption> getOption(@PathParam("questionId") int questionId){
-        return optionService.getOptionOptions(questionId);
+    public List<QuestionOption> getOption(@PathParam("testId") int testId, @PathParam("questionId") int questionId){
+        return optionService.getOptionOptions(questionId, testId);
     }
     
     @PUT
     @Path("/{optionId}")
-    public QuestionOption updateOption(@PathParam("questionId") int questionId, @PathParam("optionId") int optionId, QuestionOption option){
-        System.out.println(optionId);
+    public QuestionOption updateOption(@PathParam("testId") int testId, @PathParam("questionId") int questionId, @PathParam("optionId") int optionId, QuestionOption option){
+       
         option.setQuestionOptionId(optionId);
-        return optionService.updateOption(option, questionId);
+        return optionService.updateOption(option, questionId, testId);
     }
 
 }

@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -27,7 +26,7 @@ public class Test implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endTime; 
     
-    @OneToMany(mappedBy = "test", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL)
     @JsonManagedReference  
     List<Question> questions; 
     
