@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testverktygfrontend;
 
 import java.io.IOException;
@@ -19,9 +14,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import testverktygfrontend.logic.Logic;
 
 
 public class LogInController implements Initializable {
+    
+    private Logic logic;
     
     @FXML
     private TextField textFieldUserName, textFieldPassword;
@@ -49,6 +47,8 @@ public class LogInController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        logic = Logic.getInstance();
+        logic.updateList(); // läser in alla listor till logic
     }    
     
 }

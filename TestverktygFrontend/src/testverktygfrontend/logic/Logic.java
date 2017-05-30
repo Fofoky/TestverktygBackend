@@ -1,13 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testverktygfrontend.logic;
+
+import java.util.List;
+import testverktygfrontend.dbconnector.DBconnector;
+import testverktygfrontend.model.User;
 
 public class Logic {
     
     private static Logic instance;
+    private List<User> userList = null;
     
     private Logic(){}
     
@@ -16,6 +16,11 @@ public class Logic {
             instance = new Logic();
         }
         return instance;
+    }
+    
+    public void updateList(){
+        DBconnector db = new DBconnector();
+        userList = db.getUsers();
     }
     
     
