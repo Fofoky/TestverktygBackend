@@ -41,3 +41,7 @@ Thumbs.db
 /hibernate.cfg.xml
 /private/*
 TestverktygFrontend/nbproject/private/
+
+TestverktygFrontend/nbproject/jfx-impl\.xml
+
+TestverktygFrontend/nbproject/UPDATED\.TXT
