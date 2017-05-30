@@ -5,6 +5,8 @@ package testverktygfrontend.model;
 import java.io.Serializable;
 import java.util.List;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -45,7 +47,7 @@ public class User implements Serializable {
     }
 
     public void setUserId(int userId) {
-        this.userId.set(userId);
+        this.userId = new SimpleIntegerProperty(userId);
     }
 
     public List<Course> getCourses() {
@@ -61,7 +63,7 @@ public class User implements Serializable {
     }
 
     public void setName(String Name) {
-        this.Name.set(Name);
+        this.Name = new SimpleStringProperty(Name);
     }
 
     public String getUserRole() {
@@ -69,7 +71,7 @@ public class User implements Serializable {
     }
 
     public void setUserRole(String userRole) {
-        this.userRole.set(userRole);
+        this.userRole = new SimpleStringProperty(userRole);
     }
 
     public String getPassword() {
@@ -77,7 +79,7 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password.set(password);
+        this.password = new SimpleStringProperty(password);
     }
 
     public String getEmail() {
@@ -85,7 +87,7 @@ public class User implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email.set(email);
+        this.email = new SimpleStringProperty(email);
     }
 
 }
