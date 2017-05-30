@@ -44,7 +44,7 @@ public class DBconnector {
         return users;
     }
     
-    public List<Course> getCourse(int userId){
+    private List<Course> getCourse(int userId){
         String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses";
         List<Course> userCourses = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
@@ -57,7 +57,7 @@ public class DBconnector {
         return userCourses;
     }
     
-    public List<Test> getTests(int courseId, int userId){
+    private List<Test> getTests(int courseId, int userId){
         String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses/" + courseId + "/tests";
         List<Test> tests = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
@@ -71,7 +71,7 @@ public class DBconnector {
         return tests;
     }
     
-    public List<Question> getQuestions(int userId, int courseId, int testId){
+    private List<Question> getQuestions(int userId, int courseId, int testId){
         String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses/" + courseId + "/tests/" + testId + "/questions";
         List<Question> questions = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
@@ -85,7 +85,7 @@ public class DBconnector {
         return questions;
     }
     
-    public List<QuestionOption> getOptions(int userId, int courseId, int testId, int questionId){
+    private List<QuestionOption> getOptions(int userId, int courseId, int testId, int questionId){
         String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption";
         List<QuestionOption> options = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
@@ -94,7 +94,7 @@ public class DBconnector {
         return options;
     }
     
-    public List<Response> getResponses(int userId, int courseId, int testId, int questionId){
+    private List<Response> getResponses(int userId, int courseId, int testId, int questionId){
         String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/responses";
         List<Response> responses = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
@@ -103,7 +103,7 @@ public class DBconnector {
     }
     
     
-     public UserConverter userToUserConverter(User oldUser){
+     private UserConverter userToUserConverter(User oldUser){
         UserConverter newUser = new UserConverter();
         
         newUser.setUserId(oldUser.getUserId());
@@ -116,7 +116,7 @@ public class DBconnector {
         return newUser; 
     }
      
-     public User userConverterToUser(UserConverter oldUser){
+     private User userConverterToUser(UserConverter oldUser){
          User newUser = new User();
          
         newUser.setUserId(oldUser.getUserId());
