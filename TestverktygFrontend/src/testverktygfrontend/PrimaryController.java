@@ -12,6 +12,8 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Pane;
 import testverktygfrontend.logic.Logic;
+import testverktygfrontend.model.Course;
+import testverktygfrontend.model.Test;
 import testverktygfrontend.model.User;
 
 public class PrimaryController implements Initializable {
@@ -65,6 +67,7 @@ public class PrimaryController implements Initializable {
         //Listener till TreeView
         treeViewMenu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             String name = newValue.toString().substring(18, newValue.toString().length() - 2).trim();
+            
 
             if (!name.equals("Kurser")) {
 
@@ -73,11 +76,33 @@ public class PrimaryController implements Initializable {
                     if (!t.equals("Test")) {
                         throw new StringIndexOutOfBoundsException();
                     }
+                    
+                    Test test = null;
+                    for(Course c : user.getCourses()){
+                        for(Test tests : c.getTests()){
+                            if(tests.getTitle().equals(name.substring(6))){
+                                test = tests;
+                            }
+                        }
+                    }
+                    
+                    System.out.println(test.getIdTest());
+                    
 
                     // Scene för Test <<<<<<-------------------------------<<<<<<
                     
 
                 } catch (StringIndexOutOfBoundsException e) {
+                    
+                    Course course = null;
+                    for(Course c : user.getCourses()){
+                        if(c.getName().equals(name)){
+                            course = c;
+                        }
+                    }
+                    
+                    System.out.println(course.getCourseId());
+                    
                    // Scene för Course <<<<<<---------------------------<--<<<<<<
                    
                     
