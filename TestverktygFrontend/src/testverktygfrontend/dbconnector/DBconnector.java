@@ -10,6 +10,8 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Question;
+import testverktygfrontend.model.QuestionOption;
+import testverktygfrontend.model.Response;
 import testverktygfrontend.model.Test;
 import testverktygfrontend.model.User;
 import testverktygfrontend.model.UserConverter;
@@ -62,7 +64,7 @@ public class DBconnector {
                 .get(new GenericType<List<Test>>(){});
         
         for(Test test : tests){
-            test.setQuestions(getQuestions(userId, courseId, test.getTestId()));
+            test.setQuestions(getQuestions(userId, courseId, test.getIdTest()));
         }
         
         
@@ -75,11 +77,30 @@ public class DBconnector {
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Question>>(){});
         
+        for(Question question : questions){
+            question.setQuestionOptions(getOptions(userId, courseId, testId, question.getQuestionId()));
+            question.setResponses(getResponses(userId, courseId, testId, question.getQuestionId()));
+        }
+        
         return questions;
     }
     
+    public List<QuestionOption> getOptions(int userId, int courseId, int testId, int questionId){
+        String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption";
+        List<QuestionOption> options = client.target(target)
+                .request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<QuestionOption>>(){});
+        
+        return options;
+    }
     
-    
+    public List<Response> getResponses(int userId, int courseId, int testId, int questionId){
+        String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/responses";
+        List<Response> responses = client.target(target)
+                .request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<Response>>(){});
+        return responses;
+    }
     
     
      public UserConverter userToUserConverter(User oldUser){

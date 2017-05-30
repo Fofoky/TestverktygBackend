@@ -1,38 +1,56 @@
 package testverktygfrontend.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author Richard
  */
 public class Test implements Serializable {
+      
+    @Id@GeneratedValue
+    private int idTest; 
+    private String title; 
+    private Date startTime; 
+    private Date endTime; 
     
-    private int testId;
-    private String title;
-    private Date startTime;
-    private Date endTime;
+    @OneToMany(mappedBy = "test")
+    List<Question> questions; 
     
-    private List<Question> questions;
-    private Course course;
+    @ManyToOne
+    Course course;
+        
     
-    public Test(){}
+public Test(){
+}
+
+public Test(int idTest, String title, Date start, Date stop) {
+    this.idTest = idTest; 
+    this.title = title; 
+    this.startTime = start; 
+    this.endTime = stop; 
+    this.questions = new ArrayList(); 
+} 
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
     
-    public Test(int testId, String title, Date startTime, Date endTime){
-        this.testId = testId;
-        this.title = title;
-        this.startTime = startTime;
-        this.endTime = endTime;
+
+
+    public int getIdTest() {
+        return idTest;
     }
 
-    public int getTestId() {
-        return testId;
-    }
-
-    public void setTestId(int testId) {
-        this.testId = testId;
+    public void setIdTest(int idTest) {
+        this.idTest = idTest;
     }
 
     public String getTitle() {
@@ -59,16 +77,8 @@ public class Test implements Serializable {
         this.endTime = endTime;
     }
 
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
-    }
-
-    public Course getCourse() {
-        return course;
     }
 
     public void setCourse(Course course) {
