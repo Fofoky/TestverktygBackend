@@ -7,6 +7,9 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import testverktygfrontend.model.Course;
+import testverktygfrontend.model.User;
+import testverktygfrontend.model.UserConverter;
 
  
 public class DBconnector {
@@ -18,12 +21,18 @@ public class DBconnector {
     }
     
     public List<User> getUsers(){
-        List<User> users = client.target("http://localhost:8080/testverktygbackend/webapi/users")
+        List<UserConverter> userConverter = client.target("http://localhost:8080/testverktygbackend/webapi/users")
                 .request(MediaType.APPLICATION_JSON)
-                .get(new GenericType<List<User>>(){});
+                .get(new GenericType<List<UserConverter>>(){});
+        
+        List<User> users = null;
+        
+        for(UserConverter user : userConverter){
+            users.add(userConverterToUser(user));
+        }
         
         for(User user : users){
-            user.setCourses(getCourse(user.getId()));
+            user.setCourses(getCourse(user.getUserId()));
         }
         
         return users;
@@ -36,7 +45,7 @@ public class DBconnector {
                 .get(new GenericType<List<Course>>(){});
         
         for(Course course : userCourses){
-            course.setTests(getTests(course.getId(), userId));
+            course.setTests(getTests(course.getCourseId(), userId));
         }
         
         return userCourses;
@@ -57,6 +66,31 @@ public class DBconnector {
     
     
     
+     public UserConverter userToUserConverter(User oldUser){
+        UserConverter newUser = new UserConverter();
+        
+        newUser.setUserId(oldUser.getUserId());
+        newUser.setName(oldUser.getName());
+        newUser.setCourses(oldUser.getCourses());
+        newUser.setEmail(oldUser.getEmail());
+        newUser.setPassword(oldUser.getPassword());
+        newUser.setUserRole(oldUser.getUserRole());
+        
+        return newUser; 
+    }
+     
+     public User userConverterToUser(UserConverter oldUser){
+         User newUser = new User();
+         
+        newUser.setUserId(oldUser.getUserId());
+        newUser.setName(oldUser.getName());
+        newUser.setCourses(oldUser.getCourses());
+        newUser.setEmail(oldUser.getEmail());
+        newUser.setPassword(oldUser.getPassword());
+        newUser.setUserRole(oldUser.getUserRole());
+        
+        return newUser; 
+     }
     
 
 }
