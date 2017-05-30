@@ -23,6 +23,9 @@ public class Logic {
         userList = db.getUsers();
     }
     
+    public List<User> getUsers(){
+        return userList;
+    }
     
     
     
