@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testverktygfrontend.model;
 
 import java.io.Serializable;
@@ -18,8 +13,8 @@ public class Question implements Serializable {
     private String question;
     
     private Test test;
-//    private List<Response> responses;
-//    private List<QuestionOption> questionOptions;
+    private List<Response> responses;
+    private List<QuestionOption> questionOptions;
     
     
     public Question(){}
@@ -53,20 +48,20 @@ public class Question implements Serializable {
         this.test = test;
     }
 
-//    public List<Response> getResponses() {
-//        return responses;
-//    }
-//
-//    public void setResponses(List<Response> responses) {
-//        this.responses = responses;
-//    }
-//
-//    public List<QuestionOption> getQuestionOptions() {
-//        return questionOptions;
-//    }
-//
-//    public void setQuestionOptions(List<QuestionOption> questionOptions) {
-//        this.questionOptions = questionOptions;
-//    }
+    public List<Response> getResponses() {
+        return responses;
+    }
+
+    public void setResponses(List<Response> responses) {
+        this.responses = responses;
+    }
+
+    public List<QuestionOption> getQuestionOptions() {
+        return questionOptions;
+    }
+
+    public void setQuestionOptions(List<QuestionOption> questionOptions) {
+        this.questionOptions = questionOptions;
+    }
     
 }

@@ -9,6 +9,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import testverktygfrontend.model.Course;
+import testverktygfrontend.model.Question;
 import testverktygfrontend.model.Test;
 import testverktygfrontend.model.User;
 import testverktygfrontend.model.UserConverter;
@@ -60,8 +61,21 @@ public class DBconnector {
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Test>>(){});
         
+        for(Test test : tests){
+            test.setQuestions(getQuestions(userId, courseId, test.getTestId()));
+        }
+        
         
         return tests;
+    }
+    
+    public List<Question> getQuestions(int userId, int courseId, int testId){
+        String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses/" + courseId + "/tests/" + testId + "/questions";
+        List<Question> questions = client.target(target)
+                .request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<Question>>(){});
+        
+        return questions;
     }
     
     
