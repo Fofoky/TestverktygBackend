@@ -49,5 +49,10 @@ public class Course implements Serializable {
     public void setTests(List<Test> tests) {
         this.tests = tests;
     }
+    
+    @Override
+    public String toString(){
+        return name;
+    }
   
 }

@@ -85,4 +85,8 @@ public Test(int idTest, String title, Date start, Date stop) {
         this.course = course;
     }
     
+    public String toString(){
+        return title;
+    }
+    
 }

@@ -27,6 +27,16 @@ public class Logic {
         return userList;
     }
     
+    public User getUser(int userId){
+        User user = null;
+        for(User u : userList){
+            if(u.getUserId() == userId){
+                user = u;
+            }
+        }
+        return user;
+    }
+    
     
     
     
