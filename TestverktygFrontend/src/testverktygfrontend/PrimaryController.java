@@ -39,7 +39,7 @@ public class PrimaryController implements Initializable {
         for (int i = 0; i < user.getCourses().size(); i++) {
             node1 = new TreeItem<>(user.getCourses().get(i).getName());
             for (int j = 0; j < user.getCourses().get(i).getTests().size(); j++) {
-                subNode1 = new TreeItem<>("Test: " + user.getCourses().get(i).getTests().get(j).getTitle());
+                subNode1 = new TreeItem<>(user.getCourses().get(i).getTests().get(j).getTitle());
                 node1.getChildren().add(subNode1);
             }
 
@@ -67,7 +67,6 @@ public class PrimaryController implements Initializable {
         //Listener till TreeView ############################################
         treeViewMenu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             String name = newValue.toString().substring(18, newValue.toString().length() - 2).trim();
-            
 
             if (!name.equals("Kurser")) {
 
@@ -108,8 +107,8 @@ public class PrimaryController implements Initializable {
                     
                 }
             }
-
         });
+        
         //#####################################################################
     }
 
