@@ -15,54 +15,76 @@ import testverktygfrontend.logic.Logic;
 import testverktygfrontend.model.User;
 
 public class PrimaryController implements Initializable {
-    
+
     private Logic logic;
 
-//    @FXML
-//    private AnchorPane sceneArea, scene2;
-    
-    @FXML Button button1, button2;
-    
-    @FXML Pane content;
+    @FXML
+    Button button1, button2;
 
-    private TreeItem<Object> root;
-    private TreeItem<Object> node1;
+    @FXML
+    Pane content;
 
-    private TreeItem<Object> subNode1;
+    private TreeItem<String> root;
+    private TreeItem<String> node1;
+    private TreeItem<String> subNode1;
 
     @FXML
     private TreeView treeViewMenu;
 
     public void loadTreeViewMenu(User user) {
         root = new TreeItem<>("Kurser");
-        
-        for(int i = 0; i < user.getCourses().size(); i++){
-            node1 = new TreeItem<>(user.getCourses().get(i));
-            for(int j = 0; j < user.getCourses().get(i).getTests().size(); j++){
-                subNode1 = new TreeItem<>(user.getCourses().get(i).getTests().get(j));
+
+        for (int i = 0; i < user.getCourses().size(); i++) {
+            node1 = new TreeItem<>(user.getCourses().get(i).getName());
+            for (int j = 0; j < user.getCourses().get(i).getTests().size(); j++) {
+                subNode1 = new TreeItem<>("Test: " + user.getCourses().get(i).getTests().get(j).getTitle());
                 node1.getChildren().add(subNode1);
             }
-            
+
             root.getChildren().add(node1);
         }
-        
+
         treeViewMenu.setRoot(root);
 
     }
-    
+
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
-         System.out.println("click! taskBarButton2");
+        System.out.println("click! taskBarButton2");
         content.getChildren().clear();
         content.getChildren().add(FXMLLoader.load(getClass().getResource("StudSelectedCourse.fxml")));
 
     }
- 
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logic = Logic.getInstance();
         User user = logic.getUser(2);
         loadTreeViewMenu(user);
+
+        //Listener till TreeView
+        treeViewMenu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            String name = newValue.toString().substring(18, newValue.toString().length() - 2).trim();
+
+            if (!name.equals("Kurser")) {
+
+                try {
+                    String t = name.substring(0, 4);
+                    if (!t.equals("Test")) {
+                        throw new StringIndexOutOfBoundsException();
+                    }
+
+                    // Scene för Test <<<<<<-------------------------------<<<<<<
+                    
+
+                } catch (StringIndexOutOfBoundsException e) {
+                   // Scene för Course <<<<<<---------------------------<--<<<<<<
+                   
+                    
+                }
+            }
+
+        });
     }
 
 }
