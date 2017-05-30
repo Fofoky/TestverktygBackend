@@ -64,7 +64,7 @@ public class PrimaryController implements Initializable {
         User user = logic.getUser(2);
         loadTreeViewMenu(user);
 
-        //Listener till TreeView
+        //Listener till TreeView ############################################
         treeViewMenu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             String name = newValue.toString().substring(18, newValue.toString().length() - 2).trim();
             
@@ -110,6 +110,7 @@ public class PrimaryController implements Initializable {
             }
 
         });
+        //#####################################################################
     }
 
 }
