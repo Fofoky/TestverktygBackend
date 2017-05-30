@@ -35,10 +35,7 @@ public class TestRepository {
     }
 
     public Test getTest(int testId) {
-        session.beginTransaction();
         Test test = (Test) session.get(Test.class, testId);
-        session.getTransaction().commit();
-        session.close();
         return test;
     }
 
