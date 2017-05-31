@@ -39,5 +39,4 @@ Thumbs.db
 /target
 /src/main/resources/*
 /hibernate.cfg.xml
-/TestverktygFrontend/nbproject/private/
 *.properties
