@@ -8,27 +8,16 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
  
 public class User implements Serializable {
 
-    @Id
-    @GeneratedValue
     private IntegerProperty userId;
     private StringProperty Name;
     private StringProperty userRole;
     private StringProperty password;
     private StringProperty email;
 
-    @ManyToMany
-    @JoinTable(name = "User_Course",
-            joinColumns = @JoinColumn(name = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "courseId"))
     private List<Course> courses;
 
     public User() {
