@@ -56,6 +56,7 @@ public class TreeViewController implements Initializable {
     @FXML
     public void handleTreeView(MouseEvent event) {
         TreeItem<String> selectedItem = (TreeItem<String>) treeViewMenu.getSelectionModel().getSelectedItem();
+        
         String name = selectedItem.toString().substring(18, selectedItem.toString().length() - 2).trim();
 
         if (!name.equals("Kurser")) {
