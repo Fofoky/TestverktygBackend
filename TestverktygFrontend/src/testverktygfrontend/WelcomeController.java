@@ -9,8 +9,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
-
-public class StudSelectedCourseController implements Initializable {
+/**
+ * FXML Controller class
+ *
+ * @author annafock
+ */
+public class WelcomeController implements Initializable {
 
     /**
      * Initializes the controller class.
