@@ -7,15 +7,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="testverktygfrontend.TestController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.TestController">
    <children>
       <BorderPane prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
             <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
          </padding>
          <top>
-            <Label text="Testets namn" BorderPane.alignment="CENTER" />
+            <Label fx:id="labelTestName" text="Testets namn" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <Pane prefHeight="316.0" prefWidth="440.0" BorderPane.alignment="CENTER">
@@ -27,26 +26,34 @@
                            <children>
                               <VBox prefHeight="100.0" prefWidth="150.0" spacing="5.0">
                                  <children>
-                                    <CheckBox mnemonicParsing="false" text="Option 1" />
-                                    <CheckBox mnemonicParsing="false" text="Option 3" />
+                                    <CheckBox fx:id="checkBox1" mnemonicParsing="false" text="Option 1" />
+                                    <CheckBox fx:id="checkBox3" mnemonicParsing="false" text="Option 3" />
                                  </children>
                               </VBox>
                               <VBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="150.0" spacing="5.0">
                                  <children>
-                                    <CheckBox mnemonicParsing="false" text="Option 2" />
-                                    <CheckBox mnemonicParsing="false" text="Option 4" />
+                                    <CheckBox fx:id="checkBox2" mnemonicParsing="false" text="Option 2" />
+                                    <CheckBox fx:id="checkBox4" mnemonicParsing="false" text="Option 4" />
                                  </children>
                               </VBox>
                            </children>
                         </HBox>
                      </children>
                   </VBox>
-                  <HBox alignment="BASELINE_CENTER" layoutX="1.0" layoutY="260.0" prefHeight="100.0" prefWidth="442.0">
+                  <HBox alignment="CENTER" layoutX="1.0" layoutY="260.0" prefHeight="46.0" prefWidth="442.0" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" text="&lt;&lt; Föregående" />
-                        <Button mnemonicParsing="false" prefWidth="112.0" text="Nästa &gt;&gt;" />
+                        <Button fx:id="buttonPrevious" mnemonicParsing="false" prefHeight="20.0" prefWidth="110.0" text="Föregående" />
+                        <VBox alignment="TOP_CENTER" prefHeight="84.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="labelProgress" text="1 / 20" />
+                              <ProgressBar fx:id="progressBar" prefWidth="200.0" progress="0.1" />
+                           </children>
+                        </VBox>
+                        <Button fx:id="buttonNext" mnemonicParsing="false" prefHeight="20.0" prefWidth="110.0" text="Nästa" />
                      </children>
                   </HBox>
+                  <Label fx:id="labelQuestionId" layoutX="1.0" layoutY="61.0" text="Frågans nummer" />
+                  <Button fx:id="buttonSaveTest" layoutX="333.0" layoutY="303.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="110.0" text="Lämna in test" />
                </children>
             </Pane>
          </center>

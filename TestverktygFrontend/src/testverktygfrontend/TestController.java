@@ -7,7 +7,13 @@ package testverktygfrontend;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
 
 /**
  * FXML Controller class
@@ -16,6 +22,18 @@ import javafx.fxml.Initializable;
  */
 public class TestController implements Initializable {
 
+    @FXML Label labelTestName, labelQuestionId, labelProgress;
+    
+    @FXML TextArea textAreaQuestion;
+    
+    @FXML CheckBox checkBox1, checkBox2, checkBox3, checkBox4;
+    
+    //Previous och next, disabled vid start och slut. SaveTest blir visible vid sista frågan. 
+    @FXML Button buttonPrevious, buttonNext, buttonSaveTest; 
+    
+    @FXML ProgressBar progressBar; //Går att koppla till property med bind
+    
+    
     /**
      * Initializes the controller class.
      */
