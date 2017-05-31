@@ -39,16 +39,18 @@ public class CreateTestController implements Initializable {
 
     @FXML
     TableColumn<QuestionOption, String> columnOpt1, columnOpt2, columnOpt3, columnOpt4;
-    
-    @FXML TextArea textAreaQuestion;
-    
-    @FXML TextField textFieldOpt1, textFieldOpt2, textFieldOpt3, textFieldOpt4;
-    
-    @FXML Button buttonAddQuestion; //Default disabled - enable när alla fält har innehåll
-    
-    @FXML Button buttonSaveTest; //Provet sparas egentligen ändå, men knappen leder tillbaka till kurssidan
-    
-    
+
+    @FXML
+    TextArea textAreaQuestion;
+
+    @FXML
+    TextField textFieldTestName, textFieldOpt1, textFieldOpt2, textFieldOpt3, textFieldOpt4;
+
+    @FXML
+    Button buttonAddQuestion; //Default disabled - enable när alla fält har innehåll
+
+    @FXML
+    Button buttonSaveTest; //Provet sparas egentligen ändå, men knappen leder tillbaka till kurssidan
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
