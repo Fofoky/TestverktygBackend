@@ -34,7 +34,7 @@ public class QuestionOptionResource {
                 option.setQuestion(q);
             }
         }
-        
+        System.out.println("QuestionOption Resource");
         return optionService.addQuestionOption(option);
     } 
     

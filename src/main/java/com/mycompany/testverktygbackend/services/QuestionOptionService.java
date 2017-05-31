@@ -12,6 +12,7 @@ public class QuestionOptionService {
     QuestionOptionRepository optionRepository = new QuestionOptionRepository();
 
     public QuestionOption addQuestionOption(QuestionOption option) {
+        System.out.println("QuesitonOptionService");
         return optionRepository.addQuestionOption(option);
         
     }

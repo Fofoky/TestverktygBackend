@@ -13,6 +13,7 @@ public class QuestionOptionRepository {
     }
 
     public QuestionOption addQuestionOption(QuestionOption option) {
+        System.out.println("QuesitonOptionRepository");
         session.beginTransaction();
         session.save(option);
         session.getTransaction().commit();
