@@ -21,7 +21,7 @@ import testverktygfrontend.model.Test;
  *
  * @author annafock
  */
-public class TeacherSelectedCoursController implements Initializable {
+public class TeacherSelectedCourseController implements Initializable {
     
     @FXML
     private Label labelCourse;
