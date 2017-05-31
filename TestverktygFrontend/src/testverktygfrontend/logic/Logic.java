@@ -8,6 +8,7 @@ public class Logic {
     
     private static Logic instance;
     private List<User> userList = null;
+    private User currentUser;
     
     private Logic(){}
     
@@ -36,9 +37,14 @@ public class Logic {
         }
         return user;
     }
-    
-    
-    
-    
+
+    public User getCurrentUser() {
+        return currentUser;
+    } // Getter & Setter för inloggad User
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+   
     
 }
