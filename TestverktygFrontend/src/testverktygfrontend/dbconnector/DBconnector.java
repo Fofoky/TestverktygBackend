@@ -128,6 +128,10 @@ public class DBconnector {
         
         return newUser; 
      }
+     
+     public void addQuestion(Question question){
+         
+     }
     
 
 }
