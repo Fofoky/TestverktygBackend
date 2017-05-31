@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testverktygfrontend;
 
 import java.io.IOException;
@@ -55,38 +50,10 @@ public class TreeViewController implements Initializable {
 
     }
 
-//    @FXML
-//    public void handleTreeView(MouseEvent event) {
-//        TreeItem<String> selectedItem = (TreeItem<String>) treeViewMenu.getSelectionModel().getSelectedItem();
-//
-//        if (selectedItem == node1) {
-//            try {
-//
-//                URL paneOneUrl = getClass().getResource("StudSelectedCourse.fxml");
-//                AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
-//
-//                BorderPane border = LogInController.getRoot();
-//                border.setCenter(paneOne);
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//    }
-
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        logic = Logic.getInstance();
-        user = logic.getUser(2);
-        loadTreeViewMenu();
-
-        //Listener till TreeView ############################################
-        treeViewMenu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            String name = newValue.toString().substring(18, newValue.toString().length() - 2).trim();
+    @FXML
+    public void handleTreeView(MouseEvent event) {
+        TreeItem<String> selectedItem = (TreeItem<String>) treeViewMenu.getSelectionModel().getSelectedItem();
+        String name = selectedItem.toString().substring(18, selectedItem.toString().length() - 2).trim();
 
             if (!name.equals("Kurser")) {
 
@@ -108,6 +75,8 @@ public class TreeViewController implements Initializable {
                     System.out.println(test.getIdTest());
 
                     // Scene för Test <<<<<<-------------------------------<<<<<<
+                    
+                    
                 } catch (StringIndexOutOfBoundsException e) {
 
                     Course course = null;
@@ -133,9 +102,17 @@ public class TreeViewController implements Initializable {
 
                 }
             }
-        });
 
-        //#####################################################################
+    }
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        logic = Logic.getInstance();
+        user = logic.getUser(2);
+        loadTreeViewMenu();
     }
 
 }
