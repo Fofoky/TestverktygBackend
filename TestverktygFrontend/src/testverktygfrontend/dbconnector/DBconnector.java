@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import testverktygfrontend.model.Course;
@@ -127,6 +128,14 @@ public class DBconnector {
         newUser.setUserRole(oldUser.getUserRole());
         
         return newUser; 
+     }
+     
+     public void addQuestion(Question question, int testId, int userId, int courseId){
+         String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses/" + courseId + "/tests/" + testId + "/questions";
+         
+         client.target(target)
+                 .request(MediaType.APPLICATION_JSON)
+                 .post(Entity.json(question), Question.class);
      }
     
 

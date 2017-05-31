@@ -7,14 +7,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="127.0" prefWidth="331.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.LogInController">
+<AnchorPane id="AnchorPane" prefHeight="193.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.LogInController">
    <children>
       <BorderPane prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <VBox alignment="CENTER" fillWidth="false" layoutX="239.0" layoutY="178.0" prefHeight="50.0" prefWidth="170.0" spacing="3.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" fillWidth="false" layoutX="239.0" layoutY="178.0" prefHeight="284.0" prefWidth="435.0" spacing="3.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="textFieldUserName" />
-                  <TextField fx:id="textFieldPassword" />
+                  <TextField fx:id="textFieldUserName" alignment="CENTER" promptText="Username" />
+                  <TextField fx:id="textFieldPassword" alignment="CENTER" promptText="Password" />
                   <Pane>
                      <children>
                         <Button fx:id="btnLogIn" mnemonicParsing="false" onAction="#handleLogInButton" text="Logga in" />
