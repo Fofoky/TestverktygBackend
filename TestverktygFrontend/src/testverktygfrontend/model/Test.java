@@ -4,27 +4,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  *
  * @author Richard
  */
 public class Test implements Serializable {
-      
-    @Id@GeneratedValue
+    
     private int idTest; 
     private String title; 
     private Date startTime; 
     private Date endTime; 
     
-    @OneToMany(mappedBy = "test")
     List<Question> questions; 
     
-    @ManyToOne
     Course course;
         
     

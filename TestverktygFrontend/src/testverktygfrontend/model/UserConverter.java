@@ -4,27 +4,16 @@ package testverktygfrontend.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
  
 public class UserConverter implements Serializable {
 
-    @Id
-    @GeneratedValue
     private int userId;
     private String Name;
     private String userRole;
     private String password;
     private String email;
 
-    @ManyToMany
-    @JoinTable(name = "User_Course",
-            joinColumns = @JoinColumn(name = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "courseId"))
     private List<Course> courses;
 
     public UserConverter() {
