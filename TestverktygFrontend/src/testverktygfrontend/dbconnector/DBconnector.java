@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import testverktygfrontend.model.Course;
@@ -107,6 +108,14 @@ public class DBconnector {
                 });
         return responses;
     }
+    
+     public void addUser(UserConverter user){ 
+         String target= url; 
+          
+         client.target(target) 
+                 .request(MediaType.APPLICATION_JSON) 
+                 .post(Entity.json(user), User.class); 
+     } 
 
     private UserConverter userToUserConverter(User oldUser) {
         UserConverter newUser = new UserConverter();
