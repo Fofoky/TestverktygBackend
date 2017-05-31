@@ -35,15 +35,18 @@ public class TreeViewController implements Initializable {
 
     public void loadTreeViewMenu() {
         root = new TreeItem<>("Kurser");
+        try {
+            for (int i = 0; i < user.getCourses().size(); i++) {
+                node1 = new TreeItem<>(user.getCourses().get(i).getName());
+                for (int j = 0; j < user.getCourses().get(i).getTests().size(); j++) {
+                    subNode1 = new TreeItem<>("Test: " + user.getCourses().get(i).getTests().get(j).getTitle());
+                    node1.getChildren().add(subNode1);
+                }
 
-        for (int i = 0; i < user.getCourses().size(); i++) {
-            node1 = new TreeItem<>(user.getCourses().get(i).getName());
-            for (int j = 0; j < user.getCourses().get(i).getTests().size(); j++) {
-                subNode1 = new TreeItem<>("Test: " + user.getCourses().get(i).getTests().get(j).getTitle());
-                node1.getChildren().add(subNode1);
+                root.getChildren().add(node1);
             }
-
-            root.getChildren().add(node1);
+        } catch (NullPointerException e) {
+            // DB is empty
         }
 
         treeViewMenu.setRoot(root);
@@ -55,53 +58,51 @@ public class TreeViewController implements Initializable {
         TreeItem<String> selectedItem = (TreeItem<String>) treeViewMenu.getSelectionModel().getSelectedItem();
         String name = selectedItem.toString().substring(18, selectedItem.toString().length() - 2).trim();
 
-            if (!name.equals("Kurser")) {
+        if (!name.equals("Kurser")) {
+
+            try {
+                String t = name.substring(0, 4);
+                if (!t.equals("Test")) {
+                    throw new StringIndexOutOfBoundsException();
+                }
+
+                Test test = null;
+                for (Course c : user.getCourses()) {
+                    for (Test tests : c.getTests()) {
+                        if (tests.getTitle().equals(name.substring(6))) {
+                            test = tests;
+                        }
+                    }
+                }
+
+                System.out.println(test.getIdTest());
+
+                // Scene för Test <<<<<<-------------------------------<<<<<<
+            } catch (StringIndexOutOfBoundsException e) {
+
+                Course course = null;
+                for (Course c : user.getCourses()) {
+                    if (c.getName().equals(name)) {
+                        course = c;
+                    }
+                }
+
+                System.out.println(course.getCourseId());
 
                 try {
-                    String t = name.substring(0, 4);
-                    if (!t.equals("Test")) {
-                        throw new StringIndexOutOfBoundsException();
-                    }
 
-                    Test test = null;
-                    for (Course c : user.getCourses()) {
-                        for (Test tests : c.getTests()) {
-                            if (tests.getTitle().equals(name.substring(6))) {
-                                test = tests;
-                            }
-                        }
-                    }
+                    URL paneOneUrl = getClass().getResource("StudSelectedCourse.fxml");
+                    AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
 
-                    System.out.println(test.getIdTest());
+                    BorderPane border = LogInController.getRoot();
+                    border.setCenter(paneOne);
 
-                    // Scene för Test <<<<<<-------------------------------<<<<<<
-                    
-                    
-                } catch (StringIndexOutOfBoundsException e) {
-
-                    Course course = null;
-                    for (Course c : user.getCourses()) {
-                        if (c.getName().equals(name)) {
-                            course = c;
-                        }
-                    }
-
-                    System.out.println(course.getCourseId());
-
-                    try {
-
-                        URL paneOneUrl = getClass().getResource("StudSelectedCourse.fxml");
-                        AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
-
-                        BorderPane border = LogInController.getRoot();
-                        border.setCenter(paneOne);
-
-                    } catch (IOException ee) {
-                        ee.printStackTrace();
-                    }
-
+                } catch (IOException ee) {
+                    ee.printStackTrace();
                 }
+
             }
+        }
 
     }
 

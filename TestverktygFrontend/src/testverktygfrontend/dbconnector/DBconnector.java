@@ -25,24 +25,21 @@ public class DBconnector {
 
     public List<User> getUsers() {
         ArrayList<User> users = new ArrayList();
-        try {
-            List<UserConverter> userConverter = client.target("http://localhost:8080/testverktygbackend/webapi/users")
-                    .request(MediaType.APPLICATION_JSON)
-                    .get(new GenericType<List<UserConverter>>() {
-                    });
 
-            for (UserConverter user : userConverter) {
+        List<UserConverter> userConverter = client.target("http://localhost:8080/testverktygbackend/webapi/users")
+                .request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<UserConverter>>() {
+                });
 
-                users.add(userConverterToUser(user));
-            }
+        for (UserConverter user : userConverter) {
 
-            for (User user : users) {
-                user.setCourses(getCourse(user.getUserId()));
-            }
-        } catch (NullPointerException e) {
-
+            users.add(userConverterToUser(user));
         }
-        
+
+        for (User user : users) {
+            user.setCourses(getCourse(user.getUserId()));
+        }
+
         return users;
     }
 
