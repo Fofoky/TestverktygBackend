@@ -18,7 +18,10 @@ import testverktygfrontend.model.UserConverter;
 public class DBconnector {
 
     Client client;
-
+    
+    private String url = "http://localhost:8080/testverktygbackend/webapi/users"; 
+    //private String url = "http://localhost:8080/TestverktygBackend/webapi/users"; // Annas URL
+    
     public DBconnector() {
         client = ClientBuilder.newClient();
     }
@@ -26,7 +29,7 @@ public class DBconnector {
     public List<User> getUsers() {
         ArrayList<User> users = new ArrayList();
 
-        List<UserConverter> userConverter = client.target("http://localhost:8080/testverktygbackend/webapi/users")
+        List<UserConverter> userConverter = client.target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<UserConverter>>() {
                 });
@@ -44,7 +47,7 @@ public class DBconnector {
     }
 
     private List<Course> getCourse(int userId) {
-        String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses";
+        String target = url + userId + "/courses";
         List<Course> userCourses = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Course>>() {
@@ -58,7 +61,7 @@ public class DBconnector {
     }
 
     private List<Test> getTests(int courseId, int userId) {
-        String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses/" + courseId + "/tests";
+        String target = url + userId + "/courses/" + courseId + "/tests";
         List<Test> tests = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Test>>() {
@@ -72,7 +75,7 @@ public class DBconnector {
     }
 
     private List<Question> getQuestions(int userId, int courseId, int testId) {
-        String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses/" + courseId + "/tests/" + testId + "/questions";
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions";
         List<Question> questions = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Question>>() {
@@ -87,7 +90,7 @@ public class DBconnector {
     }
 
     private List<QuestionOption> getOptions(int userId, int courseId, int testId, int questionId) {
-        String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption";
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption";
         List<QuestionOption> options = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<QuestionOption>>() {
@@ -97,7 +100,7 @@ public class DBconnector {
     }
 
     private List<Response> getResponses(int userId, int courseId, int testId, int questionId) {
-        String target = "http://localhost:8080/testverktygbackend/webapi/users/" + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/responses";
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/responses";
         List<Response> responses = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Response>>() {
