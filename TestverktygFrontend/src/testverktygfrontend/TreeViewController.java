@@ -52,7 +52,7 @@ public class TreeViewController implements Initializable {
             try {
 
                 URL paneOneUrl = getClass().getResource("StudSelectedCourse.fxml");
-                AnchorPane paneOne = FXMLLoader.load(paneOneUrl);
+                AnchorPane paneOne =(AnchorPane)FXMLLoader.load(paneOneUrl);
 
                 BorderPane border = LogInController.getRoot();
                 border.setCenter(paneOne);

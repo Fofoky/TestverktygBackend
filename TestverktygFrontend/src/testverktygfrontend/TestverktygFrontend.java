@@ -25,12 +25,7 @@ public class TestverktygFrontend extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
-        stage.show();
-        
-       
-        
-        
-        
+        stage.show();      
        
     }
 
@@ -39,6 +34,5 @@ public class TestverktygFrontend extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-    }
-    
+    }  
 }
