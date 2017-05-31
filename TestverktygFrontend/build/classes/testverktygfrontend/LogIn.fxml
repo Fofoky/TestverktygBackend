@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.LogInController">
+<AnchorPane id="AnchorPane" prefHeight="127.0" prefWidth="331.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.LogInController">
    <children>
       <BorderPane prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -20,7 +20,6 @@
                         <Button fx:id="btnLogIn" mnemonicParsing="false" onAction="#handleLogInButton" text="Logga in" />
                      </children>
                   </Pane>
-                  <Label fx:id="labelLogInMessage" text="Label" />
                </children>
             </VBox>
          </center>
