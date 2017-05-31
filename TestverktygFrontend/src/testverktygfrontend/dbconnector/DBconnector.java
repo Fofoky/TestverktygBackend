@@ -19,10 +19,10 @@ import testverktygfrontend.model.UserConverter;
 public class DBconnector {
 
     Client client;
-    
-   // private String url = "http://localhost:8080/testverktygbackend/webapi/users/"; 
-    private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
-    
+
+     private String url = "http://localhost:8080/testverktygbackend/webapi/users/"; 
+    //private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
+
     public DBconnector() {
         client = ClientBuilder.newClient();
     }
@@ -108,14 +108,22 @@ public class DBconnector {
                 });
         return responses;
     }
-    
-     public void addUser(UserConverter user){ 
-         String target= url; 
-          
-         client.target(target) 
-                 .request(MediaType.APPLICATION_JSON) 
-                 .post(Entity.json(user), User.class); 
-     } 
+
+    public void addUser(UserConverter user) {
+        String target = url;
+
+        client.target(target)
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(user), User.class);
+    }
+
+    public void addQuestion(Question question, int testId, int userId, int courseId) {
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions";
+
+        client.target(target)
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(question), Question.class);
+    }
 
     private UserConverter userToUserConverter(User oldUser) {
         UserConverter newUser = new UserConverter();
