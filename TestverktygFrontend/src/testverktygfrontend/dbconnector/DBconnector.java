@@ -137,6 +137,14 @@ public class DBconnector {
                  .request(MediaType.APPLICATION_JSON)
                  .post(Entity.json(question), Question.class);
      }
+     
+     public void addUser(UserConverter user){
+         String target="http://localhost:8080/testverktygbackend/webapi/users";
+         
+         client.target(target)
+                 .request(MediaType.APPLICATION_JSON)
+                 .post(Entity.json(user), User.class);
+     }
     
 
 }

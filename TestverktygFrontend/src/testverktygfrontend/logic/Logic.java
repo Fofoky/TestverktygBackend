@@ -5,6 +5,7 @@ import testverktygfrontend.dbconnector.DBconnector;
 import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Question;
 import testverktygfrontend.model.User;
+import testverktygfrontend.model.UserConverter;
 
 public class Logic {
 
@@ -53,5 +54,15 @@ public class Logic {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+    
+    public void addUser(String name, String userRole, String password, String email){
+        UserConverter user = new UserConverter();
+        user.setName(name);
+        user.setUserRole(userRole);
+        user.setPassword(password);
+        user.setEmail(email);
+        
+        db.addUser(user);
     }
 }
