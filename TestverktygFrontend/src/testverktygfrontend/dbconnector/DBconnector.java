@@ -115,7 +115,15 @@ public class DBconnector {
          client.target(target) 
                  .request(MediaType.APPLICATION_JSON) 
                  .post(Entity.json(user), User.class); 
-     } 
+     }
+     
+     public void addQuestion(Question question, int testId, int userId, int courseId){
+         String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions";
+         
+         client.target(target)
+                 .request(MediaType.APPLICATION_JSON)
+                 .post(Entity.json(question), Question.class);
+     }
 
     private UserConverter userToUserConverter(User oldUser) {
         UserConverter newUser = new UserConverter();

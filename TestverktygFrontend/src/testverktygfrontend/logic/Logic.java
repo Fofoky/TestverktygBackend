@@ -3,6 +3,7 @@ package testverktygfrontend.logic;
 import java.util.List;
 import testverktygfrontend.dbconnector.DBconnector;
 import testverktygfrontend.model.Course;
+import testverktygfrontend.model.Question;
 import testverktygfrontend.model.Test;
 import testverktygfrontend.model.User;
 import testverktygfrontend.model.UserConverter;
@@ -76,6 +77,14 @@ public class Logic {
         user.setPassword(password);
         user.setEmail(email);
         db.addUser(user);
+    }
+    
+    public void addQuestion(String question, int testId, int userId, int courseId) {
+        DBconnector db = new DBconnector();
+        Question q = new Question();
+        q.setQuestion(question);
+        
+        db.addQuestion(q, testId, userId, courseId);
     }
 
 }
