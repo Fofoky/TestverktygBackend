@@ -5,37 +5,39 @@ import testverktygfrontend.dbconnector.DBconnector;
 import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Test;
 import testverktygfrontend.model.User;
+import testverktygfrontend.model.UserConverter;
 
 public class Logic {
-    
+
     private static Logic instance;
     private List<User> userList = null;
     private User selectedUser;
     private Course selectedCourse;
     private Test selectedTest;
-    
-    private Logic(){}
-    
-    public static Logic getInstance(){
-        if(instance == null){
+
+    private Logic() {
+    }
+
+    public static Logic getInstance() {
+        if (instance == null) {
             instance = new Logic();
         }
         return instance;
     }
-    
-    public void updateList(){
+
+    public void updateList() {
         DBconnector db = new DBconnector();
         userList = db.getUsers();
     }
-    
-    public List<User> getUsers(){
+
+    public List<User> getUsers() {
         return userList;
     }
-    
-    public User getUser(int userId){
+
+    public User getUser(int userId) {
         User user = null;
-        for(User u : userList){
-            if(u.getUserId() == userId){
+        for (User u : userList) {
+            if (u.getUserId() == userId) {
                 user = u;
             }
         }
@@ -65,11 +67,15 @@ public class Logic {
     public void setSelectedTest(Test selectedTest) {
         this.selectedTest = selectedTest;
     }
-    
-    
-    
-    
-    
-    
-    
+
+    public void addUser(String name, String userRole, String password, String email) {
+        DBconnector db = new DBconnector();
+        UserConverter user = new UserConverter();
+        user.setName(name);
+        user.setUserRole(userRole);
+        user.setPassword(password);
+        user.setEmail(email);
+        db.addUser(user);
+    }
+
 }
