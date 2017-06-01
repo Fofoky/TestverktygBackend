@@ -27,6 +27,7 @@ public class Logic {
     }
 
     public void updateList() {
+        
         DBconnector db = new DBconnector();
         userList = db.getUsers();
     }
@@ -94,6 +95,11 @@ public class Logic {
     public void addTest(Test test, int courseId){
         DBconnector db = new DBconnector();
         db.addTest(test, selectedUser.getUserId(), courseId);  
+    }
+    
+    public void deleteQuestion(int questionId){
+        DBconnector db = new DBconnector();
+        db.deleteQuestion(questionId, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest());
     }
 
 }
