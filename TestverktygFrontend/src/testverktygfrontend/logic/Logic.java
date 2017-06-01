@@ -79,7 +79,7 @@ public class Logic {
         db.addUser(user);
     }
 
-    public void addQuestion(String question, int testId, int userId, int courseId) {
+    public void addQuestion(String question, int testId, int courseId) {
 
         DBconnector db = new DBconnector();
 
@@ -87,8 +87,13 @@ public class Logic {
 
         q.setQuestion(question);
 
-        db.addQuestion(q, testId, userId, courseId);
+        db.addQuestion(q, testId, selectedUser.getUserId(), courseId);
 
+    }
+    
+    public void addTest(Test test, int courseId){
+        DBconnector db = new DBconnector();
+        db.addTest(test, selectedUser.getUserId(), courseId);  
     }
 
 }

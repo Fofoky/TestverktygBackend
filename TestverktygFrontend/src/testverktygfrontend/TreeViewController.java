@@ -85,9 +85,21 @@ public class TreeViewController implements Initializable {
                     }
                 }
 
-                System.out.println(test.getIdTest());
+                logic.setSelectedTest(test); // skickar valt test till logic för vidare användning
 
-                // Scene för Test <<<<<<-------------------------------<<<<<<
+                try {
+
+                    URL paneOneUrl = getClass().getResource(""); // <<<<<---------------test scene--------------
+                    AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
+
+                    BorderPane border = LogInController.getRoot();
+                    border.setCenter(paneOne);
+
+                } catch (IOException ee) {
+                    ee.printStackTrace();
+                }
+                
+                
             } catch (StringIndexOutOfBoundsException e) {
 
                 Course course = null;
@@ -97,7 +109,7 @@ public class TreeViewController implements Initializable {
                     }
                 }
 
-                System.out.println(course.getCourseId());
+                logic.setSelectedCourse(course); // skickar vald kurs till logic för vidare användning i scenen
 
                 try {
 
