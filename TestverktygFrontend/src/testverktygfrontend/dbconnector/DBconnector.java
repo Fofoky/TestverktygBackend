@@ -20,8 +20,8 @@ public class DBconnector {
 
     Client client;
 
-     private String url = "http://localhost:8080/testverktygbackend/webapi/users/"; 
-    //private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
+     //private String url = "http://localhost:8080/testverktygbackend/webapi/users/"; 
+   private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
 
     public DBconnector() {
         client = ClientBuilder.newClient();
@@ -29,12 +29,12 @@ public class DBconnector {
 
     public List<User> getUsers() {
         ArrayList<User> users = new ArrayList();
-
+        
         List<UserConverter> userConverter = client.target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<UserConverter>>() {
                 });
-
+        
         for (UserConverter user : userConverter) {
 
             users.add(userConverterToUser(user));
@@ -43,7 +43,7 @@ public class DBconnector {
         for (User user : users) {
             user.setCourses(getCourse(user.getUserId()));
         }
-
+        
         return users;
     }
 
@@ -132,6 +132,14 @@ public class DBconnector {
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(test), Test.class);
         
+    }
+    
+    public void deleteQuestion(int questionId, int userId, int courseId, int testId){
+       String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId;
+       
+       client.target(target)
+               .request(MediaType.APPLICATION_JSON)
+               .delete();
     }
 
     private UserConverter userToUserConverter(User oldUser) {
