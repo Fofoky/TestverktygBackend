@@ -13,11 +13,11 @@
          <center>
             <VBox alignment="CENTER" fillWidth="false" layoutX="239.0" layoutY="178.0" prefHeight="50.0" prefWidth="170.0" spacing="3.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="textFieldUserName" />
-                  <TextField fx:id="textFieldPassword" />
+                  <TextField fx:id="textFieldUserName" alignment="CENTER" promptText="Username" />
+                  <PasswordField fx:id="textFieldPassword" alignment="CENTER" disable="true" promptText="Password" />
                   <Pane>
                      <children>
-                        <Button fx:id="btnLogIn" mnemonicParsing="false" onAction="#handleLogInButton" text="Logga in" />
+                        <Button fx:id="btnLogIn" disable="true" mnemonicParsing="false" onAction="#handleLogInButton" text="Logga in" />
                      </children>
                   </Pane>
                </children>
