@@ -95,5 +95,16 @@ public class Logic {
         DBconnector db = new DBconnector();
         db.addTest(test, selectedUser.getUserId(), courseId);  
     }
+    
+        
+    public void updateQuestion(String question, int questionId, int testId, int courseId ) {
 
+            DBconnector db = new DBconnector();
+            Question que = new Question();
+            
+            que.setQuestionId(questionId);
+            que.setQuestion(question);
+            
+            db.updateQuestion(que, questionId, testId, selectedUser.getUserId(), courseId);
+    }
 }
