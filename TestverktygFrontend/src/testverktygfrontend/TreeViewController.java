@@ -26,8 +26,8 @@ public class TreeViewController implements Initializable {
 
     private Logic logic;
     private User user;
-    
-    @FXML 
+
+    @FXML
     private Label labelUserName;
 
     @FXML
@@ -88,18 +88,28 @@ public class TreeViewController implements Initializable {
                 logic.setSelectedTest(test); // skickar valt test till logic för vidare användning
 
                 try {
+                    if (user.getUserRole().equals("Student")) {
 
-                    URL paneOneUrl = getClass().getResource("Test.fxml"); 
-                    AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
+                        URL paneOneUrl = getClass().getResource("Test.fxml");
+                        AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
 
-                    BorderPane border = LogInController.getRoot();
-                    border.setCenter(paneOne);
+                        BorderPane border = LogInController.getRoot();
+                        border.setCenter(paneOne);
+
+                    } else {
+
+                        URL paneOneUrl = getClass().getResource("CreateTest.fxml");
+                        AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
+
+                        BorderPane border = LogInController.getRoot();
+                        border.setCenter(paneOne);
+
+                    }
 
                 } catch (IOException ee) {
                     ee.printStackTrace();
                 }
-                
-                
+
             } catch (StringIndexOutOfBoundsException e) {
 
                 Course course = null;
@@ -112,12 +122,23 @@ public class TreeViewController implements Initializable {
                 logic.setSelectedCourse(course); // skickar vald kurs till logic för vidare användning i scenen
 
                 try {
+                    if (user.getUserRole().equals("Student")) {
 
-                    URL paneOneUrl = getClass().getResource("StudSelectedCourse.fxml");
-                    AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
+                        URL paneOneUrl = getClass().getResource("StudSelectedCourse.fxml");
+                        AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
 
-                    BorderPane border = LogInController.getRoot();
-                    border.setCenter(paneOne);
+                        BorderPane border = LogInController.getRoot();
+                        border.setCenter(paneOne);
+
+                    } else {
+
+                        URL paneOneUrl = getClass().getResource("TeacherSelectedCourse.fxml");
+                        AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
+
+                        BorderPane border = LogInController.getRoot();
+                        border.setCenter(paneOne);
+
+                    }
 
                 } catch (IOException ee) {
                     ee.printStackTrace();
@@ -134,7 +155,7 @@ public class TreeViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logic = Logic.getInstance();
-        user = logic.getUser(2);
+        user = logic.getUser(1);
         loadTreeViewMenu();
     }
 
