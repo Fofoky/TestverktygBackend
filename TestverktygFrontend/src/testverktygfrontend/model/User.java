@@ -17,7 +17,7 @@ public class User implements Serializable {
     private StringProperty userRole;
     private StringProperty password;
     private StringProperty email;
-    private StringProperty resultSelectedTest;
+    private StringProperty currentResult;
 
     private List<Course> courses;
 
@@ -80,12 +80,12 @@ public class User implements Serializable {
         this.email = new SimpleStringProperty(email);
     }
 
-    public void setResultOfSelectedTest(String result) {
-        resultSelectedTest = new SimpleStringProperty(result);
+    public void setCurrentResult(String currentResult) {
+        this.currentResult = new SimpleStringProperty(currentResult);
     }
     
-    public String getResultOfSelectedTest(){
-        return resultSelectedTest.get();
+    public String getCurrentResult(){
+        return currentResult.get();
     }
 
 }

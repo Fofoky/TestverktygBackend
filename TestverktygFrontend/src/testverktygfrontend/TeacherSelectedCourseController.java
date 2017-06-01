@@ -79,7 +79,7 @@ public class TeacherSelectedCourseController implements Initializable {
         tableTests.setItems(testList);   
         
         columnStudent.setCellValueFactory(new PropertyValueFactory<>("name"));
-        columnResult.setCellValueFactory(new PropertyValueFactory<>("resultSelectedTest"));
+        columnResult.setCellValueFactory(new PropertyValueFactory<>("currentResult"));
         
         columnStudent.setCellFactory(TextFieldTableCell.forTableColumn());
         columnResult.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -109,7 +109,7 @@ public class TeacherSelectedCourseController implements Initializable {
                         }
                         
                         String result = studentResponse + "/" + logic.getSelectedTest().getQuestions().size();
-                        user.setResultOfSelectedTest(result);
+                        user.setCurrentResult(result);
                         usersWithSelectedTest.add(user);
                     }
                 }
