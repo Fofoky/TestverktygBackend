@@ -39,6 +39,7 @@ public class TreeViewController implements Initializable {
 
     public void loadTreeViewMenu() {
         root = new TreeItem<>("Kurser");
+        root.expandedProperty().set(true);
         try {
             for (int i = 0; i < user.getCourses().size(); i++) {
                 node1 = new TreeItem<>(user.getCourses().get(i).getName());
