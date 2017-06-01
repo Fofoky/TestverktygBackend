@@ -12,8 +12,8 @@ public class TestConverter implements Serializable {
     
     private int idTest; 
     private String title; 
-    private Date startTime; 
-    private Date endTime; 
+    private String startTime; 
+    private String endTime; 
     
     List<Question> questions; 
     
@@ -23,7 +23,7 @@ public class TestConverter implements Serializable {
 public TestConverter(){
 }
 
-public TestConverter(int idTest, String title, Date start, Date stop) {
+public TestConverter(int idTest, String title, String start, String stop) {
     this.idTest = idTest; 
     this.title = title; 
     this.startTime = start; 
@@ -53,19 +53,19 @@ public TestConverter(int idTest, String title, Date start, Date stop) {
         this.title = title;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
