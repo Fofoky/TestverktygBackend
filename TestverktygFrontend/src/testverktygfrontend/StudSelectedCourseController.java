@@ -45,9 +45,6 @@ public class StudSelectedCourseController implements Initializable {
         selectedCourse = logic.getSelectedCourse();
         labelCourse.setText(selectedCourse.getName());
         testList = FXCollections.observableArrayList();
-        LocalDateTime time = LocalDateTime.now();
-        System.out.println(time.toString().substring(0, 16));
-        
         
         selectedCourse.getTests().forEach((a) -> {
             testList.add(a);

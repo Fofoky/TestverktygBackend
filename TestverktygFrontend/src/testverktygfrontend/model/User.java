@@ -13,10 +13,11 @@ import javafx.beans.property.StringProperty;
 public class User implements Serializable {
 
     private IntegerProperty userId;
-    private StringProperty Name;
+    private StringProperty name;
     private StringProperty userRole;
     private StringProperty password;
     private StringProperty email;
+    private StringProperty currentResult;
 
     private List<Course> courses;
 
@@ -25,7 +26,7 @@ public class User implements Serializable {
 
     public User(int userId, String Name, String userRole, String password, String email) {
         this.userId.set(userId);
-        this.Name.set(Name);
+        this.name.set(Name);
         this.userRole.set(userRole);
         this.password.set(password);
         this.email.set(email);
@@ -48,11 +49,11 @@ public class User implements Serializable {
     }
 
     public String getName() {
-        return Name.get();
+        return name.get();
     }
 
     public void setName(String Name) {
-        this.Name = new SimpleStringProperty(Name);
+        this.name = new SimpleStringProperty(Name);
     }
 
     public String getUserRole() {
@@ -77,6 +78,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = new SimpleStringProperty(email);
+    }
+
+    public void setCurrentResult(String currentResult) {
+        this.currentResult = new SimpleStringProperty(currentResult);
+    }
+    
+    public String getCurrentResult(){
+        return currentResult.get();
     }
 
 }
