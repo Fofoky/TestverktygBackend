@@ -30,8 +30,7 @@
                         <TableColumn fx:id="columnStatus" prefWidth="107.0" text="Status" />
                     </columns>
                   </TableView>
-                  <Button layoutX="357.0" layoutY="366.0" mnemonicParsing="false" text="Gå till prov" />
-                  <Text layoutX="50.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Info till programmerare: Om provet är avslutat kommer user till facit, annars till sidan för att göra provet" wrappingWidth="294.861328125" />
+                  <Button fx:id="buttonToTest" layoutX="357.0" layoutY="366.0" mnemonicParsing="false" text="Gå till prov" />
                </children>
             </Pane>
          </center>

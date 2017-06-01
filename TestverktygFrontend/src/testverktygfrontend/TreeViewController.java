@@ -122,7 +122,7 @@ public class TreeViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logic = Logic.getInstance();
-        user = logic.getUser(1);
+        user = logic.getUser(2);
         loadTreeViewMenu();
     }
 
