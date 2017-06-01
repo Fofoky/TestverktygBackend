@@ -4,6 +4,7 @@ import java.util.List;
 import testverktygfrontend.dbconnector.DBconnector;
 import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Question;
+import testverktygfrontend.model.Response;
 import testverktygfrontend.model.Test;
 import testverktygfrontend.model.User;
 import testverktygfrontend.model.UserConverter;
@@ -94,6 +95,13 @@ public class Logic {
     public void addTest(Test test, int courseId){
         DBconnector db = new DBconnector();
         db.addTest(test, selectedUser.getUserId(), courseId);  
+    }
+    
+    public void addResponse(String response, int courseId, int testId, int questionId) {
+        DBconnector db = new DBconnector();
+        Response resp = new Response();
+        resp.setResponse(response);
+        db.addResponse(resp, selectedUser.getUserId(), courseId, testId, questionId);
     }
 
 }
