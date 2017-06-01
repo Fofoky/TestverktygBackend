@@ -87,11 +87,12 @@ public class TeacherSelectedCourseController implements Initializable {
         tableStudentTestResult.setItems(usersWithSelectedTest);
         
         tableTests.getSelectionModel().selectedItemProperty().addListener((property, oldValue, newValue) -> {
+            labelSelectedTest.setText(newValue.getTitle());
             usersWithSelectedTest.clear();
             logic.setSelectedTest(newValue);
 
-            int studentResponse = 0;
             for(User user : logic.getUsers()){
+                int studentResponse = 0;
                 for(Course course : user.getCourses()){
                     if(course.getCourseId() == logic.getSelectedCourse().getCourseId() && user.getUserRole().equals("Student")){
                         
@@ -106,6 +107,7 @@ public class TeacherSelectedCourseController implements Initializable {
                                 }
                             }
                         }
+                        
                         String result = studentResponse + "/" + logic.getSelectedTest().getQuestions().size();
                         user.setResultOfSelectedTest(result);
                         usersWithSelectedTest.add(user);
