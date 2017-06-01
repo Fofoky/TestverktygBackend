@@ -109,5 +109,13 @@ public class Logic {
         qOption.setQuestionOption(questionOption);
         return db.addQuestionOption(qOption, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
     }
+    
+    public void updateQuestionOption(String newQuestionOption, int questionOptionId, int questionId){
+        DBconnector db = new DBconnector();
+        QuestionOption qO = new QuestionOption();
+        qO.setQuestionOption(newQuestionOption);
+        db.updateQuestionOption(qO, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId, questionOptionId);
+        
+    }
 
 }
