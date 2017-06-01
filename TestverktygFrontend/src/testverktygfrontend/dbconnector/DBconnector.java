@@ -13,6 +13,7 @@ import testverktygfrontend.model.Question;
 import testverktygfrontend.model.QuestionOption;
 import testverktygfrontend.model.Response;
 import testverktygfrontend.model.Test;
+import testverktygfrontend.model.TestConverter;
 import testverktygfrontend.model.User;
 import testverktygfrontend.model.UserConverter;
 
@@ -20,8 +21,8 @@ public class DBconnector {
 
     Client client;
 
-     //private String url = "http://localhost:8080/testverktygbackend/webapi/users/"; 
-   private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
+    private String url = "http://localhost:8080/testverktygbackend/webapi/users/";
+    //private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
 
     public DBconnector() {
         client = ClientBuilder.newClient();
@@ -63,10 +64,18 @@ public class DBconnector {
 
     private List<Test> getTests(int courseId, int userId) {
         String target = url + userId + "/courses/" + courseId + "/tests";
-        List<Test> tests = client.target(target)
+
+        ArrayList<Test> tests = new ArrayList();
+
+        List<TestConverter> testsConverter = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
-                .get(new GenericType<List<Test>>() {
+                .get(new GenericType<List<TestConverter>>() {
                 });
+
+        for (TestConverter tc : testsConverter) {
+        
+            tests.add(testConverterToTest(tc));
+        }
 
         for (Test test : tests) {
             test.setQuestions(getQuestions(userId, courseId, test.getIdTest()));
@@ -124,14 +133,16 @@ public class DBconnector {
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(question), Question.class);
     }
-    
+
     public void addTest(Test test, int userId, int courseId) {
         String target = url + userId + "/courses/" + courseId + "/tests";
         
+        TestConverter newTest = testToTestConverter(test);
+
         client.target(target)
                 .request(MediaType.APPLICATION_JSON)
-                .post(Entity.json(test), Test.class);
-        
+                .post(Entity.json(newTest), Test.class);
+
     }
     
     public void deleteQuestion(int questionId, int userId, int courseId, int testId){
@@ -176,6 +187,29 @@ public class DBconnector {
         newUser.setUserRole(oldUser.getUserRole());
 
         return newUser;
+    }
+
+    private Test testConverterToTest(TestConverter oldTest) {
+        Test newTest = new Test();
+
+        newTest.setIdTest(oldTest.getIdTest());
+        newTest.setTitle(oldTest.getTitle());
+        newTest.setCourse(oldTest.getCourse());
+        newTest.setEndTime(oldTest.getEndTime());
+        newTest.setStartTime(oldTest.getStartTime());
+        
+        return newTest;
+    }
+    
+    private TestConverter testToTestConverter(Test oldTest) {
+        TestConverter newTest = new TestConverter();
+
+        newTest.setIdTest(oldTest.getIdTest());
+        newTest.setCourse(oldTest.getCourse());
+        newTest.setEndTime(oldTest.getEndTime());
+        newTest.setStartTime(oldTest.getStartTime());
+
+        return newTest;
     }
 
 }
