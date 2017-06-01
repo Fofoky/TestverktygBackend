@@ -162,6 +162,14 @@ public class DBconnector {
         
         return qO;
     }
+    
+    public void updateQuestionOption(QuestionOption qO, int userId, int courseId, int testId, int questionId, int questionOptionId){
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption/" + questionOptionId;
+        
+        client.target(target)
+                .request()
+                .put(Entity.entity(qO, MediaType.APPLICATION_JSON));
+    }
 
     private UserConverter userToUserConverter(User oldUser) {
         UserConverter newUser = new UserConverter();
