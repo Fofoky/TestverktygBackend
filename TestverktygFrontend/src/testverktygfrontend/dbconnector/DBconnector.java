@@ -133,6 +133,16 @@ public class DBconnector {
                 .post(Entity.json(test), Test.class);
         
     }
+    
+    
+    public void updateQuestion(Question question, int questionId, int testId, int userId, int courseId){
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId;
+        question.setQuestionId(questionId);
+                
+                     client.target(target)
+                    .request(MediaType.APPLICATION_JSON)
+                    .put(Entity.entity(question, MediaType.APPLICATION_JSON));
+    }
 
     private UserConverter userToUserConverter(User oldUser) {
         UserConverter newUser = new UserConverter();
