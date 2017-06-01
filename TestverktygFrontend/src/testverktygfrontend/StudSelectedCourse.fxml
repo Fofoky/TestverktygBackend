@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,8 +8,35 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="scene2" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.StudSelectedCourseController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.StudSelectedCourseController">
    <children>
-      <Text fill="RED" layoutX="194.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Här är din kurs!" />
+      <BorderPane focusTraversable="true" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <VBox layoutX="54.0" layoutY="69.0">
+               <children>
+                  <Text layoutX="54.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kurssida " />
+                  <Label fx:id="labelCourse" layoutX="54.0" layoutY="92.0" text="Label: namn på kurs" />
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <Pane prefHeight="466.0" prefWidth="447.0">
+               <children>
+                  <TableView fx:id="tableTests" layoutX="-1.0" layoutY="39.0" prefHeight="300.0" prefWidth="442.0" BorderPane.alignment="CENTER">
+                    <columns>
+                      <TableColumn fx:id="columnTest" prefWidth="89.0" text="Prov" />
+                      <TableColumn fx:id="columnStart" prefWidth="95.0" text="Starttid" />
+                        <TableColumn fx:id="columnStop" prefWidth="111.0" text="Sluttid" />
+                        <TableColumn fx:id="columnStatus" prefWidth="107.0" text="Status" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="buttonToTest" layoutX="357.0" layoutY="366.0" mnemonicParsing="false" text="Gå till prov" />
+               </children>
+            </Pane>
+         </center>
+         <padding>
+            <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+         </padding>
+      </BorderPane>
    </children>
 </AnchorPane>

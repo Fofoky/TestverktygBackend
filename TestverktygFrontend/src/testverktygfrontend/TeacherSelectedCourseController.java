@@ -16,25 +16,34 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import testverktygfrontend.model.Test;
 
-
-public class StudSelectedCourseController implements Initializable {
+/**
+ * FXML Controller class
+ *
+ * @author annafock
+ */
+public class TeacherSelectedCourseController implements Initializable {
     
     @FXML
     private Label labelCourse;
     
     @FXML
-    private TableView<Test> tableTests;
+    private TableView<Test> tableTeacherTests, tableStudentTestResult;
     
     @FXML
-    private TableColumn<Test, String> columnTest, columnStatus;
+    private TableColumn<Test, String> columnTest, columnStatus, columnStudent, columnResult;
     
     @FXML
     private TableColumn<Test, Date> columnStart, columnStop; //Om fel, dubbelkolla att rätt import gjorts till Date
     
     @FXML
-    private Button buttonToTest;
+    private Label labelSelectedTest;
     
-    
+    @FXML
+    private Button buttonCreateTest, buttonDeleteTest, buttonEditTest;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

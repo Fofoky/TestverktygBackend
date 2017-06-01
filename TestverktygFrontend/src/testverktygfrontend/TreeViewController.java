@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
@@ -25,6 +26,9 @@ public class TreeViewController implements Initializable {
 
     private Logic logic;
     private User user;
+    
+    @FXML 
+    private Label labelUserName;
 
     @FXML
     private TreeView treeViewMenu;
