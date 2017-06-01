@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  *
@@ -11,8 +15,8 @@ import java.util.List;
  */
 public class Test implements Serializable {
     
-    private int idTest; 
-    private String title; 
+    private IntegerProperty idTest; 
+    private StringProperty title; 
     private Date startTime; 
     private Date endTime; 
     
@@ -25,8 +29,8 @@ public Test(){
 }
 
 public Test(int idTest, String title, Date start, Date stop) {
-    this.idTest = idTest; 
-    this.title = title; 
+    this.idTest = new SimpleIntegerProperty(idTest); 
+    this.title = new SimpleStringProperty(title); 
     this.startTime = start; 
     this.endTime = stop; 
     this.questions = new ArrayList(); 
@@ -39,19 +43,19 @@ public Test(int idTest, String title, Date start, Date stop) {
 
 
     public int getIdTest() {
-        return idTest;
+        return idTest.get();
     }
 
     public void setIdTest(int idTest) {
-        this.idTest = idTest;
+        this.idTest = new SimpleIntegerProperty(idTest);
     }
 
     public String getTitle() {
-        return title;
+        return title.get();
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = new SimpleStringProperty(title);
     }
 
     public Date getStartTime() {
@@ -77,9 +81,11 @@ public Test(int idTest, String title, Date start, Date stop) {
     public void setCourse(Course course) {
         this.course = course;
     }
-    
-    public String toString(){
-        return title;
+
+    public Course getCourse() {
+        return course;
     }
+    
+    
     
 }

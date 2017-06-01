@@ -14,10 +14,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import testverktygfrontend.logic.Logic;
+import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Test;
 
 
 public class StudSelectedCourseController implements Initializable {
+    
+    private Logic logic;
+    private Course selectedCourse;
     
     @FXML
     private Label labelCourse;
@@ -38,6 +43,9 @@ public class StudSelectedCourseController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        logic = Logic.getInstance();
+        selectedCourse = logic.getSelectedCourse();
+        labelCourse.setText(selectedCourse.getName());
     }    
     
 }
