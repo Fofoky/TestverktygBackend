@@ -21,8 +21,8 @@ public class DBconnector {
 
     Client client;
 
-    private String url = "http://localhost:8080/testverktygbackend/webapi/users/";
-    //private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
+    //private String url = "http://localhost:8080/testverktygbackend/webapi/users/";
+    private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
 
     public DBconnector() {
         client = ClientBuilder.newClient();
@@ -161,6 +161,14 @@ public class DBconnector {
                 .post(Entity.json(qOption), QuestionOption.class);
         
         return qO;
+    }
+    
+    public void updateQuestionOption(QuestionOption qO, int userId, int courseId, int testId, int questionId, int questionOptionId){
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption/" + questionOptionId;
+        
+        client.target(target)
+                .request()
+                .put(Entity.entity(qO, MediaType.APPLICATION_JSON));
     }
 
     private UserConverter userToUserConverter(User oldUser) {
