@@ -50,6 +50,7 @@ public class TreeViewController implements Initializable {
                 root.getChildren().add(node1);
             }
         } catch (NullPointerException e) {
+            
             // DB is empty
         }
 

@@ -30,12 +30,12 @@ public class DBconnector {
 
     public List<User> getUsers() {
         ArrayList<User> users = new ArrayList();
-
+        
         List<UserConverter> userConverter = client.target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<UserConverter>>() {
                 });
-
+        
         for (UserConverter user : userConverter) {
 
             users.add(userConverterToUser(user));
@@ -44,7 +44,7 @@ public class DBconnector {
         for (User user : users) {
             user.setCourses(getCourse(user.getUserId()));
         }
-
+        
         return users;
     }
 
@@ -143,6 +143,24 @@ public class DBconnector {
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(newTest), Test.class);
 
+    }
+    
+    public void deleteQuestion(int questionId, int userId, int courseId, int testId){
+       String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId;
+       
+       client.target(target)
+               .request(MediaType.APPLICATION_JSON)
+               .delete();
+    }
+    
+    public QuestionOption addQuestionOption(QuestionOption qOption, int userId, int courseId, int testId, int questionId){
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption";
+        
+        QuestionOption qO = client.target(target)
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(qOption), QuestionOption.class);
+        
+        return qO;
     }
 
     private UserConverter userToUserConverter(User oldUser) {

@@ -4,6 +4,7 @@ import java.util.List;
 import testverktygfrontend.dbconnector.DBconnector;
 import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Question;
+import testverktygfrontend.model.QuestionOption;
 import testverktygfrontend.model.Test;
 import testverktygfrontend.model.User;
 import testverktygfrontend.model.UserConverter;
@@ -27,6 +28,7 @@ public class Logic {
     }
 
     public void updateList() {
+        
         DBconnector db = new DBconnector();
         userList = db.getUsers();
     }
@@ -94,6 +96,18 @@ public class Logic {
     public void addTest(Test test, int courseId){
         DBconnector db = new DBconnector();
         db.addTest(test, selectedUser.getUserId(), courseId);  
+    }
+    
+    public void deleteQuestion(int questionId){
+        DBconnector db = new DBconnector();
+        db.deleteQuestion(questionId, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest());
+    }
+    
+    public QuestionOption addQuestionOption(String questionOption, int questionId){
+        DBconnector db = new DBconnector();
+        QuestionOption qOption = new QuestionOption();
+        qOption.setQuestionOption(questionOption);
+        return db.addQuestionOption(qOption, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
     }
 
 }
