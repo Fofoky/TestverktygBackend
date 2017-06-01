@@ -1,10 +1,13 @@
 package testverktygfrontend;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +15,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import testverktygfrontend.logic.Logic;
 import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Question;
@@ -52,6 +57,25 @@ public class TeacherSelectedCourseController implements Initializable {
     @FXML
     private Button buttonCreateTest, buttonDeleteTest, buttonEditTest;
 
+    
+    @FXML
+    private void createTestButton(ActionEvent event) throws IOException {
+        
+            try {
+                    URL paneOneUrl = getClass().getResource("CreateTest.fxml");
+                    AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
+
+                    BorderPane border = LogInController.getRoot();
+                    border.setCenter(paneOne);
+
+                } catch (IOException ee) {
+                    ee.printStackTrace();
+                }
+
+    }
+    
+    
+    
     /**
      * Initializes the controller class.
      */

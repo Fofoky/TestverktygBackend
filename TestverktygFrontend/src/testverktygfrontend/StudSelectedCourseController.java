@@ -1,8 +1,6 @@
 package testverktygfrontend;
 
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,7 +50,6 @@ public class StudSelectedCourseController implements Initializable {
         
         
         columnTest.setCellValueFactory(new PropertyValueFactory<>("title"));
-   //     columnStatus.setCellValueFactory(new PropertyValueFactory<>("title"));
         columnStart.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         columnStop.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         
