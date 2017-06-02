@@ -3,6 +3,7 @@ package testverktygfrontend;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -43,11 +44,17 @@ public class StudSelectedCourseController implements Initializable {
         //Spara markerat test
         Test selectedTest = tableTests.getSelectionModel().getSelectedItem();
         
+        try{
+        
         //Om testets status inte är "klart" - byt scen till sidan för att göra testet
         if (!"Klart".equals(selectedTest.getCurrentStatus())){
             URL test = getClass().getResource("Test.fxml");
             LogInController.getRoot().setCenter(FXMLLoader.load(test));      
         }    
+    }catch(NullPointerException ex){
+            System.out.println("Inget test markerat");
+    }
+    
     }
 
     public void setColumnStatus(Test test) {
@@ -101,6 +108,9 @@ public class StudSelectedCourseController implements Initializable {
 
         tableTests.setItems(testList);
 
+        //Gör buttonToTest aktiv när en rad är vald 
+        buttonToTest.disableProperty().bind(
+                Bindings.isEmpty(tableTests.getSelectionModel().getSelectedItems()));
     }
 
 }
