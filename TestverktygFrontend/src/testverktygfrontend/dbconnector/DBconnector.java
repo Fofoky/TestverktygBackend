@@ -24,7 +24,7 @@ public class DBconnector {
     Client client;
 
     private String url = "http://localhost:8080/testverktygbackend/webapi/users/";
-    //private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
+   // private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
 
     public DBconnector() {
         client = ClientBuilder.newClient();
