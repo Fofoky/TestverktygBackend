@@ -148,6 +148,7 @@ public class TreeViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         logic = Logic.getInstance();
         user = logic.getSelectedUser();
+        labelUserName.setText("Inloggad som " + user.getEmail());
         loadTreeViewMenu();
     }
 
