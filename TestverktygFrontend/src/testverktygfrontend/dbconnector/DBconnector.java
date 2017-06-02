@@ -163,7 +163,18 @@ public class DBconnector {
         return qO;
     }
     
-    public void updateQuestionOption(QuestionOption qO, int userId, int courseId, int testId, int questionId, int questionOptionId){
+    // Farhads code starts here  
+    
+    public Response addResponse(Response response, int userId, int courseId, int testId, int questionId){
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/responses";
+            Response r = client.target(target)
+                        .request(MediaType.APPLICATION_JSON)
+                        .post(Entity.json(response), Response.class); 
+                        
+                        return r;        
+    }
+    
+      public void updateQuestionOption(QuestionOption qO, int userId, int courseId, int testId, int questionId, int questionOptionId){
         String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption/" + questionOptionId;
         
         client.target(target)
