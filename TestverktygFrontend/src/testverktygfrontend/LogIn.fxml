@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,22 +8,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="127.0" prefWidth="331.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.LogInController">
+<AnchorPane id="AnchorPane" prefHeight="508.0" prefWidth="775.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.LogInController">
    <children>
-      <BorderPane prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <VBox alignment="CENTER" fillWidth="false" layoutX="239.0" layoutY="178.0" prefHeight="50.0" prefWidth="170.0" spacing="3.0" BorderPane.alignment="CENTER">
-               <children>
-                  <TextField fx:id="textFieldUserName" alignment="CENTER" promptText="Username" />
-                  <PasswordField fx:id="textFieldPassword" alignment="CENTER" disable="true" promptText="Password" />
-                  <Pane>
-                     <children>
-                        <Button fx:id="btnLogIn" disable="true" mnemonicParsing="false" onAction="#handleLogInButton" text="Logga in" />
-                     </children>
-                  </Pane>
-               </children>
-            </VBox>
-         </center>
-      </BorderPane>
+      <TextField fx:id="textFieldUserName" alignment="CENTER" layoutX="400.0" layoutY="219.0" promptText="Username" />
+      <PasswordField fx:id="textFieldPassword" alignment="CENTER" disable="true" layoutX="400.0" layoutY="178.0" promptText="Password" />
+      <Button fx:id="btnLogIn" disable="true" layoutX="444.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleLogInButton" text="Logga in" />
+      <ImageView fx:id="mainpage" fitHeight="530.0" fitWidth="842.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@login.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
