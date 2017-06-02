@@ -24,10 +24,10 @@
                <children>
                   <TableView fx:id="tableTests" layoutX="-1.0" layoutY="39.0" prefHeight="300.0" prefWidth="442.0" BorderPane.alignment="CENTER">
                     <columns>
-                      <TableColumn fx:id="columnTest" prefWidth="89.0" text="Prov" />
-                      <TableColumn fx:id="columnStart" prefWidth="95.0" text="Starttid" />
-                        <TableColumn fx:id="columnStop" prefWidth="111.0" text="Sluttid" />
-                        <TableColumn fx:id="columnStatus" prefWidth="107.0" text="Status" />
+                      <TableColumn fx:id="columnTest" prefWidth="90.0" text="Prov" />
+                      <TableColumn fx:id="columnStart" prefWidth="130.0" text="Starttid" />
+                        <TableColumn fx:id="columnStop" prefWidth="130.0" text="Sluttid" />
+                        <TableColumn fx:id="columnStatus" prefWidth="90.0" text="Status" />
                     </columns>
                   </TableView>
                   <Button fx:id="buttonToTest" disable="true" layoutX="357.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleButtonToTest" text="Gå till prov" />
