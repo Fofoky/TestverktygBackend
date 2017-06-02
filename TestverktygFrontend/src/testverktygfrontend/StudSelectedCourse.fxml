@@ -30,7 +30,7 @@
                         <TableColumn fx:id="columnStatus" prefWidth="107.0" text="Status" />
                     </columns>
                   </TableView>
-                  <Button fx:id="buttonToTest" layoutX="357.0" layoutY="366.0" mnemonicParsing="false" text="Gå till prov" />
+                  <Button fx:id="buttonToTest" disable="true" layoutX="357.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleButtonToTest" text="Gå till prov" />
                </children>
             </Pane>
          </center>
