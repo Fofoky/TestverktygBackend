@@ -60,11 +60,29 @@ public class CreateTestController implements Initializable {
     private void saveTest(ActionEvent event) throws IOException {
         try {
             Test test = new Test();
-            test.setCourse(logic.getSelectedCourse());
+            //test.setCourse(logic.getSelectedCourse());
             test.setTitle(textFieldTestName.getText().trim());
             test = logic.addTest(test);
+
+            for (TemporaryQuestionCreate temp : questionList) {
+                Question q = new Question();
+                q = logic.addQuestion(temp.getQuestion(), test.getIdTest());
+                boolean b = true;
+                logic.addQuestionOption(temp.getOption1(), b, q.getQuestionId());
+                b = false;
+                logic.addQuestionOption(temp.getOption2(), b, q.getQuestionId());
+                logic.addQuestionOption(temp.getOption3(), b, q.getQuestionId());
+                logic.addQuestionOption(temp.getOption4(), b, q.getQuestionId());
+            }
+
+            textFieldTestName.clear();
+            textAreaQuestion.clear();
+            textFieldOpt1.clear();
+            textFieldOpt2.clear();
+            textFieldOpt3.clear();
+            textFieldOpt4.clear();
+            questionList.clear();
             
-            System.out.println(test.getIdTest());
 
         } catch (NullPointerException e) {
 
@@ -84,6 +102,11 @@ public class CreateTestController implements Initializable {
         newQuestion.setOption4(textFieldOpt4.getText());
 
         questionList.add(newQuestion);
+        textAreaQuestion.clear();
+        textFieldOpt1.clear();
+        textFieldOpt2.clear();
+        textFieldOpt3.clear();
+        textFieldOpt4.clear();
 
     }
 
@@ -115,11 +138,10 @@ public class CreateTestController implements Initializable {
         tableCreateTest.setItems(questionList);
 
     }
-    
-    
-    private void buttonBinds(){
-        
-                BooleanBinding bb = new BooleanBinding() { // bindar button saveTest med testname textField
+
+    private void buttonBinds() {
+
+        BooleanBinding bb = new BooleanBinding() { // bindar button saveTest med testname textField
             {
                 super.bind(textFieldTestName.textProperty());
             }
@@ -130,8 +152,7 @@ public class CreateTestController implements Initializable {
             }
         };
         buttonSaveTest.disableProperty().bind(bb);
-        
-        
+
         BooleanBinding b = new BooleanBinding() { // bindar button addQuestion med samtliga textfiels
             {
                 super.bind(textAreaQuestion.textProperty(),
@@ -143,15 +164,15 @@ public class CreateTestController implements Initializable {
 
             @Override
             protected boolean computeValue() {
-                return (textAreaQuestion.getText().isEmpty() 
-                        || textFieldOpt1.getText().isEmpty() 
-                        || textFieldOpt2.getText().isEmpty() 
-                        || textFieldOpt3.getText().isEmpty() 
+                return (textAreaQuestion.getText().isEmpty()
+                        || textFieldOpt1.getText().isEmpty()
+                        || textFieldOpt2.getText().isEmpty()
+                        || textFieldOpt3.getText().isEmpty()
                         || textFieldOpt4.getText().isEmpty());
             }
         };
         buttonAddQuestion.disableProperty().bind(b);
-        
+
     }
 
 }
