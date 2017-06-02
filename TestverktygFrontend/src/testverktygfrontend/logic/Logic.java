@@ -16,6 +16,7 @@ public class Logic {
     private User selectedUser;
     private Course selectedCourse;
     private Test selectedTest;
+    private List<Question> questionList = null; 
 
     private Logic() {
     }
