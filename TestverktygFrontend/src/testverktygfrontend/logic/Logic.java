@@ -117,5 +117,15 @@ public class Logic {
         db.updateQuestionOption(qO, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId, questionOptionId);
         
     }
+    
+    //Farhads code starts here
+    
+    public void updateQuestion(String question, int questionId) {
+
+            DBconnector db = new DBconnector();
+            Question que = new Question();
+            que.setQuestion(question);
+            db.updateQuestion(que, questionId, selectedTest.getIdTest(), selectedUser.getUserId(), selectedCourse.getCourseId());
+    }
 
 }
