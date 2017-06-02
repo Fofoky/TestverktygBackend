@@ -17,6 +17,7 @@ public class Logic {
     private User selectedUser;
     private Course selectedCourse;
     private Test selectedTest;
+    private List<Question> questionList = null; 
 
     private Logic() {
     }
@@ -94,9 +95,12 @@ public class Logic {
 
     }
     
-    public void addTest(Test test, int courseId){
+    public Test addTest(Test test){
         DBconnector db = new DBconnector();
-        db.addTest(test, selectedUser.getUserId(), courseId);  
+        test = db.addTest(test, selectedUser.getUserId(), selectedCourse.getCourseId());  
+        
+        
+        return test;
     }
     
     public void deleteQuestion(int questionId){

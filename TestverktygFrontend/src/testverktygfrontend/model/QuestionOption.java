@@ -1,11 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testverktygfrontend.model;
 
 import java.io.Serializable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  *
@@ -13,42 +14,42 @@ import java.io.Serializable;
  */
 public class QuestionOption implements Serializable{
     
-    private int questionOptionId;
-    private boolean trueFalse;
-    private String questionOption;
+    private IntegerProperty questionOptionId;
+    private BooleanProperty trueFalse;
+    private StringProperty questionOption;
     
     private Question question;
     
     public QuestionOption(){}
     
     public QuestionOption(int questionOptionId, boolean trueFalse, String questionOption){
-        this.questionOptionId = questionOptionId;
-        this.trueFalse = trueFalse;
-        this.questionOption = questionOption;
+        this.questionOptionId = new SimpleIntegerProperty(questionOptionId);
+        this.trueFalse = new SimpleBooleanProperty(trueFalse);
+        this.questionOption = new SimpleStringProperty(questionOption);
     }
 
     public int getQuestionOptionId() {
-        return questionOptionId;
+        return questionOptionId.get();
     }
 
     public void setQuestionOptionId(int questionOptionId) {
-        this.questionOptionId = questionOptionId;
+        this.questionOptionId = new SimpleIntegerProperty(questionOptionId);
     }
 
     public boolean isTrueFalse() {
-        return trueFalse;
+        return trueFalse.get();
     }
 
     public void setTrueFalse(boolean trueFalse) {
-        this.trueFalse = trueFalse;
+        this.trueFalse = new SimpleBooleanProperty(trueFalse);
     }
 
     public String getQuestionOption() {
-        return questionOption;
+        return questionOption.get();
     }
 
     public void setQuestionOption(String questionOption) {
-        this.questionOption = questionOption;
+        this.questionOption = new SimpleStringProperty(questionOption);
     }
 
     public Question getQuestion() {
