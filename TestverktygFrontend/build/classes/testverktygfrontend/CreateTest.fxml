@@ -45,7 +45,7 @@
                                  <children>
                                     <TextField fx:id="textFieldOpt2" promptText="Alt 2" />
                                     <TextField fx:id="textFieldOpt4" promptText="Alt 4" />
-                                    <Button fx:id="buttonAddQuestion" disable="true" mnemonicParsing="false" onAction="#addQuestion" text="Lägg till fråga" />
+                                    <Button fx:id="buttonAddQuestion" mnemonicParsing="false" onAction="#addQuestion" text="Lägg till fråga" />
                                     <Button fx:id="buttonSaveTest" disable="true" mnemonicParsing="false" onAction="#saveTest" text="Spara test" />
                                  </children>
                               </VBox>

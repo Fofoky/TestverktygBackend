@@ -2,6 +2,10 @@ package testverktygfrontend.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  *
@@ -9,8 +13,8 @@ import java.util.List;
  */
 public class Question implements Serializable {
     
-    private int questionId;
-    private String question;
+    private IntegerProperty questionId;
+    private StringProperty question;
     
     private Test test;
     private List<Response> responses;
@@ -20,24 +24,24 @@ public class Question implements Serializable {
     public Question(){}
     
     public Question(int questionId, String question){
-        this.questionId = questionId;
-        this.question = question;
+        this.questionId = new SimpleIntegerProperty(questionId);
+        this.question = new SimpleStringProperty(question);
     }
 
     public int getQuestionId() {
-        return questionId;
+        return questionId.get();
     }
 
     public void setQuestionId(int questionId) {
-        this.questionId = questionId;
+        this.questionId = new SimpleIntegerProperty(questionId);
     }
 
     public String getQuestion() {
-        return question;
+        return question.get();
     }
 
     public void setQuestion(String question) {
-        this.question = question;
+        this.question = new SimpleStringProperty(question);
     }
 
     public Test getTest() {
