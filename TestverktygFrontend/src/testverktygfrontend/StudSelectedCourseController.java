@@ -1,12 +1,13 @@
 package testverktygfrontend;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,9 +17,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import testverktygfrontend.logic.Logic;
 import testverktygfrontend.model.Course;
-import testverktygfrontend.model.Question;
-import testverktygfrontend.model.QuestionOption;
-import testverktygfrontend.model.Response;
 import testverktygfrontend.model.Test;
 
 public class StudSelectedCourseController implements Initializable {
@@ -39,6 +37,18 @@ public class StudSelectedCourseController implements Initializable {
 
     @FXML
     private Button buttonToTest;
+    
+    @FXML
+    public void handleButtonToTest (ActionEvent event) throws IOException{
+        //Spara markerat test
+        Test selectedTest = tableTests.getSelectionModel().getSelectedItem();
+        
+        //Om testets status inte är "klart" - byt scen till sidan för att göra testet
+        if (!"Klart".equals(selectedTest.getCurrentStatus())){
+            URL test = getClass().getResource("Test.fxml");
+            LogInController.getRoot().setCenter(FXMLLoader.load(test));      
+        }    
+    }
 
     public void setColumnStatus(Test test) {
 
@@ -77,7 +87,6 @@ public class StudSelectedCourseController implements Initializable {
         selectedCourse.getTests().forEach((a) -> {
             setColumnStatus(a);
             testList.add(a);
-
         });
 
         columnTest.setCellValueFactory(new PropertyValueFactory<>("title"));
