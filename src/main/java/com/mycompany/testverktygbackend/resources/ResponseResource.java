@@ -28,7 +28,7 @@ public class ResponseResource {
 
 @GET    
 public List<Response> getAllResponse(@PathParam("questionId") int questionId) {
-    return rr.getAllResponses();
+    return rr.getAllResponses(questionId);
 }
 
 @POST 
