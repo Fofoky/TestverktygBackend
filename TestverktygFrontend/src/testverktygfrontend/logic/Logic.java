@@ -83,22 +83,20 @@ public class Logic {
         db.addUser(user);
     }
 
-    public void addQuestion(String question, int testId, int courseId) {
+    public Question addQuestion(String question, int testId) {
 
         DBconnector db = new DBconnector();
-
         Question q = new Question();
-
         q.setQuestion(question);
 
-        db.addQuestion(q, testId, selectedUser.getUserId(), courseId);
+        return db.addQuestion(q, testId, selectedUser.getUserId(), selectedCourse.getCourseId());
 
     }
     
     public Test addTest(Test test){
         DBconnector db = new DBconnector();
         test = db.addTest(test, selectedUser.getUserId(), selectedCourse.getCourseId());  
-        
+        setSelectedTest(test);
         
         return test;
     }
@@ -108,12 +106,14 @@ public class Logic {
         db.deleteQuestion(questionId, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest());
     }
     
-    public QuestionOption addQuestionOption(String questionOption, int questionId){
+    public void addQuestionOption(String questionOption, Boolean trueFalse, int questionId){
         DBconnector db = new DBconnector();
         QuestionOption qOption = new QuestionOption();
         qOption.setQuestionOption(questionOption);
-        return db.addQuestionOption(qOption, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
-    }
+        qOption.setTrueFalse(trueFalse);
+        
+        db.addQuestionOption(qOption, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
+    } 
     
     // Farhads code starts here 
     
