@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="testverktygfrontend.CreateTestController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.CreateTestController">
    <children>
       <BorderPane focusTraversable="true" prefHeight="500.0" prefWidth="500.0">
          <center>
@@ -46,8 +45,8 @@
                                  <children>
                                     <TextField fx:id="textFieldOpt2" promptText="Alt 2" />
                                     <TextField fx:id="textFieldOpt4" promptText="Alt 4" />
-                                    <Button fx:id="buttonAddQuestion" disable="true" mnemonicParsing="false" text="Lägg till fråga" />
-                                    <Button fx:id="buttonSaveTest" mnemonicParsing="false" text="Spara test" />
+                                    <Button fx:id="buttonAddQuestion" mnemonicParsing="false" onAction="#addQuestion" text="Lägg till fråga" />
+                                    <Button fx:id="buttonSaveTest" disable="true" mnemonicParsing="false" onAction="#saveTest" text="Spara test" />
                                  </children>
                               </VBox>
                            </children>
