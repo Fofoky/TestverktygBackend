@@ -39,17 +39,21 @@ public class TreeViewController implements Initializable {
 
     public void loadTreeViewMenu() {
         root = new TreeItem<>("Kurser");
+        root.expandedProperty().set(true);
         try {
             for (int i = 0; i < user.getCourses().size(); i++) {
                 node1 = new TreeItem<>(user.getCourses().get(i).getName());
-                for (int j = 0; j < user.getCourses().get(i).getTests().size(); j++) {
-                    subNode1 = new TreeItem<>("Test: " + user.getCourses().get(i).getTests().get(j).getTitle());
-                    node1.getChildren().add(subNode1);
+                if (user.getUserRole().equals("Student")) {
+                    for (int j = 0; j < user.getCourses().get(i).getTests().size(); j++) {
+                        subNode1 = new TreeItem<>("Test: " + user.getCourses().get(i).getTests().get(j).getTitle());
+                        node1.getChildren().add(subNode1);
+                    }
                 }
 
                 root.getChildren().add(node1);
             }
         } catch (NullPointerException e) {
+
             // DB is empty
         }
 
@@ -88,23 +92,11 @@ public class TreeViewController implements Initializable {
                 logic.setSelectedTest(test); // skickar valt test till logic för vidare användning
 
                 try {
-                    if (user.getUserRole().equals("Student")) {
+                    URL paneOneUrl = getClass().getResource("Test.fxml");
+                    AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
 
-                        URL paneOneUrl = getClass().getResource("Test.fxml");
-                        AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
-
-                        BorderPane border = LogInController.getRoot();
-                        border.setCenter(paneOne);
-
-                    } else {
-
-                        URL paneOneUrl = getClass().getResource("CreateTest.fxml");
-                        AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
-
-                        BorderPane border = LogInController.getRoot();
-                        border.setCenter(paneOne);
-
-                    }
+                    BorderPane border = LogInController.getRoot();
+                    border.setCenter(paneOne);
 
                 } catch (IOException ee) {
                     ee.printStackTrace();
@@ -155,7 +147,7 @@ public class TreeViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logic = Logic.getInstance();
-        user = logic.getUser(1);
+        user = logic.getSelectedUser();
         loadTreeViewMenu();
     }
 

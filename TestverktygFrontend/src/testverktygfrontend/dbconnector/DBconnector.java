@@ -13,6 +13,7 @@ import testverktygfrontend.model.Question;
 import testverktygfrontend.model.QuestionOption;
 import testverktygfrontend.model.Response;
 import testverktygfrontend.model.Test;
+import testverktygfrontend.model.TestConverter;
 import testverktygfrontend.model.User;
 import testverktygfrontend.model.UserConverter;
 
@@ -20,7 +21,7 @@ public class DBconnector {
 
     Client client;
 
-     private String url = "http://localhost:8080/testverktygbackend/webapi/users/"; 
+    private String url = "http://localhost:8080/testverktygbackend/webapi/users/";
     //private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
 
     public DBconnector() {
@@ -29,12 +30,12 @@ public class DBconnector {
 
     public List<User> getUsers() {
         ArrayList<User> users = new ArrayList();
-
+        
         List<UserConverter> userConverter = client.target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<UserConverter>>() {
                 });
-
+        
         for (UserConverter user : userConverter) {
 
             users.add(userConverterToUser(user));
@@ -43,7 +44,7 @@ public class DBconnector {
         for (User user : users) {
             user.setCourses(getCourse(user.getUserId()));
         }
-
+        
         return users;
     }
 
@@ -63,10 +64,18 @@ public class DBconnector {
 
     private List<Test> getTests(int courseId, int userId) {
         String target = url + userId + "/courses/" + courseId + "/tests";
-        List<Test> tests = client.target(target)
+
+        ArrayList<Test> tests = new ArrayList();
+
+        List<TestConverter> testsConverter = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
-                .get(new GenericType<List<Test>>() {
+                .get(new GenericType<List<TestConverter>>() {
                 });
+
+        for (TestConverter tc : testsConverter) {
+        
+            tests.add(testConverterToTest(tc));
+        }
 
         for (Test test : tests) {
             test.setQuestions(getQuestions(userId, courseId, test.getIdTest()));
@@ -124,13 +133,28 @@ public class DBconnector {
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(question), Question.class);
     }
-    
+
     public void addTest(Test test, int userId, int courseId) {
         String target = url + userId + "/courses/" + courseId + "/tests";
         
+        TestConverter newTest = testToTestConverter(test);
+
         client.target(target)
                 .request(MediaType.APPLICATION_JSON)
-                .post(Entity.json(test), Test.class);
+                .post(Entity.json(newTest), Test.class);
+
+    }
+    
+    public void deleteQuestion(int questionId, int userId, int courseId, int testId){
+       String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId;
+       
+       client.target(target)
+               .request(MediaType.APPLICATION_JSON)
+               .delete();
+    }
+    
+    public QuestionOption addQuestionOption(QuestionOption qOption, int userId, int courseId, int testId, int questionId){
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption";
         
     } 
     
@@ -140,6 +164,19 @@ public class DBconnector {
         client.target(target)
               .request(MediaType.APPLICATION_JSON)
               .post(Entity.json(response), Response.class);
+        QuestionOption qO = client.target(target)
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(qOption), QuestionOption.class);
+        
+        return qO;
+    }
+    
+    public void updateQuestionOption(QuestionOption qO, int userId, int courseId, int testId, int questionId, int questionOptionId){
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption/" + questionOptionId;
+        
+        client.target(target)
+                .request()
+                .put(Entity.entity(qO, MediaType.APPLICATION_JSON));
     }
 
     private UserConverter userToUserConverter(User oldUser) {
@@ -166,6 +203,29 @@ public class DBconnector {
         newUser.setUserRole(oldUser.getUserRole());
 
         return newUser;
+    }
+
+    private Test testConverterToTest(TestConverter oldTest) {
+        Test newTest = new Test();
+
+        newTest.setIdTest(oldTest.getIdTest());
+        newTest.setTitle(oldTest.getTitle());
+        newTest.setCourse(oldTest.getCourse());
+        newTest.setEndTime(oldTest.getEndTime());
+        newTest.setStartTime(oldTest.getStartTime());
+        
+        return newTest;
+    }
+    
+    private TestConverter testToTestConverter(Test oldTest) {
+        TestConverter newTest = new TestConverter();
+
+        newTest.setIdTest(oldTest.getIdTest());
+        newTest.setCourse(oldTest.getCourse());
+        newTest.setEndTime(oldTest.getEndTime());
+        newTest.setStartTime(oldTest.getStartTime());
+
+        return newTest;
     }
 
 }
