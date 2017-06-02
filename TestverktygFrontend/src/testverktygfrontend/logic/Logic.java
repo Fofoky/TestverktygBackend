@@ -93,9 +93,12 @@ public class Logic {
 
     }
     
-    public void addTest(Test test, int courseId){
+    public Test addTest(Test test){
         DBconnector db = new DBconnector();
-        db.addTest(test, selectedUser.getUserId(), courseId);  
+        test = db.addTest(test, selectedUser.getUserId(), selectedCourse.getCourseId());  
+        
+        
+        return test;
     }
     
     public void deleteQuestion(int questionId){

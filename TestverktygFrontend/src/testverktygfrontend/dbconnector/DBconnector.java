@@ -32,12 +32,12 @@ public class DBconnector {
 
     public List<User> getUsers() {
         ArrayList<User> users = new ArrayList();
-        
+
         List<UserConverter> userConverter = client.target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<UserConverter>>() {
                 });
-        
+
         for (UserConverter user : userConverter) {
 
             users.add(userConverterToUser(user));
@@ -46,7 +46,7 @@ public class DBconnector {
         for (User user : users) {
             user.setCourses(getCourse(user.getUserId()));
         }
-        
+
         return users;
     }
 
@@ -75,7 +75,7 @@ public class DBconnector {
                 });
 
         for (TestConverter tc : testsConverter) {
-        
+
             tests.add(testConverterToTest(tc));
         }
 
@@ -89,16 +89,16 @@ public class DBconnector {
     private List<Question> getQuestions(int userId, int courseId, int testId) {
         String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions";
         ArrayList<Question> questions = new ArrayList();
-        
+
         List<QuestionConverter> questionConverts = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<QuestionConverter>>() {
                 });
 
-        for(QuestionConverter qu : questionConverts){
-            questions.add(questionConverterToQuestion(qu));  
+        for (QuestionConverter qu : questionConverts) {
+            questions.add(questionConverterToQuestion(qu));
         }
-        
+
         for (Question question : questions) {
             question.setQuestionOptions(getOptions(userId, courseId, testId, question.getQuestionId()));
             question.setResponses(getResponses(userId, courseId, testId, question.getQuestionId()));
@@ -109,15 +109,15 @@ public class DBconnector {
 
     private List<QuestionOption> getOptions(int userId, int courseId, int testId, int questionId) {
         String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption";
-        
+
         ArrayList<QuestionOption> options = new ArrayList();
-        
+
         List<QuestionOptionConverter> optionsConvert = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<QuestionOptionConverter>>() {
                 });
-        
-        for(QuestionOptionConverter oc : optionsConvert){
+
+        for (QuestionOptionConverter oc : optionsConvert) {
             options.add(optionConverterToOption(oc));
         }
 
@@ -143,7 +143,7 @@ public class DBconnector {
 
     public void addQuestion(Question oldQuestion, int testId, int userId, int courseId) {
         String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions";
-        
+
         QuestionConverter newQuestion = questionToQuestionConverter(oldQuestion);
 
         client.target(target)
@@ -151,43 +151,42 @@ public class DBconnector {
                 .post(Entity.json(newQuestion), Question.class);
     }
 
-    public void addTest(Test test, int userId, int courseId) {
+    public Test addTest(Test test, int userId, int courseId) {
         String target = url + userId + "/courses/" + courseId + "/tests";
-        
+
         TestConverter newTest = testToTestConverter(test);
+
+        newTest = client.target(target)
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(newTest), TestConverter.class);
+        
+        return testConverterToTest(newTest);
+
+    }
+
+    public void deleteQuestion(int questionId, int userId, int courseId, int testId) {
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId;
 
         client.target(target)
                 .request(MediaType.APPLICATION_JSON)
-                .post(Entity.json(newTest), Test.class);
+                .delete();
+    }
 
-    }
-    
-    public void deleteQuestion(int questionId, int userId, int courseId, int testId){
-       String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId;
-       
-       client.target(target)
-               .request(MediaType.APPLICATION_JSON)
-               .delete();
-    }
-    
-    public QuestionOption addQuestionOption(QuestionOption oldOption, int userId, int courseId, int testId, int questionId){
+    public QuestionOption addQuestionOption(QuestionOption oldOption, int userId, int courseId, int testId, int questionId) {
         String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption";
-        
+
         QuestionOptionConverter newOption = optionToOptionConverter(oldOption);
-        
+
         QuestionOptionConverter qO = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(newOption), QuestionOptionConverter.class);
-        
-        
-        
+
         return optionConverterToOption(qO);
     }
-    
-    public void updateQuestionOption(QuestionOption qO, int userId, int courseId, int testId, int questionId, int questionOptionId){
+
+    public void updateQuestionOption(QuestionOption qO, int userId, int courseId, int testId, int questionId, int questionOptionId) {
         String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption/" + questionOptionId;
-        
-        
+
         client.target(target)
                 .request()
                 .put(Entity.entity(optionToOptionConverter(qO), MediaType.APPLICATION_JSON));
@@ -227,41 +226,51 @@ public class DBconnector {
         newTest.setCourse(oldTest.getCourse());
         newTest.setEndTime(oldTest.getEndTime());
         newTest.setStartTime(oldTest.getStartTime());
-        
+
         return newTest;
     }
-    
+
     private TestConverter testToTestConverter(Test oldTest) {
         TestConverter newTest = new TestConverter();
-
-        newTest.setIdTest(oldTest.getIdTest());
-        newTest.setCourse(oldTest.getCourse());
-        newTest.setEndTime(oldTest.getEndTime());
-        newTest.setStartTime(oldTest.getStartTime());
-
+        try {
+            newTest.setIdTest(oldTest.getIdTest());
+        } catch (NullPointerException e) {
+        }
+        try {
+            newTest.setCourse(oldTest.getCourse());
+        } catch (NullPointerException e) {
+        }
+        try {
+            newTest.setEndTime(oldTest.getEndTime());
+        } catch (NullPointerException e) {
+        }
+        try {
+            newTest.setStartTime(oldTest.getStartTime());
+        } catch (NullPointerException e) {
+        }
         return newTest;
     }
-    
+
     private Question questionConverterToQuestion(QuestionConverter oldQuestion) {
         Question newQuestion = new Question();
 
         newQuestion.setQuestion(oldQuestion.getQuestion());
         newQuestion.setQuestionId(oldQuestion.getQuestionId());
         newQuestion.setTest(oldQuestion.getTest());
-        
+
         return newQuestion;
     }
-    
+
     private QuestionConverter questionToQuestionConverter(Question oldQuestion) {
         QuestionConverter newQuestion = new QuestionConverter();
 
-         newQuestion.setQuestion(oldQuestion.getQuestion());
+        newQuestion.setQuestion(oldQuestion.getQuestion());
         newQuestion.setQuestionId(oldQuestion.getQuestionId());
         newQuestion.setTest(oldQuestion.getTest());
 
         return newQuestion;
     }
-    
+
     private QuestionOption optionConverterToOption(QuestionOptionConverter oldOption) {
         QuestionOption newOption = new QuestionOption();
 
@@ -269,10 +278,10 @@ public class DBconnector {
         newOption.setQuestionOption(oldOption.getQuestionOption());
         newOption.setQuestionOptionId(oldOption.getQuestionOptionId());
         newOption.setTrueFalse(oldOption.isTrueFalse());
-        
+
         return newOption;
     }
-    
+
     private QuestionOptionConverter optionToOptionConverter(QuestionOption oldOption) {
         QuestionOptionConverter newOption = new QuestionOptionConverter();
 
@@ -280,7 +289,7 @@ public class DBconnector {
         newOption.setQuestionOption(oldOption.getQuestionOption());
         newOption.setQuestionOptionId(oldOption.getQuestionOptionId());
         newOption.setTrueFalse(oldOption.isTrueFalse());
-        
+
         return newOption;
     }
 

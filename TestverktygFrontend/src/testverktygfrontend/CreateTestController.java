@@ -22,6 +22,7 @@ import testverktygfrontend.logic.Logic;
 import testverktygfrontend.model.Question;
 import testverktygfrontend.model.QuestionOption;
 import testverktygfrontend.model.TemporaryQuestionCreate;
+import testverktygfrontend.model.Test;
 
 public class CreateTestController implements Initializable {
 
@@ -58,7 +59,12 @@ public class CreateTestController implements Initializable {
     @FXML
     private void saveTest(ActionEvent event) throws IOException {
         try {
-            String testName = textFieldTestName.getText().trim();
+            Test test = new Test();
+            test.setCourse(logic.getSelectedCourse());
+            test.setTitle(textFieldTestName.getText().trim());
+            test = logic.addTest(test);
+            
+            System.out.println(test.getIdTest());
 
         } catch (NullPointerException e) {
 
