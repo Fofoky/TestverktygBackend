@@ -60,7 +60,7 @@ public class StudSelectedCourseController implements Initializable {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Information");
                 alert.setHeaderText(null);
-                alert.setContentText("Du har redan genomfört detta test.");
+                alert.setContentText("Du har redan genomfört provet.");
 
                 alert.showAndWait();
 
