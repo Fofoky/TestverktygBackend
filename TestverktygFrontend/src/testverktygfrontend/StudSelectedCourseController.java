@@ -20,12 +20,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import testverktygfrontend.logic.Logic;
 import testverktygfrontend.model.Course;
+import testverktygfrontend.model.Question;
+import testverktygfrontend.model.Response;
 import testverktygfrontend.model.Test;
 
 public class StudSelectedCourseController implements Initializable {
 
     private Logic logic;
-    private Test test;
     private Course selectedCourse;
     private ObservableList<Test> testList;
 
@@ -72,21 +73,22 @@ public class StudSelectedCourseController implements Initializable {
 
     public void setColumnStatus(Test test) {
 
-        int countQuestions = 0;
+        int countQuestions = test.getQuestions().size();
         int countReponse = 0;
         String testStatus = "Ej avslutat";
 
-        //Hur många frågor är det i det här testet?
-        for (int i = 0; i < testList.size(); i++) {
-            countQuestions = testList.get(i).getQuestions().size();
-            System.out.println("Antal frågor i testet " + countQuestions);
-        }
-
         //Hur många svar finns det på frågorna?
-        for (int i = 0; i < testList.size(); i++) {
-            countReponse = testList.get(i).getQuestions().get(i).getResponses().size();
-            System.out.println("Antal svar på testet " + countReponse);
+        for(Question q : test.getQuestions()){
+            for(Response r : q.getResponses()){
+                if(r.getUserId() == logic.getSelectedUser().getUserId()){
+                    countReponse++;
+                }
+            }
         }
+        
+        
+            System.out.println("Antal svar på testet " + countReponse + "/" + countQuestions);
+        
 
         if (countQuestions == countReponse) {
             testStatus = "Klart";
