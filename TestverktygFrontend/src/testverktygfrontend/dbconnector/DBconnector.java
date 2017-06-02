@@ -183,13 +183,36 @@ public class DBconnector {
 
         return optionConverterToOption(qO);
     }
-
-    public void updateQuestionOption(QuestionOption qO, int userId, int courseId, int testId, int questionId, int questionOptionId) {
+    
+    // Farhads code starts here  
+    
+    public Response addResponse(Response response, int userId, int courseId, int testId, int questionId){
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/responses";
+            Response r = client.target(target)
+                        .request(MediaType.APPLICATION_JSON)
+                        .post(Entity.json(response), Response.class); 
+                        
+                        return r;        
+    }
+    
+      public void updateQuestionOption(QuestionOption qO, int userId, int courseId, int testId, int questionId, int questionOptionId){
         String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/questionoption/" + questionOptionId;
 
         client.target(target)
                 .request()
                 .put(Entity.entity(optionToOptionConverter(qO), MediaType.APPLICATION_JSON));
+    }
+    
+    
+    // Farhad code starts here
+    
+    public void updateQuestion(Question question, int questionId, int testId, int userId, int courseId){
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId;
+        
+                
+                     client.target(target)
+                    .request(MediaType.APPLICATION_JSON)
+                    .put(Entity.entity(question, MediaType.APPLICATION_JSON));
     }
 
     private UserConverter userToUserConverter(User oldUser) {

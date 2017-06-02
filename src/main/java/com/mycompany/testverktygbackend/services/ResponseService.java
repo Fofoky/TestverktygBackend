@@ -5,7 +5,9 @@
  */
 package com.mycompany.testverktygbackend.services;
 
+import com.mycompany.testverktygbackend.models.Question;
 import com.mycompany.testverktygbackend.models.Response;
+import com.mycompany.testverktygbackend.repositories.QuestionRepository;
 import com.mycompany.testverktygbackend.repositories.ResponseRepository;
 import java.util.List;
 
@@ -17,8 +19,11 @@ public class ResponseService {
     
     ResponseRepository rr = new ResponseRepository();
 
-    public List<Response> getAllResponses() {
-        return rr.getAllResponses();
+    public List<Response> getAllResponses(int questionId) {
+        QuestionRepository qr = new QuestionRepository();
+        Question question = qr.getQuestion(questionId);
+        return question.getResponses();
+        //return rr.getAllResponses();
     }
 
     public Response addResponse(Response response) {

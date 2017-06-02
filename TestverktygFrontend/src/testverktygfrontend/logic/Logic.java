@@ -5,6 +5,7 @@ import testverktygfrontend.dbconnector.DBconnector;
 import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Question;
 import testverktygfrontend.model.QuestionOption;
+import testverktygfrontend.model.Response;
 import testverktygfrontend.model.Test;
 import testverktygfrontend.model.User;
 import testverktygfrontend.model.UserConverter;
@@ -113,12 +114,31 @@ public class Logic {
         return db.addQuestionOption(qOption, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
     }
     
+    // Farhads code starts here 
+    
+    public Response addResponse(String response, int questionId){
+        DBconnector db = new DBconnector();
+        Response res = new Response(); 
+        res.setResponse(response);
+        return db.addResponse(res, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
+    }
+    
     public void updateQuestionOption(String newQuestionOption, int questionOptionId, int questionId){
         DBconnector db = new DBconnector();
         QuestionOption qO = new QuestionOption();
         qO.setQuestionOption(newQuestionOption);
         db.updateQuestionOption(qO, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId, questionOptionId);
         
+    }
+    
+    //Farhads code starts here
+    
+    public void updateQuestion(String question, int questionId) {
+
+            DBconnector db = new DBconnector();
+            Question que = new Question();
+            que.setQuestion(question);
+            db.updateQuestion(que, questionId, selectedTest.getIdTest(), selectedUser.getUserId(), selectedCourse.getCourseId());
     }
 
 }
