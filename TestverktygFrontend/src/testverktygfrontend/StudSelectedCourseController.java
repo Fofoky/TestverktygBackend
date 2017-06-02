@@ -2,6 +2,7 @@ package testverktygfrontend;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -10,7 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,23 +42,34 @@ public class StudSelectedCourseController implements Initializable {
 
     @FXML
     private Button buttonToTest;
-    
+
     @FXML
-    public void handleButtonToTest (ActionEvent event) throws IOException{
+    public void handleButtonToTest(ActionEvent event) throws IOException {
+
         //Spara markerat test
         Test selectedTest = tableTests.getSelectionModel().getSelectedItem();
-        
-        try{
-        
-        //Om testets status inte är "klart" - byt scen till sidan för att göra testet
-        if (!"Klart".equals(selectedTest.getCurrentStatus())){
-            URL test = getClass().getResource("Test.fxml");
-            LogInController.getRoot().setCenter(FXMLLoader.load(test));      
-        }    
-    }catch(NullPointerException ex){
+
+        try {
+
+            //Om testets status inte är "klart" - byt scen till sidan för att göra testet
+            if (!"Klart".equals(selectedTest.getCurrentStatus())) {
+                URL test = getClass().getResource("Test.fxml");
+                LogInController.getRoot().setCenter(FXMLLoader.load(test));
+            } else {
+                //Kontroll-ruta
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Information");
+                alert.setHeaderText(null);
+                alert.setContentText("Du har redan genomfört detta test.");
+
+                alert.showAndWait();
+
+            }
+
+        } catch (NullPointerException ex) {
             System.out.println("Inget test markerat");
-    }
-    
+        }
+
     }
 
     public void setColumnStatus(Test test) {
