@@ -2,7 +2,30 @@
 #treeViewMenu .tree-cell{
     
      -fx-font-size: 24px;
+      
+     -fx-background-image: url("back.png")
 }
+
+#treeViewMenu{
+    
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent
+    
+}
+
+/*
+#treeViewMenu .tree-cell .tree-disclosure-node .arrow {
+    -fx-shape: null;
+    -fx-background-color: null;
+    -fx-background-size:cover; 
+    -fx-padding: 5px;
+
+    -fx-background-image: url("login.png");
+}
+*/
+
+
+
 
 /*
 treeViewMenu .tree-cell:selected {
@@ -10,6 +33,9 @@ treeViewMenu .tree-cell:selected {
     -fx-background-color: rgba(255, 255, 255, 0.8);
     -fx-font-color: rgba(0,0,0,1)
     
+}
+#treeViewMenu .tree-table-row-cell{
+   -fx-background-image: url("courses.png");
 }
 
 tree-table-cell, cell{
@@ -21,7 +47,7 @@ tree-table-cell, cell{
    -fx-background-image: url("courses.png");
 }
 
-#treeViewMenu .tree-cell > .tree-disclosure-node > .arrow {
+treeViewMenu .tree-cell > .tree-disclosure-node > .arrow {
     -fx-background-color: null;
     -fx-background-image: url("courses.png");
 }
