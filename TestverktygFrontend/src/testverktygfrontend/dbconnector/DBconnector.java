@@ -164,6 +164,15 @@ public class DBconnector {
         return testConverterToTest(newTest);
 
     }
+    
+    public void deleteTest(int testId, int userId, int courseId) {
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId;
+        
+        client.target(target)
+                .request(MediaType.APPLICATION_JSON)
+                .delete();
+        
+    }
 
     public void deleteQuestion(int questionId, int userId, int courseId, int testId) {
         String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId;
@@ -333,5 +342,5 @@ public class DBconnector {
         }
         return newOption;
     }
-
+    
 }

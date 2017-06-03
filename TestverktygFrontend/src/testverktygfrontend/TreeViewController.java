@@ -38,6 +38,7 @@ public class TreeViewController implements Initializable {
     private TreeItem<String> subNode1;
 
     public void loadTreeViewMenu() {
+        logic.getUsers();
         root = new TreeItem<>("Kurser");
         root.expandedProperty().set(true);
         try {
@@ -138,6 +139,7 @@ public class TreeViewController implements Initializable {
 
             }
         }
+        loadTreeViewMenu();
 
     }
 
