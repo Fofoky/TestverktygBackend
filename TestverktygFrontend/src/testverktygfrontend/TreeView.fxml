@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testverktygfrontend.TreeViewController">
    <children>
-      <TreeView fx:id="treeViewMenu" layoutY="63.0" onContextMenuRequested="#handleTreeView" onMouseClicked="#handleTreeView" prefHeight="437.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0" />
-      <Label fx:id="labelUserName" layoutX="22.0" layoutY="27.0" text="Användarens namn" />
+      <TreeView fx:id="treeViewMenu" layoutY="63.0" onContextMenuRequested="#handleTreeView" onMouseClicked="#handleTreeView" prefHeight="440.0" prefWidth="200.0" stylesheets="@styling.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0" />
+      <Label fx:id="labelUserName" layoutX="22.0" layoutY="27.0" stylesheets="@styling.css" text="Användarens namn" />
    </children>
 </AnchorPane>
