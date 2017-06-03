@@ -2,14 +2,18 @@
 #treeViewMenu .tree-cell{
     
      -fx-font-size: 28px;
-     -fx-font-color: black;
-     -fx-background-image: url("back.png")
+     -fx-font-family:"Impact";
+     -fx-background-image: url("back.png");
+     -fx-text-fill: #318ba2; 
+     
+     
 }
 
 #treeViewMenu{
     
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent
+    
     
 }
 
@@ -18,7 +22,7 @@
     -fx-shape: null;
     -fx-background-color: null;
     -fx-background-size:cover; 
-    -fx-padding: 15px;
+    -fx-padding: 13px;
     -fx-background-image: url("plus.png");
 }
 
@@ -26,24 +30,21 @@
     -fx-shape: null;
     -fx-background-color: null;
     -fx-background-size:cover; 
-    -fx-padding: 15px;
+    -fx-padding: 13px;
     -fx-background-image: url("minus.png");
 }
 
 
-
-
+#treeViewMenu .tree-cell:selected {
+    /*-fx-background-color: #000000; */
+    -fx-text-fill: #1aa4ac; 
+    
+    /*
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-font-color: rgba(0,0,0,1)*/
+    }
 
 /*
-treeViewMenu .tree-cell:selected {
-    -fx-background-color: #000000; -fx-text-fill: #000000; -fx-border-color: #000000;
-    -fx-background-color: rgba(255, 255, 255, 0.8);
-    -fx-font-color: rgba(0,0,0,1)
-    
-}
-#treeViewMenu .tree-table-row-cell{
-   -fx-background-image: url("courses.png");
-}
 
 tree-table-cell, cell{
    -fx-background-color: rgba(0, 0, 0, 1);
