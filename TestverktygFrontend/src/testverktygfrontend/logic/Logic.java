@@ -13,11 +13,10 @@ import testverktygfrontend.model.UserConverter;
 public class Logic {
 
     private static Logic instance;
-    private List<User> userList = null;
+    private List<User> userList;
     private User selectedUser;
     private Course selectedCourse;
     private Test selectedTest;
-    private List<Question> questionList = null; 
 
     private Logic() {
     }
@@ -36,6 +35,7 @@ public class Logic {
         
         try{
             selectedUser = getUser(selectedUser.getUserId());
+            
             for(Course course : selectedUser.getCourses()){
                 if(course.getCourseId() == selectedCourse.getCourseId()){
                     selectedCourse = course;

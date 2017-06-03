@@ -80,7 +80,7 @@ public class TeacherSelectedCourseController implements Initializable {
             tableTests.getSelectionModel().setSelectionMode(null);
 
             logic.deleteTest(test.getIdTest());
-            logic.getUsers();
+            logic.getSelectedCourse().deleteTest(test);
             updateTestList();
             usersWithSelectedTest.clear();
 
