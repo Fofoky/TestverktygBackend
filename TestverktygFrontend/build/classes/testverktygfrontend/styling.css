@@ -1,8 +1,8 @@
 
 #treeViewMenu .tree-cell{
     
-     -fx-font-size: 24px;
-      
+     -fx-font-size: 28px;
+     -fx-font-color: black;
      -fx-background-image: url("back.png")
 }
 
@@ -13,16 +13,23 @@
     
 }
 
-/*
+
 #treeViewMenu .tree-cell .tree-disclosure-node .arrow {
     -fx-shape: null;
     -fx-background-color: null;
     -fx-background-size:cover; 
-    -fx-padding: 5px;
-
-    -fx-background-image: url("login.png");
+    -fx-padding: 15px;
+    -fx-background-image: url("plus.png");
 }
-*/
+
+#treeViewMenu .tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-shape: null;
+    -fx-background-color: null;
+    -fx-background-size:cover; 
+    -fx-padding: 15px;
+    -fx-background-image: url("minus.png");
+}
+
 
 
 
