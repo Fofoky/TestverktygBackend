@@ -15,7 +15,6 @@ import javafx.scene.layout.BorderPane;
 import testverktygfrontend.logic.Logic;
 import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Test;
-import testverktygfrontend.model.User;
 
 /**
  * FXML Controller class
@@ -25,7 +24,6 @@ import testverktygfrontend.model.User;
 public class TreeViewController implements Initializable {
 
     private Logic logic;
-    private User user;
 
     @FXML
     private Label labelUserName;
@@ -41,11 +39,11 @@ public class TreeViewController implements Initializable {
         root = new TreeItem<>("Kurser");
         root.expandedProperty().set(true);
         try {
-            for (int i = 0; i < user.getCourses().size(); i++) {
-                node1 = new TreeItem<>(user.getCourses().get(i).getName());
-                if (user.getUserRole().equals("Student")) {
-                    for (int j = 0; j < user.getCourses().get(i).getTests().size(); j++) {
-                        subNode1 = new TreeItem<>("Test: " + user.getCourses().get(i).getTests().get(j).getTitle());
+            for (int i = 0; i < logic.getSelectedUser().getCourses().size(); i++) {
+                node1 = new TreeItem<>(logic.getSelectedUser().getCourses().get(i).getName());
+                if (logic.getSelectedUser().getUserRole().equals("Student")) {
+                    for (int j = 0; j < logic.getSelectedUser().getCourses().get(i).getTests().size(); j++) {
+                        subNode1 = new TreeItem<>("Test: " + logic.getSelectedUser().getCourses().get(i).getTests().get(j).getTitle());
                         node1.getChildren().add(subNode1);
                     }
                 }
@@ -81,7 +79,7 @@ public class TreeViewController implements Initializable {
                 }
 
                 Test test = null;
-                for (Course c : user.getCourses()) {
+                for (Course c : logic.getSelectedUser().getCourses()) {
                     for (Test tests : c.getTests()) {
                         if (tests.getTitle().equals(name.substring(6))) {
                             test = tests;
@@ -105,7 +103,7 @@ public class TreeViewController implements Initializable {
             } catch (StringIndexOutOfBoundsException e) {
 
                 Course course = null;
-                for (Course c : user.getCourses()) {
+                for (Course c : logic.getSelectedUser().getCourses()) {
                     if (c.getName().equals(name)) {
                         course = c;
                     }
@@ -114,7 +112,7 @@ public class TreeViewController implements Initializable {
                 logic.setSelectedCourse(course); // skickar vald kurs till logic för vidare användning i scenen
 
                 try {
-                    if (user.getUserRole().equals("Student")) {
+                    if (logic.getSelectedUser().getUserRole().equals("Student")) {
 
                         URL paneOneUrl = getClass().getResource("StudSelectedCourse.fxml");
                         AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
@@ -147,8 +145,7 @@ public class TreeViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logic = Logic.getInstance();
-        user = logic.getSelectedUser();
-        labelUserName.setText("Inloggad som " + user.getName());
+        labelUserName.setText("Inloggad som " + logic.getSelectedUser().getName());
         loadTreeViewMenu();
     }
 

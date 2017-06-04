@@ -13,11 +13,10 @@ import testverktygfrontend.model.UserConverter;
 public class Logic {
 
     private static Logic instance;
-    private List<User> userList = null;
+    private List<User> userList;
     private User selectedUser;
     private Course selectedCourse;
     private Test selectedTest;
-    private List<Question> questionList = null; 
 
     private Logic() {
     }
@@ -33,6 +32,24 @@ public class Logic {
         
         DBconnector db = new DBconnector();
         userList = db.getUsers();
+        
+        try{
+            selectedUser = getUser(selectedUser.getUserId());
+            
+            for(Course course : selectedUser.getCourses()){
+                if(course.getCourseId() == selectedCourse.getCourseId()){
+                    selectedCourse = course;
+                }
+            }
+            for(Test test : selectedCourse.getTests()){
+                if(test.getIdTest() == selectedTest.getIdTest()){
+                    selectedTest = test;
+                }
+            }
+            
+        }catch(NullPointerException e){
+            
+        }
     }
 
     public List<User> getUsers() {
@@ -140,6 +157,12 @@ public class Logic {
             Question que = new Question();
             que.setQuestion(question);
             db.updateQuestion(que, questionId, selectedTest.getIdTest(), selectedUser.getUserId(), selectedCourse.getCourseId());
+    }
+
+    public void deleteTest(int testId) {
+        DBconnector db = new DBconnector();
+        db.deleteTest(testId, selectedUser.getUserId(), selectedCourse.getCourseId());
+        
     }
 
 }

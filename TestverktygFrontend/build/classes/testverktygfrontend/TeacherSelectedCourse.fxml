@@ -49,7 +49,7 @@
                   <VBox alignment="TOP_RIGHT" layoutY="89.0" prefHeight="142.0" prefWidth="111.0" spacing="4.0">
                      <children>
                         <Button fx:id="buttonEditTest" mnemonicParsing="false" prefWidth="90.0" text="Ändra test" />
-                        <Button fx:id="buttonDeleteTest" mnemonicParsing="false" prefWidth="90.0" text="Radera test" />
+                        <Button fx:id="buttonDeleteTest" mnemonicParsing="false" onAction="#deleteTestButton" prefWidth="90.0" text="Radera test" />
                         <Button fx:id="buttonCreateTest" layoutX="7.0" layoutY="133.0" mnemonicParsing="false" onAction="#createTestButton" prefWidth="90.0" text="Nytt test" />
                      </children>
                   </VBox>
