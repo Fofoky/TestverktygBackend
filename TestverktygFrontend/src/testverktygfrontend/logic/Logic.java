@@ -17,6 +17,7 @@ public class Logic {
     private User selectedUser;
     private Course selectedCourse;
     private Test selectedTest;
+    private Question selectedQuestion;
 
     private Logic() {
     }
@@ -71,6 +72,14 @@ public class Logic {
     public void setSelectedTest(Test selectedTest) {
         this.selectedTest = selectedTest;
     }
+    
+    public Question getSelectedQuestion(){
+        return selectedQuestion;
+    }
+    
+    public void setSelectedQuestion(Question selectedQuestion){
+        this.selectedQuestion = selectedQuestion;
+    }
 
     public void addUser(String name, String userRole, String password, String email) {
         DBconnector db = new DBconnector();
@@ -116,10 +125,21 @@ public class Logic {
     
     // Farhads code starts here 
     
-    public Response addResponse(String response, int questionId){
+    public Response addResponse(String response, int questionId, int userId, Question q){
+        System.out.println("Kommer in i addResponse i Logic med response: " + response + " och questionId: " + questionId + " och userId: " + userId);
         DBconnector db = new DBconnector();
         Response res = new Response(); 
+        System.out.println("Hit 1");
         res.setResponse(response);
+        res.setUserId(userId);
+        res.setQuestion(q);
+        
+        System.out.println(res.getResponse() + " " + res.getUserId() + " " + res.getQuestion());
+        
+        System.out.println("user: " + selectedUser.getUserId());
+        System.out.println(" course: " + selectedCourse.getCourseId());
+        System.out.println(" test: " + selectedTest.getIdTest());
+        System.out.println(" question: " +questionId);
         return db.addResponse(res, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
     }
     

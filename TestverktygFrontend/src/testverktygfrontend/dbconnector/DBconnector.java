@@ -187,6 +187,7 @@ public class DBconnector {
     // Farhads code starts here  
     
     public Response addResponse(Response response, int userId, int courseId, int testId, int questionId){
+        System.out.println("Kommer in addResponse i DBconnector.");
         String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/responses";
             Response r = client.target(target)
                         .request(MediaType.APPLICATION_JSON)
