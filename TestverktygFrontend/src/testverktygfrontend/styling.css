@@ -1,0 +1,66 @@
+
+#treeViewMenu .tree-cell{
+    
+     -fx-font-size: 28px;
+     -fx-font-color: black;
+     -fx-background-image: url("back.png")
+}
+
+#treeViewMenu{
+    
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent
+    
+}
+
+
+#treeViewMenu .tree-cell .tree-disclosure-node .arrow {
+    -fx-shape: null;
+    -fx-background-color: null;
+    -fx-background-size:cover; 
+    -fx-padding: 15px;
+    -fx-background-image: url("plus.png");
+}
+
+#treeViewMenu .tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-shape: null;
+    -fx-background-color: null;
+    -fx-background-size:cover; 
+    -fx-padding: 15px;
+    -fx-background-image: url("minus.png");
+}
+
+
+
+
+
+/*
+treeViewMenu .tree-cell:selected {
+    -fx-background-color: #000000; -fx-text-fill: #000000; -fx-border-color: #000000;
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-font-color: rgba(0,0,0,1)
+    
+}
+#treeViewMenu .tree-table-row-cell{
+   -fx-background-image: url("courses.png");
+}
+
+tree-table-cell, cell{
+   -fx-background-color: rgba(0, 0, 0, 1);
+   
+}
+
+#treeViewMenu .tree-table-row-cell{
+   -fx-background-image: url("courses.png");
+}
+
+treeViewMenu .tree-cell > .tree-disclosure-node > .arrow {
+    -fx-background-color: null;
+    -fx-background-image: url("courses.png");
+}
+
+treeViewMenu .tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-background-color: null;
+    -fx-background-image: url("minus-icon.gif");
+}
+*/
