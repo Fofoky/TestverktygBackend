@@ -33,6 +33,7 @@ public List<Response> getAllResponse(@PathParam("questionId") int questionId) {
 
 @POST 
 public Response addResponse(@PathParam("testId") int testId, @PathParam("questionId") int questionId, Response response){
+    System.out.println("Kommer in i addResponse i resource.");
     QuestionService qs = new QuestionService(); // adding lines so it works, once paths is fixed I think we can remove these lines;
     List<Question> questions = qs.getQuestions(testId);
         for(Question q : questions){
