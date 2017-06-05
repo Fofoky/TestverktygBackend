@@ -136,6 +136,7 @@ public class TeacherSelectedCourseController implements Initializable {
 
         //*************** LISTENER *************************
         tableTests.getSelectionModel().selectedItemProperty().addListener((property, oldValue, newValue) -> {
+
             try {
                 labelSelectedTest.setText(newValue.getTitle());
                 logic.setSelectedTest(newValue);
@@ -149,10 +150,13 @@ public class TeacherSelectedCourseController implements Initializable {
                             for (Question question : logic.getSelectedTest().getQuestions()) {
                                 for (QuestionOption option : question.getQuestionOptions()) {
                                     if (option.isTrueFalse()) {
-                                        for (Response response : question.getResponses()) {
-                                            if (response.getResponse().equals(option.getQuestionOption()) && response.getUserId() == user.getUserId()) {
-                                                studentResponse++;
+                                        try {
+                                            for (Response response : question.getResponses()) {
+                                                if (response.getResponse().equals(option.getQuestionOption()) && response.getUserId() == user.getUserId()) {
+                                                    studentResponse++;
+                                                }
                                             }
+                                        } catch (NullPointerException ex) {
                                         }
                                     }
                                 }
