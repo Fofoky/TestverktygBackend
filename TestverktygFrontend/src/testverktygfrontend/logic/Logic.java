@@ -147,18 +147,9 @@ public class Logic {
         db.addQuestionOption(qOption, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
     } 
     
-    // Farhads code starts here
-    
     public Response addResponse(QuestionOption q, int userId, int questionId){
-        System.out.println("KOmmer in i logik.");
-        DBconnector db = new DBconnector();
-//        Response res = new Response(); 
-//        System.out.println("Hit 1");
-//        res.setResponse(response);
-//        res.setUserId(userId);
-//        res.setQuestion(q);
-        System.out.println("Inne i addResponse med selectedCourse: " + selectedCourse.getName());
         
+        DBconnector db = new DBconnector();
         return db.addResponse(q, userId, selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
     }
     
@@ -169,8 +160,6 @@ public class Logic {
         db.updateQuestionOption(qO, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId, questionOptionId);
         
     }
-    
-    //Farhads code starts here
     
     public void updateQuestion(String question, int questionId) {
 
