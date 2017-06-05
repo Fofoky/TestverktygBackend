@@ -131,9 +131,9 @@ public class StudSelectedCourseController implements Initializable {
         System.out.println(selectedUser.getName() + " " + selectedCourse.getName());
         
         
-        selectedCourse.getTests().forEach((a) -> {
+        testList.forEach((a) -> {
             setColumnStatus(a);
-            testList.add(a);
+            
         });
 
         columnTest.setCellValueFactory(new PropertyValueFactory<>("title"));
