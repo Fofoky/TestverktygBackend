@@ -110,7 +110,7 @@ public class TestController implements Initializable {
                 logic.addResponse(q, selectedUser.getUserId(), q.getQuestion().getQuestionId());
             }
             System.out.println("Utanför loopen");
-            logic.setSelectedUsersTests(logic.getTests(selectedCourse.getCourseId(), selectedUser.getUserId()));
+            
             URL studentCourse = getClass().getResource("StudSelectedCourse.fxml");
                 LogInController.getRoot().setCenter(FXMLLoader.load(studentCourse));
                 System.out.println("Allt klart");

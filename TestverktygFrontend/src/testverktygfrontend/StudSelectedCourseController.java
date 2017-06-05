@@ -127,13 +127,13 @@ public class StudSelectedCourseController implements Initializable {
         selectedUser = logic.getSelectedUser();
         selectedCourse = logic.getSelectedCourse();
         labelCourse.setText(selectedCourse.getName());
-        testList = FXCollections.observableArrayList(logic.getSelectedUsersTests());
+        testList = FXCollections.observableArrayList(logic.getTests(selectedCourse.getCourseId(), selectedUser.getUserId()));
         System.out.println(selectedUser.getName() + " " + selectedCourse.getName());
         
         
-        selectedCourse.getTests().forEach((a) -> {
+        testList.forEach((a) -> {
             setColumnStatus(a);
-            testList.add(a);
+            
         });
 
         columnTest.setCellValueFactory(new PropertyValueFactory<>("title"));

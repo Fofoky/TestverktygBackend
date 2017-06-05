@@ -134,16 +134,6 @@ public class Logic {
         return db.getTests(courseId, userId);
     }
 
-    public List getSelectedUsersTests() {
-        return selectedUsersTests;
-    }
-
-    public void setSelectedUsersTests(List selectedUsersTests) {
-        this.selectedUsersTests = selectedUsersTests;
-    }
-    
-    
-    
     public void deleteQuestion(int questionId){
         DBconnector db = new DBconnector();
         db.deleteQuestion(questionId, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest());
