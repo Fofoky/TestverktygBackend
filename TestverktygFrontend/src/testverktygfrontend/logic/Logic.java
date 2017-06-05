@@ -165,4 +165,9 @@ public class Logic {
         
     }
 
+    public void updateTest(Test test) {
+        DBconnector db = new DBconnector();
+        db.updateTest(test, selectedUser.getUserId(), selectedCourse.getCourseId());
+    }
+
 }

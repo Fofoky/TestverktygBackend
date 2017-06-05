@@ -9,9 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -46,7 +46,7 @@ public class TeacherSelectedCourseController implements Initializable {
     private TableView<User> tableStudentTestResult;
 
     @FXML
-    private TableColumn<Test, String> columnTest, columnStatus, columnStart, columnStop;
+    private TableColumn<Test, String> columnTest, columnStart, columnStop;
 
     @FXML
     private TableColumn<User, String> columnStudent, columnResult;
@@ -55,10 +55,8 @@ public class TeacherSelectedCourseController implements Initializable {
     private Label labelSelectedTest;
 
     @FXML
-    private Button buttonCreateTest, buttonDeleteTest, buttonEditTest;
-
-    @FXML
     private void createTestButton(ActionEvent event) throws IOException {
+        logic.setSelectedTest(null);
 
         try {
             URL paneOneUrl = getClass().getResource("CreateTest.fxml");
@@ -71,6 +69,21 @@ public class TeacherSelectedCourseController implements Initializable {
             ee.printStackTrace();
         }
 
+    }
+
+    @FXML
+    private void updateTestButton(ActionEvent event) throws IOException {
+        try {
+            logic.setSelectedTest(tableTests.getSelectionModel().selectedItemProperty().get());
+            URL paneOneUrl = getClass().getResource("CreateTest.fxml");
+            AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
+
+            BorderPane border = LogInController.getRoot();
+            border.setCenter(paneOne);
+
+        } catch (NullPointerException e) {
+
+        }
     }
 
     @FXML
@@ -90,9 +103,34 @@ public class TeacherSelectedCourseController implements Initializable {
 
     }
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private void handleEditStartTime(CellEditEvent<Test, String> t) {
+
+        Test test = ((Test) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+
+        test.setStartTime(t.getNewValue());
+
+        ((Test) t.getTableView().getItems().get(
+                t.getTablePosition().getRow())).setStartTime(test.getStartTime());
+        
+        logic.updateTest(test);
+
+    }
+
+    @FXML
+    private void handleEditStopTime(CellEditEvent<Test, String> t) {
+
+        Test test = ((Test) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+
+        test.setEndTime(t.getNewValue());
+
+        ((Test) t.getTableView().getItems().get(
+                t.getTablePosition().getRow())).setStartTime(test.getEndTime());
+        
+        logic.updateTest(test);
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -136,6 +174,7 @@ public class TeacherSelectedCourseController implements Initializable {
 
         //*************** LISTENER *************************
         tableTests.getSelectionModel().selectedItemProperty().addListener((property, oldValue, newValue) -> {
+
             try {
                 labelSelectedTest.setText(newValue.getTitle());
                 logic.setSelectedTest(newValue);
@@ -149,10 +188,13 @@ public class TeacherSelectedCourseController implements Initializable {
                             for (Question question : logic.getSelectedTest().getQuestions()) {
                                 for (QuestionOption option : question.getQuestionOptions()) {
                                     if (option.isTrueFalse()) {
-                                        for (Response response : question.getResponses()) {
-                                            if (response.getResponse().equals(option.getQuestionOption()) && response.getUserId() == user.getUserId()) {
-                                                studentResponse++;
+                                        try {
+                                            for (Response response : question.getResponses()) {
+                                                if (response.getResponse().equals(option.getQuestionOption()) && response.getUserId() == user.getUserId()) {
+                                                    studentResponse++;
+                                                }
                                             }
+                                        } catch (NullPointerException ex) {
                                         }
                                     }
                                 }
