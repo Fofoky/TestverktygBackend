@@ -64,7 +64,7 @@ public class DBconnector {
         return userCourses;
     }
 
-    private List<Test> getTests(int courseId, int userId) {
+    public List<Test> getTests(int courseId, int userId) {
         String target = url + userId + "/courses/" + courseId + "/tests";
 
         ArrayList<Test> tests = new ArrayList();
@@ -82,6 +82,7 @@ public class DBconnector {
         for (Test test : tests) {
             test.setQuestions(getQuestions(userId, courseId, test.getIdTest()));
         }
+        System.out.println("DBConnector getTests");
 
         return tests;
     }
@@ -195,20 +196,21 @@ public class DBconnector {
 
     // Farhads code starts here  
     public void addResponse(QuestionOption q, int userId, int courseId, int testId, int questionId) {
+        
         QuestionOptionConverter newOption = optionToOptionConverter(q);
+        
         Response r = new Response();
         
         r.setResponse(newOption.getQuestionOption());
         r.setUserId(userId);
-        r.setQuestion(newOption.getQuestion());
-        
+
         String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/responses";
         
         client.target(target)
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(r), Response.class);
 
-        
+       
     }
 
     public void updateQuestionOption(QuestionOption qO, int userId, int courseId, int testId, int questionId, int questionOptionId) {

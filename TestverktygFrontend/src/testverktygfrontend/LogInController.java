@@ -68,6 +68,7 @@ public class LogInController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         logic = Logic.getInstance();
+       
         logic.updateList(); // läser in alla listor till logic
 
         pass = new SimpleBooleanProperty(true);

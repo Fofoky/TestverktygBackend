@@ -5,10 +5,11 @@
  */
 package testverktygfrontend;
 
-import java.awt.CheckboxGroup;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -18,8 +19,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -27,9 +32,9 @@ import javafx.scene.control.TextArea;
 
 
 import testverktygfrontend.logic.Logic;
+import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Question;
 import testverktygfrontend.model.QuestionOption;
-import testverktygfrontend.model.QuestionOptionConverter;
 import testverktygfrontend.model.Test;
 import testverktygfrontend.model.User;
 
@@ -43,6 +48,7 @@ public class TestController implements Initializable {
     private Logic logic;
     private Test selectedTest;
     private User selectedUser;
+    private Course selectedCourse;
     private Question selectedQuestion;
     private List<Question> questionList;
     private ObservableList<QuestionOption> questionOptionList;
@@ -91,15 +97,26 @@ public class TestController implements Initializable {
         buttonSaveTest.setDisable(false);
     }
     
-    public void handleButtonSaveTestAction(ActionEvent event){
+    public void handleButtonSaveTestAction(ActionEvent event) throws IOException{
         
-        for(QuestionOption q : savedAnswers){
-        
-            logic.addResponse(q, selectedUser.getUserId(), q.getQuestion().getQuestionId());
-        }
-        
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Bekräfta ditt val.");
+        alert.setContentText("Är du säker på att du vill spara och avsluta testet?");
 
-       
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){          
+            for(QuestionOption q : savedAnswers){
+                System.out.println("I loopen");
+                logic.addResponse(q, selectedUser.getUserId(), q.getQuestion().getQuestionId());
+            }
+            System.out.println("Utanför loopen");
+            logic.setSelectedUsersTests(logic.getTests(selectedCourse.getCourseId(), selectedUser.getUserId()));
+            URL studentCourse = getClass().getResource("StudSelectedCourse.fxml");
+                LogInController.getRoot().setCenter(FXMLLoader.load(studentCourse));
+                System.out.println("Allt klart");
+        } else {
+            
+        }
 
     }
     
@@ -260,6 +277,7 @@ public class TestController implements Initializable {
         logic = Logic.getInstance();
         selectedTest = logic.getSelectedTest();
         selectedUser = logic.getSelectedUser();
+        selectedCourse = logic.getSelectedCourse();
         savedAnswers = new ArrayList();counter= new SimpleIntegerProperty();
         counter = new SimpleIntegerProperty();
         buttonNext.setDisable(true);
@@ -282,7 +300,9 @@ public class TestController implements Initializable {
         
 
         
+        /*
         
+        */
         selectedQuestion = selectedTest.getQuestions().get(0);
         textAreaQuestion.setText(selectedQuestion.getQuestion());
         labelTestName.setText(selectedTest.getTitle());
@@ -293,6 +313,12 @@ public class TestController implements Initializable {
         checkBox3.setText(selectedQuestion.getQuestionOptions().get(2).getQuestionOption());
         checkBox4.setText(selectedQuestion.getQuestionOptions().get(3).getQuestionOption());
         
+        /* 
+        Alla allListeners som finns: 
+        För progressbar som håller koll på vilka frågor man gjort. 
+        För counter som räknar alla frågor som man gör. 
+        Sen för alla checkboxar, som ska sätta/ta bort från en lokal lista när man klickar på de olika valen som finns.
+        */
         progressBar.progressProperty().bind(counter.divide(questionList.size()*1.0));
         counter.addListener(changeListener);
         checkBox1.selectedProperty().addListener(checkIfChecked1);
