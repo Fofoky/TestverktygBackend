@@ -18,6 +18,7 @@ public class Logic {
     private Course selectedCourse;
     private Test selectedTest;
     private Question selectedQuestion;
+    private List selectedUsersTests;
 
     private Logic() {
     }
@@ -127,6 +128,22 @@ public class Logic {
         return test;
     }
     
+    public List<Test> getTests(int courseId, int userId){   
+        DBconnector db = new DBconnector();
+        System.out.println("Logic.getTest");
+        return db.getTests(courseId, userId);
+    }
+
+    public List getSelectedUsersTests() {
+        return selectedUsersTests;
+    }
+
+    public void setSelectedUsersTests(List selectedUsersTests) {
+        this.selectedUsersTests = selectedUsersTests;
+    }
+    
+    
+    
     public void deleteQuestion(int questionId){
         DBconnector db = new DBconnector();
         db.deleteQuestion(questionId, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest());
@@ -144,13 +161,14 @@ public class Logic {
     // Farhads code starts here
     
     public void addResponse(QuestionOption q, int userId, int questionId){
-        
+        System.out.println("KOmmer in i logik.");
         DBconnector db = new DBconnector();
 //        Response res = new Response(); 
 //        System.out.println("Hit 1");
 //        res.setResponse(response);
 //        res.setUserId(userId);
 //        res.setQuestion(q);
+        System.out.println("Inne i addResponse med selectedCourse: " + selectedCourse.getName());
         
         db.addResponse(q, userId, selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
     }
