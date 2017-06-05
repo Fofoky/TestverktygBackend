@@ -16,7 +16,7 @@ public class TestverktygFrontend extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
         
         Scene scene = new Scene(root);
-        
+ //       scene.getStylesheets().add(getClass().getResource("styling.css").toExternalForm());
         stage.setScene(scene);
         stage.show();      
        
