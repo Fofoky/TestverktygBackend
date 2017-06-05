@@ -23,11 +23,13 @@ import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Question;
 import testverktygfrontend.model.Response;
 import testverktygfrontend.model.Test;
+import testverktygfrontend.model.User;
 
 public class StudSelectedCourseController implements Initializable {
 
     private Logic logic;
     private Course selectedCourse;
+    private User selectedUser;
     private ObservableList<Test> testList;
 
     @FXML
@@ -47,13 +49,29 @@ public class StudSelectedCourseController implements Initializable {
 
         //Spara markerat test
         Test selectedTest = tableTests.getSelectionModel().getSelectedItem();
+        
+        
 
         try {
 
             //Om testets status inte är "klart" - byt scen till sidan för att göra testet
             if (!"Klart".equals(selectedTest.getCurrentStatus())) {
+                
+                
+                
+                for (Course c : logic.getSelectedUser().getCourses()) {
+                    for (Test tests : c.getTests()) {
+                        if (tests.getTitle().equals(selectedTest.getTitle())) {
+                            selectedTest = tests;
+                        }
+                    }
+                }
+                logic.setSelectedTest(selectedTest);
+                
                 URL test = getClass().getResource("Test.fxml");
                 LogInController.getRoot().setCenter(FXMLLoader.load(test));
+                
+                
             } else {
                 //Kontroll-ruta
                 Alert alert = new Alert(AlertType.INFORMATION);
@@ -72,28 +90,30 @@ public class StudSelectedCourseController implements Initializable {
     }
 
     public void setColumnStatus(Test test) {
-
+        
+        
         int countQuestions = test.getQuestions().size();
-        int countReponse = 0;
+        
+        int countResponse = 0;
         String testStatus = "Ej avslutat";
 
         //Hur många svar finns det på frågorna?
         for(Question q : test.getQuestions()){
             for(Response r : q.getResponses()){
                 if(r.getUserId() == logic.getSelectedUser().getUserId()){
-                    countReponse++;
+                    countResponse++;
                 }
             }
         }
         
         
-            System.out.println("Antal svar på testet " + countReponse + "/" + countQuestions);
+            System.out.println("Antal svar på testet " + countResponse + "/" + countQuestions);
         
 
-        if (countQuestions == countReponse) {
+        if (countQuestions == countResponse) {
             testStatus = "Klart";
         }
-
+        
         test.setCurrentStatus(testStatus);
 
     }
@@ -101,11 +121,16 @@ public class StudSelectedCourseController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        System.out.println("Kommer in i initialize");
         logic = Logic.getInstance();
+        selectedUser = logic.getSelectedUser();
         selectedCourse = logic.getSelectedCourse();
         labelCourse.setText(selectedCourse.getName());
-        testList = FXCollections.observableArrayList();
-
+        testList = FXCollections.observableArrayList(logic.getSelectedUsersTests());
+        System.out.println(selectedUser.getName() + " " + selectedCourse.getName());
+        
+        
         selectedCourse.getTests().forEach((a) -> {
             setColumnStatus(a);
             testList.add(a);
