@@ -127,7 +127,7 @@ public class StudSelectedCourseController implements Initializable {
         selectedUser = logic.getSelectedUser();
         selectedCourse = logic.getSelectedCourse();
         labelCourse.setText(selectedCourse.getName());
-        testList = FXCollections.observableArrayList(logic.getSelectedUsersTests());
+        testList = FXCollections.observableArrayList();
         System.out.println(selectedUser.getName() + " " + selectedCourse.getName());
         
         

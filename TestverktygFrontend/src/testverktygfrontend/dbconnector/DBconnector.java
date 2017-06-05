@@ -195,7 +195,7 @@ public class DBconnector {
     }
 
     // Farhads code starts here  
-    public void addResponse(QuestionOption q, int userId, int courseId, int testId, int questionId) {
+    public Response addResponse(QuestionOption q, int userId, int courseId, int testId, int questionId) {
         
         QuestionOptionConverter newOption = optionToOptionConverter(q);
         
@@ -206,11 +206,12 @@ public class DBconnector {
 
         String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/responses";
         
-        client.target(target)
+        Response response = client.target(target)
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(r), Response.class);
-
-       
+        
+        return response;
+      
     }
 
     public void updateQuestionOption(QuestionOption qO, int userId, int courseId, int testId, int questionId, int questionOptionId) {
