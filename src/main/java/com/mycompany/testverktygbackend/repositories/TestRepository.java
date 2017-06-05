@@ -17,7 +17,7 @@ public class TestRepository {
     }
 
     public List<Test> getAllTest() {
-        
+
         session.beginTransaction();
         List<Test> tests = session.createCriteria(Test.class).list();
         for (Test t : tests) {
@@ -37,6 +37,14 @@ public class TestRepository {
     public Test getTest(int testId) {
         Test test = (Test) session.get(Test.class, testId);
         return test;
+    }
+
+    public void deleteTest(int testId) {
+        session.beginTransaction();
+        Test persistentInstance = (Test) session.load(Test.class, testId);
+        session.delete(persistentInstance);
+        session.getTransaction().commit();
+        session.close();
     }
 
 }

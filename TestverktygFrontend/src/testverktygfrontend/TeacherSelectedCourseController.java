@@ -31,51 +31,65 @@ import testverktygfrontend.model.User;
  * @author annafock
  */
 public class TeacherSelectedCourseController implements Initializable {
-    
+
     private Logic logic;
     private ObservableList<Test> testList;
     private ObservableList<User> usersWithSelectedTest;
-    
+
     @FXML
     private Label labelCourse;
-    
+
     @FXML
     private TableView<Test> tableTests;
-    
+
     @FXML
     private TableView<User> tableStudentTestResult;
-    
+
     @FXML
     private TableColumn<Test, String> columnTest, columnStatus, columnStart, columnStop;
-    
-     @FXML
+
+    @FXML
     private TableColumn<User, String> columnStudent, columnResult;
-    
+
     @FXML
     private Label labelSelectedTest;
-    
+
     @FXML
     private Button buttonCreateTest, buttonDeleteTest, buttonEditTest;
 
-    
     @FXML
     private void createTestButton(ActionEvent event) throws IOException {
-        
-            try {
-                    URL paneOneUrl = getClass().getResource("CreateTest.fxml");
-                    AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
 
-                    BorderPane border = LogInController.getRoot();
-                    border.setCenter(paneOne);
+        try {
+            URL paneOneUrl = getClass().getResource("CreateTest.fxml");
+            AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
 
-                } catch (IOException ee) {
-                    ee.printStackTrace();
-                }
+            BorderPane border = LogInController.getRoot();
+            border.setCenter(paneOne);
+
+        } catch (IOException ee) {
+            ee.printStackTrace();
+        }
 
     }
-    
-    
-    
+
+    @FXML
+    private void deleteTestButton(ActionEvent event) throws IOException {
+        try {
+            Test test = tableTests.getSelectionModel().selectedItemProperty().get();
+            tableTests.getSelectionModel().setSelectionMode(null);
+
+            logic.deleteTest(test.getIdTest());
+            logic.getSelectedCourse().deleteTest(test);
+            updateTestList();
+            usersWithSelectedTest.clear();
+
+        } catch (NullPointerException e) {
+
+        }
+
+    }
+
     /**
      * Initializes the controller class.
      */
@@ -84,62 +98,78 @@ public class TeacherSelectedCourseController implements Initializable {
         // TODO
         logic = Logic.getInstance();
         labelCourse.setText(logic.getSelectedCourse().getName());
-        
+
         testList = FXCollections.observableArrayList();
         usersWithSelectedTest = FXCollections.observableArrayList();
-        
-        logic.getSelectedCourse().getTests().forEach((a) -> {
-            testList.add(a);
-        });
-        
+        updateTestList();
+
         columnTest.setCellValueFactory(new PropertyValueFactory<>("title"));
         columnStart.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         columnStop.setCellValueFactory(new PropertyValueFactory<>("endTime"));
-        
         columnTest.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnStart.setCellFactory(TextFieldTableCell.forTableColumn());      
+        columnStart.setCellFactory(TextFieldTableCell.forTableColumn());
         columnStop.setCellFactory(TextFieldTableCell.forTableColumn());
-         
-        tableTests.setItems(testList);   
-        
+
+        tableTests.setItems(testList);
+
         columnStudent.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnResult.setCellValueFactory(new PropertyValueFactory<>("currentResult"));
-        
         columnStudent.setCellFactory(TextFieldTableCell.forTableColumn());
         columnResult.setCellFactory(TextFieldTableCell.forTableColumn());
-        
-        tableStudentTestResult.setItems(usersWithSelectedTest);
-        
-        tableTests.getSelectionModel().selectedItemProperty().addListener((property, oldValue, newValue) -> {
-            labelSelectedTest.setText(newValue.getTitle());
-            usersWithSelectedTest.clear();
-            logic.setSelectedTest(newValue);
 
-            for(User user : logic.getUsers()){
-                int studentResponse = 0;
-                for(Course course : user.getCourses()){
-                    if(course.getCourseId() == logic.getSelectedCourse().getCourseId() && user.getUserRole().equals("Student")){
-                        
-                        for(Question question : logic.getSelectedTest().getQuestions()){
-                            for(QuestionOption option : question.getQuestionOptions()){
-                                if(option.isTrueFalse()){
-                                    for(Response response : question.getResponses()){
-                                        if(response.getResponse().equals(option.getQuestionOption()) && response.getUserId() == user.getUserId()){
-                                            studentResponse++;
+        tableStudentTestResult.setItems(usersWithSelectedTest);
+
+        startListener();
+
+    }
+
+    private void updateTestList() {
+        testList.clear();
+
+        logic.getSelectedCourse().getTests().forEach((a) -> {
+            testList.add(a);
+        });
+
+    }
+
+    private void startListener() {
+
+        //*************** LISTENER *************************
+        tableTests.getSelectionModel().selectedItemProperty().addListener((property, oldValue, newValue) -> {
+            try {
+                labelSelectedTest.setText(newValue.getTitle());
+                logic.setSelectedTest(newValue);
+
+                usersWithSelectedTest.clear();
+                for (User user : logic.getUsers()) {
+                    int studentResponse = 0;
+                    for (Course course : user.getCourses()) {
+                        if (course.getCourseId() == logic.getSelectedCourse().getCourseId() && user.getUserRole().equals("Student")) {
+
+                            for (Question question : logic.getSelectedTest().getQuestions()) {
+                                for (QuestionOption option : question.getQuestionOptions()) {
+                                    if (option.isTrueFalse()) {
+                                        for (Response response : question.getResponses()) {
+                                            if (response.getResponse().equals(option.getQuestionOption()) && response.getUserId() == user.getUserId()) {
+                                                studentResponse++;
+                                            }
                                         }
                                     }
                                 }
                             }
+
+                            String result = studentResponse + "/" + logic.getSelectedTest().getQuestions().size();
+                            user.setCurrentResult(result);
+                            usersWithSelectedTest.add(user);
                         }
-                        
-                        String result = studentResponse + "/" + logic.getSelectedTest().getQuestions().size();
-                        user.setCurrentResult(result);
-                        usersWithSelectedTest.add(user);
                     }
                 }
+            } catch (NullPointerException e) {
+
             }
-            
+
         });
-    }   
-    
+
+    }
+
 }

@@ -50,6 +50,14 @@ public class Course implements Serializable {
         this.tests = tests;
     }
     
+    public void addTest(Test test){
+        tests.add(test);
+    }
+    
+    public void deleteTest(Test test){
+        tests.remove(test);
+    }
+    
     @Override
     public String toString(){
         return name;

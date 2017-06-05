@@ -27,6 +27,12 @@ public class QuestionOption implements Serializable{
         this.trueFalse = new SimpleBooleanProperty(trueFalse);
         this.questionOption = new SimpleStringProperty(questionOption);
     }
+    
+    public QuestionOption(String questionOption, boolean trueFalse, Question question){
+        this.questionOption = new SimpleStringProperty(questionOption);
+        this.trueFalse = new SimpleBooleanProperty(trueFalse);
+        this.question = question;
+    }
 
     public int getQuestionOptionId() {
         return questionOptionId.get();
