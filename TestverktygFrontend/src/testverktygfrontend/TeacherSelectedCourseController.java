@@ -75,6 +75,7 @@ public class TeacherSelectedCourseController implements Initializable {
     private void updateTestButton(ActionEvent event) throws IOException {
         try {
             logic.setSelectedTest(tableTests.getSelectionModel().selectedItemProperty().get());
+            logic.getSelectedTest().getTitle();
             URL paneOneUrl = getClass().getResource("CreateTest.fxml");
             AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
 

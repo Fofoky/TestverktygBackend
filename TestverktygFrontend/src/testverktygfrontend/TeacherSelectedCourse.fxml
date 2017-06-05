@@ -16,9 +16,9 @@
                <children>
                   <TableView fx:id="tableTests" editable="true" layoutX="-1.0" layoutY="29.0" prefHeight="150.0" prefWidth="328.0" BorderPane.alignment="CENTER">
                      <columns>
-                        <TableColumn fx:id="columnTest" editable="false" prefWidth="89.0" text="Prov" />
-                        <TableColumn fx:id="columnStart" onEditCommit="#handleEditStartTime" prefWidth="112.0" text="startTime" />
-                        <TableColumn fx:id="columnStop" onEditCommit="#handleEditStopTime" prefWidth="126.0" text="endTime" />
+                        <TableColumn fx:id="columnTest" editable="false" prefWidth="62.0" text="Prov" />
+                        <TableColumn fx:id="columnStart" onEditCommit="#handleEditStartTime" prefWidth="130.0" text="startTime" />
+                        <TableColumn fx:id="columnStop" onEditCommit="#handleEditStopTime" prefWidth="135.0" text="endTime" />
                      </columns>
                   </TableView>
                   <TableView fx:id="tableStudentTestResult" layoutX="-1.0" layoutY="262.0" prefHeight="150.0" prefWidth="445.0">
