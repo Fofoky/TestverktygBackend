@@ -48,8 +48,8 @@ public class TestController implements Initializable {
     private Logic logic;
     private Test selectedTest;
     private User selectedUser;
-    private Course selectedCourse;
     private Question selectedQuestion;
+    private Course selectedCourse;
     private List<Question> questionList;
     private ObservableList<QuestionOption> questionOptionList;
     private List<QuestionOption> savedAnswers;
@@ -152,21 +152,23 @@ public class TestController implements Initializable {
                     buttonNext.setDisable(false);
                 }
 
-                for (QuestionOption q : questionOptionList) {
-                    if (q.getQuestionOption().equals(checkBox1.getText())) {
-                        q.setQuestion(selectedQuestion);
-                        savedAnswers.add(q);
-                        System.out.println("Lägger till svar " + q.isTrueFalse() + " " + q.getQuestionOptionId());
-                    }
-                }
+                savedAnswers.add((QuestionOption) checkBox1.getUserData());
+                System.out.println("CheckBox1 " + checkBox1.getUserData());
 
+//                for (QuestionOption q : questionOptionList) {
+//                    if (q.getQuestionOption().equals(checkBox1.getText())) {
+//                        q.setQuestion(selectedQuestion);
+//                        savedAnswers.add(q);
+//                    }
+//                }
             } else {
                 checkBox2.setDisable(false);
                 checkBox3.setDisable(false);
                 checkBox4.setDisable(false);
                 buttonNext.setDisable(true);
 
-                savedAnswers.removeIf(s -> s.getQuestionOption().equals(checkBox1.getText()));
+                savedAnswers.removeIf(s -> s == checkBox1.getUserData());
+
             }
 
         }
@@ -276,6 +278,10 @@ public class TestController implements Initializable {
             checkBox2.setText(selectedQuestion.getQuestionOptions().get(1).getQuestionOption());
             checkBox3.setText(selectedQuestion.getQuestionOptions().get(2).getQuestionOption());
             checkBox4.setText(selectedQuestion.getQuestionOptions().get(3).getQuestionOption());
+            checkBox1.setUserData(selectedQuestion.getQuestionOptions().get(0));
+            checkBox2.setUserData(selectedQuestion.getQuestionOptions().get(1));
+            checkBox3.setUserData(selectedQuestion.getQuestionOptions().get(2));
+            checkBox4.setUserData(selectedQuestion.getQuestionOptions().get(3));
 
         }
     };
@@ -319,6 +325,11 @@ public class TestController implements Initializable {
         checkBox2.setText(selectedQuestion.getQuestionOptions().get(1).getQuestionOption());
         checkBox3.setText(selectedQuestion.getQuestionOptions().get(2).getQuestionOption());
         checkBox4.setText(selectedQuestion.getQuestionOptions().get(3).getQuestionOption());
+        
+        checkBox1.setUserData(selectedQuestion.getQuestionOptions().get(0));
+        checkBox2.setUserData(selectedQuestion.getQuestionOptions().get(1));
+        checkBox3.setUserData(selectedQuestion.getQuestionOptions().get(2));
+        checkBox4.setUserData(selectedQuestion.getQuestionOptions().get(3));
 
         /* 
         Alla allListeners som finns: 
