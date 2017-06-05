@@ -82,7 +82,10 @@ public Test(int idTest, String title, String start, String stop) {
     }
 
     public void setEndTime(String endTime) {
-        this.endTime = endTime;
+         try{
+            LocalDateTime ld = LocalDateTime.parse(endTime); // kontrollerar att det är rätt format
+            this.endTime = endTime;
+        }catch(DateTimeParseException e){}
     }
 
     public void setQuestions(List<Question> questions) {
