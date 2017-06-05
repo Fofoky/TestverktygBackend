@@ -29,6 +29,7 @@ import javafx.scene.control.TextArea;
 import testverktygfrontend.logic.Logic;
 import testverktygfrontend.model.Question;
 import testverktygfrontend.model.QuestionOption;
+import testverktygfrontend.model.QuestionOptionConverter;
 import testverktygfrontend.model.Test;
 import testverktygfrontend.model.User;
 
@@ -91,27 +92,15 @@ public class TestController implements Initializable {
     }
     
     public void handleButtonSaveTestAction(ActionEvent event){
-        String response;
-        int qId;
-        int uId;
-       
+        
         for(QuestionOption q : savedAnswers){
-            
-            
-            
-            response = q.getQuestionOption();
-            
-           
-            qId = q.getQuestion().getQuestionId();
-            
-            uId = selectedUser.getUserId();
-            
-            
-            
-           logic.addResponse(response, qId, uId, q.getQuestion());
-            
-            
+        
+            logic.addResponse(q, selectedUser.getUserId(), q.getQuestion().getQuestionId());
         }
+        
+
+       
+
     }
     
     public void handleButtonBackAction(ActionEvent event){

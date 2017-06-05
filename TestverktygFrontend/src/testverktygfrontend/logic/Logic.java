@@ -141,24 +141,18 @@ public class Logic {
         db.addQuestionOption(qOption, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
     } 
     
-    // Farhads code starts here 
+    // Farhads code starts here
     
-    public Response addResponse(String response, int questionId, int userId, Question q){
-        System.out.println("Kommer in i addResponse i Logic med response: " + response + " och questionId: " + questionId + " och userId: " + userId);
+    public void addResponse(QuestionOption q, int userId, int questionId){
+        
         DBconnector db = new DBconnector();
-        Response res = new Response(); 
-        System.out.println("Hit 1");
-        res.setResponse(response);
-        res.setUserId(userId);
-        res.setQuestion(q);
+//        Response res = new Response(); 
+//        System.out.println("Hit 1");
+//        res.setResponse(response);
+//        res.setUserId(userId);
+//        res.setQuestion(q);
         
-        System.out.println(res.getResponse() + " " + res.getUserId() + " " + res.getQuestion());
-        
-        System.out.println("user: " + selectedUser.getUserId());
-        System.out.println(" course: " + selectedCourse.getCourseId());
-        System.out.println(" test: " + selectedTest.getIdTest());
-        System.out.println(" question: " +questionId);
-        return db.addResponse(res, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
+        db.addResponse(q, userId, selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
     }
     
     public void updateQuestionOption(String newQuestionOption, int questionOptionId, int questionId){
