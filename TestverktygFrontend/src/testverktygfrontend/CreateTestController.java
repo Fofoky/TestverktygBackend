@@ -31,6 +31,9 @@ public class CreateTestController implements Initializable {
 
     private Logic logic;
     private ObservableList<TemporaryQuestionCreate> questionList;
+    private Test test = null;
+    private ArrayList<Question> questions = null;
+    private ArrayList<QuestionOption> options = null;
 
     @FXML
     Label labelCourse;
@@ -62,27 +65,35 @@ public class CreateTestController implements Initializable {
     @FXML
     private void saveTest(ActionEvent event) throws IOException {
         try {
-            Test test = new Test();
-            //test.setCourse(logic.getSelectedCourse());
-            test.setTitle(textFieldTestName.getText().trim());
-            test = logic.addTest(test);
-            ArrayList<Question> questions = new ArrayList();
-            ArrayList<QuestionOption> options = new ArrayList();
+            if (test == null) {
+                test = new Test();
+                test.setTitle(textFieldTestName.getText().trim());
+                test = logic.addTest(test);
+                questions = new ArrayList();
+                options = new ArrayList();
+                textFieldTestName.setEditable(false);
+                buttonSaveTest.setText("Uppdatera");
+            }
+
             for (TemporaryQuestionCreate temp : questionList) {
-                Question q = new Question();
-                q = logic.addQuestion(temp.getQuestion(), test.getIdTest());
-                boolean b = true;
-                logic.addQuestionOption(temp.getOption1(), b, q.getQuestionId());
-                options.add(new QuestionOption(temp.getOption1(), b, q));
-                b = false;
-                logic.addQuestionOption(temp.getOption2(), b, q.getQuestionId());
-                options.add(new QuestionOption(temp.getOption2(), b, q));
-                logic.addQuestionOption(temp.getOption3(), b, q.getQuestionId());
-                options.add(new QuestionOption(temp.getOption3(), b, q));
-                logic.addQuestionOption(temp.getOption4(), b, q.getQuestionId());
-                options.add(new QuestionOption(temp.getOption4(), b, q));
-                q.setQuestionOptions(options);
-                questions.add(q);
+                if (!temp.getSavedToDb()) {
+
+                    Question q = new Question();
+                    q = logic.addQuestion(temp.getQuestion(), test.getIdTest());
+                    boolean b = true;
+                    logic.addQuestionOption(temp.getOption1(), b, q.getQuestionId());
+                    options.add(new QuestionOption(temp.getOption1(), b, q));
+                    b = false;
+                    logic.addQuestionOption(temp.getOption2(), b, q.getQuestionId());
+                    options.add(new QuestionOption(temp.getOption2(), b, q));
+                    logic.addQuestionOption(temp.getOption3(), b, q.getQuestionId());
+                    options.add(new QuestionOption(temp.getOption3(), b, q));
+                    logic.addQuestionOption(temp.getOption4(), b, q.getQuestionId());
+                    options.add(new QuestionOption(temp.getOption4(), b, q));
+                    q.setQuestionOptions(options);
+                    questions.add(q);
+                    temp.setSavedToDb(true);
+                }
             }
             test.setQuestions(questions);
 
@@ -94,13 +105,11 @@ public class CreateTestController implements Initializable {
                 }
             }
 
-            textFieldTestName.clear();
             textAreaQuestion.clear();
             textFieldOpt1.clear();
             textFieldOpt2.clear();
             textFieldOpt3.clear();
             textFieldOpt4.clear();
-            questionList.clear();
 
         } catch (NullPointerException e) {
 

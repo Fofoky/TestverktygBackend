@@ -16,6 +16,7 @@ public class TemporaryQuestionCreate {
     private StringProperty option2;
     private StringProperty option3;
     private StringProperty option4;
+    private Boolean savedToDb = false;
     
     public TemporaryQuestionCreate(){}
 
@@ -66,6 +67,16 @@ public class TemporaryQuestionCreate {
     public void setOption4(String option) {
         this.option4 = new SimpleStringProperty(option);
     }
+
+    public void setSavedToDb(Boolean savedToDb) {
+        this.savedToDb = savedToDb;
+    }
+    
+    public Boolean getSavedToDb(){
+        return savedToDb;
+    }
+    
+    
 
 
     
