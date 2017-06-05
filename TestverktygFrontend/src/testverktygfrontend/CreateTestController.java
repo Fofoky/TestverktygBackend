@@ -80,16 +80,21 @@ public class CreateTestController implements Initializable {
 
                     Question q = new Question();
                     q = logic.addQuestion(temp.getQuestion(), test.getIdTest());
+
                     boolean b = true;
                     logic.addQuestionOption(temp.getOption1(), b, q.getQuestionId());
                     options.add(new QuestionOption(temp.getOption1(), b, q));
+
                     b = false;
                     logic.addQuestionOption(temp.getOption2(), b, q.getQuestionId());
                     options.add(new QuestionOption(temp.getOption2(), b, q));
+
                     logic.addQuestionOption(temp.getOption3(), b, q.getQuestionId());
                     options.add(new QuestionOption(temp.getOption3(), b, q));
+
                     logic.addQuestionOption(temp.getOption4(), b, q.getQuestionId());
                     options.add(new QuestionOption(temp.getOption4(), b, q));
+
                     q.setQuestionOptions(options);
                     questions.add(q);
                     temp.setSavedToDb(true);
@@ -100,7 +105,8 @@ public class CreateTestController implements Initializable {
             for (User user : logic.getUsers()) {
                 for (Course course : user.getCourses()) {
                     if (course.getCourseId() == logic.getSelectedCourse().getCourseId()) {
-                        course.addTest(test);
+                        course.deleteTest(test); // tar bort gamal version av tetstet
+                        course.addTest(test); // lägger till den uppdaterade versionen
                     }
                 }
             }
@@ -112,6 +118,7 @@ public class CreateTestController implements Initializable {
             textFieldOpt4.clear();
 
         } catch (NullPointerException e) {
+            System.out.println();
 
         }
 
@@ -163,6 +170,30 @@ public class CreateTestController implements Initializable {
         columnOpt4.setCellFactory(TextFieldTableCell.forTableColumn());
 
         tableCreateTest.setItems(questionList);
+
+        if (logic.getSelectedTest() != null) {
+            test = logic.getSelectedTest();
+            textFieldTestName.setText(test.getTitle());
+            textFieldTestName.setEditable(false);
+            buttonSaveTest.setText("Uppdatera");
+            questions = new ArrayList();
+            options = new ArrayList();
+
+            for (Question question : test.getQuestions()) {
+                TemporaryQuestionCreate newQuestion = new TemporaryQuestionCreate();
+
+                newQuestion.setId(questionList.size() + 1);
+                newQuestion.setQuestion(question.getQuestion());
+
+                newQuestion.setOption1(question.getQuestionOptions().get(0).getQuestionOption());
+                newQuestion.setOption2(question.getQuestionOptions().get(1).getQuestionOption());
+                newQuestion.setOption3(question.getQuestionOptions().get(2).getQuestionOption());
+                newQuestion.setOption4(question.getQuestionOptions().get(3).getQuestionOption());
+                newQuestion.setSavedToDb(true);
+                questions.add(question);
+                questionList.add(newQuestion);
+            }
+        }
 
     }
 

@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -46,7 +45,7 @@ public class TeacherSelectedCourseController implements Initializable {
     private TableView<User> tableStudentTestResult;
 
     @FXML
-    private TableColumn<Test, String> columnTest, columnStatus, columnStart, columnStop;
+    private TableColumn<Test, String> columnTest, columnStart, columnStop;
 
     @FXML
     private TableColumn<User, String> columnStudent, columnResult;
@@ -55,10 +54,8 @@ public class TeacherSelectedCourseController implements Initializable {
     private Label labelSelectedTest;
 
     @FXML
-    private Button buttonCreateTest, buttonDeleteTest, buttonEditTest;
-
-    @FXML
     private void createTestButton(ActionEvent event) throws IOException {
+        logic.setSelectedTest(null);
 
         try {
             URL paneOneUrl = getClass().getResource("CreateTest.fxml");
@@ -71,6 +68,21 @@ public class TeacherSelectedCourseController implements Initializable {
             ee.printStackTrace();
         }
 
+    }
+    
+    @FXML
+    private void updateTestButton(ActionEvent event) throws IOException {
+        try{
+            logic.setSelectedTest(tableTests.getSelectionModel().selectedItemProperty().get());
+            URL paneOneUrl = getClass().getResource("CreateTest.fxml");
+            AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
+
+            BorderPane border = LogInController.getRoot();
+            border.setCenter(paneOne);
+            
+        }catch(NullPointerException e){
+            
+        }
     }
 
     @FXML
