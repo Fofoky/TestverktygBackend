@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -69,19 +70,19 @@ public class TeacherSelectedCourseController implements Initializable {
         }
 
     }
-    
+
     @FXML
     private void updateTestButton(ActionEvent event) throws IOException {
-        try{
+        try {
             logic.setSelectedTest(tableTests.getSelectionModel().selectedItemProperty().get());
             URL paneOneUrl = getClass().getResource("CreateTest.fxml");
             AnchorPane paneOne = (AnchorPane) FXMLLoader.load(paneOneUrl);
 
             BorderPane border = LogInController.getRoot();
             border.setCenter(paneOne);
-            
-        }catch(NullPointerException e){
-            
+
+        } catch (NullPointerException e) {
+
         }
     }
 
@@ -102,9 +103,34 @@ public class TeacherSelectedCourseController implements Initializable {
 
     }
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private void handleEditStartTime(CellEditEvent<Test, String> t) {
+
+        Test test = ((Test) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+
+        test.setStartTime(t.getNewValue());
+
+        ((Test) t.getTableView().getItems().get(
+                t.getTablePosition().getRow())).setStartTime(test.getStartTime());
+        
+        logic.updateTest(test);
+
+    }
+
+    @FXML
+    private void handleEditStopTime(CellEditEvent<Test, String> t) {
+
+        Test test = ((Test) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+
+        test.setEndTime(t.getNewValue());
+
+        ((Test) t.getTableView().getItems().get(
+                t.getTablePosition().getRow())).setStartTime(test.getEndTime());
+        
+        logic.updateTest(test);
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
