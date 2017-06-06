@@ -57,9 +57,6 @@ public class TestController implements Initializable {
     private IntegerProperty counter;
     private boolean ended = false;
     
-    
-    
-
     @FXML
     Label labelTestName, labelQuestionId, labelProgress;
 
@@ -80,10 +77,10 @@ public class TestController implements Initializable {
         buttonPrevious.setDisable(false);
         counter.set(counter.getValue() + 1);
         
-        checkBox1.setDisable(false);
-        checkBox2.setDisable(false);
-        checkBox3.setDisable(false);
-        checkBox4.setDisable(false);
+//        checkBox1.setDisable(false);
+//        checkBox2.setDisable(false);
+//        checkBox3.setDisable(false);
+//        checkBox4.setDisable(false);
         checkBox1.setSelected(false);
         checkBox2.setSelected(false);
         checkBox3.setSelected(false);
@@ -140,18 +137,22 @@ public class TestController implements Initializable {
         try{
             for(QuestionOption q : savedAnswers){
                 if(checkBox1.getUserData().equals(q)){
+                    System.out.println("Hittar: i checkbox1: " + q);
                     savedAnswers.removeIf(s -> s == checkBox1.getUserData());
                     checkBox1.setSelected(true);
                 }
                 else if(checkBox2.getUserData().equals(q)){
+                    System.out.println("Hittar: i checkbox2: " + q);
                     savedAnswers.removeIf(s -> s == checkBox2.getUserData());
                     checkBox2.setSelected(true);
                 }
                 else if(checkBox3.getUserData().equals(q)){
+                    System.out.println("Hittar: i checkbox3: " + q);
                     savedAnswers.removeIf(s -> s == checkBox3.getUserData());
                     checkBox3.setSelected(true);
                 }
                 else if(checkBox4.getUserData().equals(q)){
+                    System.out.println("Hittar: i checkbox4: " + q);
                     savedAnswers.removeIf(s -> s == checkBox4.getUserData());
                     checkBox4.setSelected(true);
                 }
@@ -378,14 +379,15 @@ public class TestController implements Initializable {
         checkBox2.setUserData(selectedQuestion.getQuestionOptions().get(1));
         checkBox3.setUserData(selectedQuestion.getQuestionOptions().get(2));
         checkBox4.setUserData(selectedQuestion.getQuestionOptions().get(3));
-
+        
         /* 
         Alla allListeners som finns: 
         För progressbar som håller koll på vilka frågor man gjort. 
         För counter som räknar alla frågor som man gör. 
         Sen för alla checkboxar, som ska sätta/ta bort från en lokal lista när man klickar på de olika valen som finns.
          */
-        progressBar.progressProperty().bind(counter.divide(questionList.size() * 1.0));
+//        progressBar.progressProperty().bind(counter.divide(questionList.size() * 1.0));
+        
         counter.addListener(changeListener);
         checkBox1.selectedProperty().addListener(checkIfChecked1);
         checkBox2.selectedProperty().addListener(checkIfChecked2);
