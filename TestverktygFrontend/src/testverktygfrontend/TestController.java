@@ -8,6 +8,7 @@ package testverktygfrontend;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -53,9 +54,11 @@ public class TestController implements Initializable {
     private List<Question> questionList;
     private ObservableList<QuestionOption> questionOptionList;
     private List<QuestionOption> savedAnswers;
-    List<Response> savedResponses = new ArrayList();
     private IntegerProperty counter;
     private boolean ended = false;
+    
+    
+    
 
     @FXML
     Label labelTestName, labelQuestionId, labelProgress;
@@ -76,7 +79,7 @@ public class TestController implements Initializable {
     public void handleButtonNextAction(ActionEvent event) {
         buttonPrevious.setDisable(false);
         counter.set(counter.getValue() + 1);
-
+        
         checkBox1.setDisable(false);
         checkBox2.setDisable(false);
         checkBox3.setDisable(false);
@@ -89,32 +92,26 @@ public class TestController implements Initializable {
     }
 
     public void handleButtonSaveTestAction(ActionEvent event) throws IOException {
+        
         Response addedResponse;
-        int respContuner = 0;
-
+        
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Bekräfta ditt val.");
         alert.setContentText("Är du säker på att du vill spara och avsluta testet?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            System.out.println("Storlek på savedAnswers " + savedAnswers.size());
+            
             for (QuestionOption q : savedAnswers) {
 
-                System.out.println("Objektet questionOption: " + q);
-                System.out.println("UserId: " + selectedUser.getUserId());
-                System.out.println("QuestionId: " + q.getQuestion().getQuestionId());
-                
                 addedResponse = logic.addResponse(q, selectedUser.getUserId(), q.getQuestion().getQuestionId());
                 q.getQuestion().setResponse(addedResponse);
-                respContuner++;
-                System.out.println(respContuner);
 
             }
-            System.out.println("Utanför loopen");
+            
             URL studentCourse = getClass().getResource("StudSelectedCourse.fxml");
             LogInController.getRoot().setCenter(FXMLLoader.load(studentCourse));
-            System.out.println("Allt klart");
+            
         } else {
 
         }
@@ -123,7 +120,12 @@ public class TestController implements Initializable {
 
     public void handleButtonBackAction(ActionEvent event) {
         counter.set(counter.getValue() - 1);
-
+        
+        checkBox1.setSelected(false);
+        checkBox2.setSelected(false);
+        checkBox3.setSelected(false);
+        checkBox4.setSelected(false);
+        
         if (questionList.get(0) == selectedQuestion) {
             buttonPrevious.setDisable(true);
         }
@@ -138,6 +140,9 @@ public class TestController implements Initializable {
                 checkBox3.setDisable(true);
                 checkBox4.setDisable(true);
                 buttonNext.setDisable(false);
+                
+                
+                
                 
                 if(selectedQuestion == questionList.get(questionList.size()-1) && newValue == true) {
                     buttonNext.setDisable(true);

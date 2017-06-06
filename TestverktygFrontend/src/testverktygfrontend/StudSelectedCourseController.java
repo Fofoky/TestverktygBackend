@@ -122,7 +122,6 @@ public class StudSelectedCourseController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
-        System.out.println("Kommer in i initialize");
         logic = Logic.getInstance();
         selectedUser = logic.getSelectedUser();
         selectedCourse = logic.getSelectedCourse();
