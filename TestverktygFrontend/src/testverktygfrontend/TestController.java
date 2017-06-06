@@ -88,7 +88,24 @@ public class TestController implements Initializable {
         checkBox2.setSelected(false);
         checkBox3.setSelected(false);
         checkBox4.setSelected(false);
+        
+        seeIfChecked();
 
+    }
+    
+    public void handleButtonBackAction(ActionEvent event) {
+        counter.set(counter.getValue() - 1);
+        
+        checkBox1.setSelected(false);
+        checkBox2.setSelected(false);
+        checkBox3.setSelected(false);
+        checkBox4.setSelected(false);
+        
+        seeIfChecked();
+        
+        if (questionList.get(0) == selectedQuestion) {
+            buttonPrevious.setDisable(true);
+        }
     }
 
     public void handleButtonSaveTestAction(ActionEvent event) throws IOException {
@@ -98,7 +115,7 @@ public class TestController implements Initializable {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Bekräfta ditt val.");
         alert.setContentText("Är du säker på att du vill spara och avsluta testet?");
-
+        System.out.println(savedAnswers.size());
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             
@@ -117,19 +134,34 @@ public class TestController implements Initializable {
         }
 
     }
-
-    public void handleButtonBackAction(ActionEvent event) {
-        counter.set(counter.getValue() - 1);
+    
+    public void seeIfChecked(){
         
-        checkBox1.setSelected(false);
-        checkBox2.setSelected(false);
-        checkBox3.setSelected(false);
-        checkBox4.setSelected(false);
-        
-        if (questionList.get(0) == selectedQuestion) {
-            buttonPrevious.setDisable(true);
+        try{
+            for(QuestionOption q : savedAnswers){
+                if(checkBox1.getUserData().equals(q)){
+                    savedAnswers.removeIf(s -> s == checkBox1.getUserData());
+                    checkBox1.setSelected(true);
+                }
+                else if(checkBox2.getUserData().equals(q)){
+                    savedAnswers.removeIf(s -> s == checkBox2.getUserData());
+                    checkBox2.setSelected(true);
+                }
+                else if(checkBox3.getUserData().equals(q)){
+                    savedAnswers.removeIf(s -> s == checkBox3.getUserData());
+                    checkBox3.setSelected(true);
+                }
+                else if(checkBox4.getUserData().equals(q)){
+                    savedAnswers.removeIf(s -> s == checkBox4.getUserData());
+                    checkBox4.setSelected(true);
+                }
+            }
+        }catch(ConcurrentModificationException cme){
+            System.out.println(savedAnswers.size());
         }
     }
+
+
 
      ChangeListener checkIfChecked1 = new ChangeListener<Boolean>() {
 
@@ -140,9 +172,6 @@ public class TestController implements Initializable {
                 checkBox3.setDisable(true);
                 checkBox4.setDisable(true);
                 buttonNext.setDisable(false);
-                
-                
-                
                 
                 if(selectedQuestion == questionList.get(questionList.size()-1) && newValue == true) {
                     buttonNext.setDisable(true);
