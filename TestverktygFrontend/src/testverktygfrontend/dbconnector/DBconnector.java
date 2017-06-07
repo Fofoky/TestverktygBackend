@@ -82,7 +82,6 @@ public class DBconnector {
         for (Test test : tests) {
             test.setQuestions(getQuestions(userId, courseId, test.getIdTest()));
         }
-        System.out.println("DBConnector getTests");
 
         return tests;
     }
