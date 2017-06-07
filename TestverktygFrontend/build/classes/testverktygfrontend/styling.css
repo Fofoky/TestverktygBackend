@@ -44,7 +44,43 @@
     -fx-font-color: rgba(0,0,0,1)*/
     }
 
+
+
+.tableviews {
+     -fx-base: #2eb2ff;
+    -fx-control-inner-background: white;
+    -fx-background-color: #2eb2ff; 
+    -fx-table-cell-border-color: white;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 1;
+   
+}
 /*
+.tableviews .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.tableviews .column-header, .tableviews .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color: #B4D9FD;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.tableviews .column-header .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-alignment: center-left; 
+    -fx-opacity: 1;
+}
+
+.tableviews :focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: #273D51;
+}
+    
+    /*
 
 tree-table-cell, cell{
    -fx-background-color: rgba(0, 0, 0, 1);
