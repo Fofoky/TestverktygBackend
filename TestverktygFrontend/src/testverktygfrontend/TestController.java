@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testverktygfrontend;
 
 import java.io.IOException;
@@ -30,7 +25,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
-
 import testverktygfrontend.logic.Logic;
 import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Question;
@@ -85,7 +79,6 @@ public class TestController implements Initializable {
                 exist(q.getQuestion());
                 
                 savedAnswers.add((QuestionOption) checkBox1.getUserData());
-                System.out.println("option " + q.getQuestionOption() +"har lagts till");
                 
             }   
         }
@@ -95,7 +88,6 @@ public class TestController implements Initializable {
                 q.setQuestion(selectedQuestion);
                 exist(q.getQuestion());
                 savedAnswers.add((QuestionOption) checkBox2.getUserData());
-                System.out.println("option " + q.getQuestionOption() +"har lagts till");
                 
             }
         }
@@ -105,7 +97,6 @@ public class TestController implements Initializable {
                 q.setQuestion(selectedQuestion);
                 exist(q.getQuestion());
                 savedAnswers.add((QuestionOption) checkBox3.getUserData());
-                System.out.println("option " + q.getQuestionOption() +"har lagts till");
                 
             }
         }
@@ -115,26 +106,16 @@ public class TestController implements Initializable {
                 q.setQuestion(selectedQuestion);
                 exist(q.getQuestion());
                 savedAnswers.add((QuestionOption) checkBox4.getUserData());
-                System.out.println("option " + q.getQuestionOption() +"har lagts till");
                 
             }
         }
         
-        
-        
-        
-        
-        
-        for(QuestionOption q : savedAnswers){
-            System.out.println("Finns i savedAnswers listan: " + q.getQuestionOption());
-        }
         buttonPrevious.setDisable(false);
         counter.set(counter.getValue() + 1);
         seeIfChecked();
     }
     
     private void exist(Question q){
-        System.out.println(" inside exists");
            for(int i = 0; i < savedAnswers.size(); i++){
                if(savedAnswers.get(i).getQuestion().equals(q)){
                    savedAnswers.remove(i); 
@@ -145,9 +126,6 @@ public class TestController implements Initializable {
     public void handleButtonBackAction(ActionEvent event) {
         counter.set(counter.getValue() - 1);
         
-        for(QuestionOption q : savedAnswers){
-            System.out.println("I backButton, i listan finns: " + q.getQuestionOption());
-        }
         seeIfChecked();
         
         if (questionList.get(0) == selectedQuestion) {
@@ -179,7 +157,7 @@ public class TestController implements Initializable {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Bekräfta ditt val.");
         alert.setContentText("Är du säker på att du vill spara och avsluta testet?");
-        System.out.println(savedAnswers.size());
+        
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             
@@ -210,23 +188,19 @@ public class TestController implements Initializable {
         try{
             for(QuestionOption q : savedAnswers){
                 if(q.equals(checkBox1.getUserData())){
-                    System.out.println("Hittar: i checkbox1: " + q);
                     
                     checkBox1.setSelected(true);
                     
                 }
                 else if(q2.getQuestionOptionId()==q.getQuestionOptionId()){
-                    System.out.println("Hittar: i checkbox2: " + q);
                     
                     checkBox2.setSelected(true);
                 }
                 else if(q3.getQuestionOptionId()==q.getQuestionOptionId()){
-                    System.out.println("Hittar: i checkbox3: " + q);
                     
                     checkBox3.setSelected(true);
                 }
                 else if(q4.getQuestionOptionId()==q.getQuestionOptionId()){
-                    System.out.println("Hittar: i checkbox4: " + q);
                     
                     checkBox4.setSelected(true);
                 }
@@ -234,7 +208,6 @@ public class TestController implements Initializable {
                 
             }
         }catch(ConcurrentModificationException cme){
-            System.out.println(savedAnswers.size());
         }
     }
 
