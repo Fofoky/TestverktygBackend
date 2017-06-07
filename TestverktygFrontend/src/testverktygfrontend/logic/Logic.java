@@ -17,6 +17,7 @@ public class Logic {
     private User selectedUser;
     private Course selectedCourse;
     private Test selectedTest;
+    private Question selectedQuestion;
 
     private Logic() {
     }
@@ -89,6 +90,14 @@ public class Logic {
     public void setSelectedTest(Test selectedTest) {
         this.selectedTest = selectedTest;
     }
+    
+    public Question getSelectedQuestion(){
+        return selectedQuestion;
+    }
+    
+    public void setSelectedQuestion(Question selectedQuestion){
+        this.selectedQuestion = selectedQuestion;
+    }
 
     public void addUser(String name, String userRole, String password, String email) {
         DBconnector db = new DBconnector();
@@ -118,6 +127,12 @@ public class Logic {
         return test;
     }
     
+    public List<Test> getTests(int courseId, int userId){   
+        DBconnector db = new DBconnector();
+        System.out.println("Logic.getTest");
+        return db.getTests(courseId, userId);
+    }
+     
     public void deleteQuestion(int questionId){
         DBconnector db = new DBconnector();
         db.deleteQuestion(questionId, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest());
@@ -132,13 +147,12 @@ public class Logic {
         db.addQuestionOption(qOption, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
     } 
     
-    // Farhads code starts here 
+    // Farhads code starts here
     
-    public Response addResponse(String response, int questionId){
+    public Response addResponse(QuestionOption q, int userId, int questionId){
         DBconnector db = new DBconnector();
-        Response res = new Response(); 
-        res.setResponse(response);
-        return db.addResponse(res, selectedUser.getUserId(), selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
+        
+        return db.addResponse(q, userId, selectedCourse.getCourseId(), selectedTest.getIdTest(), questionId);
     }
     
     public void updateQuestionOption(String newQuestionOption, int questionOptionId, int questionId){

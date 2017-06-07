@@ -21,14 +21,15 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import testverktygfrontend.logic.Logic;
 import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Question;
-import testverktygfrontend.model.QuestionOption;
 import testverktygfrontend.model.Response;
 import testverktygfrontend.model.Test;
+import testverktygfrontend.model.User;
 
 public class StudSelectedCourseController implements Initializable {
 
     private Logic logic;
     private Course selectedCourse;
+    private User selectedUser;
     private ObservableList<Test> testList;
 
     @FXML
@@ -38,7 +39,7 @@ public class StudSelectedCourseController implements Initializable {
     private TableView<Test> tableTests;
 
     @FXML
-    private TableColumn<Test, String> columnTest, columnStatus, columnStart, columnStop, columnResult;
+    private TableColumn<Test, String> columnTest, columnStatus, columnStart, columnStop;
 
     @FXML
     private Button buttonToTest;
@@ -48,13 +49,29 @@ public class StudSelectedCourseController implements Initializable {
 
         //Spara markerat test
         Test selectedTest = tableTests.getSelectionModel().getSelectedItem();
+        
+        
 
         try {
 
             //Om testets status inte är "klart" - byt scen till sidan för att göra testet
             if (!"Klart".equals(selectedTest.getCurrentStatus())) {
+                
+                
+                
+                for (Course c : logic.getSelectedUser().getCourses()) {
+                    for (Test tests : c.getTests()) {
+                        if (tests.getTitle().equals(selectedTest.getTitle())) {
+                            selectedTest = tests;
+                        }
+                    }
+                }
+                logic.setSelectedTest(selectedTest);
+                
                 URL test = getClass().getResource("Test.fxml");
                 LogInController.getRoot().setCenter(FXMLLoader.load(test));
+                
+                
             } else {
                 //Kontroll-ruta
                 Alert alert = new Alert(AlertType.INFORMATION);
@@ -67,95 +84,60 @@ public class StudSelectedCourseController implements Initializable {
             }
 
         } catch (NullPointerException ex) {
-            System.out.println("Inget test markerat");
         }
 
     }
 
-    public void setStatus(Test test) {
-
+    public void setColumnStatus(Test test) {
+        
+        
         int countQuestions = test.getQuestions().size();
-        int countReponse = 0;
-        String testStatus = "Gör testet";
+        
+        int countResponse = 0;
+        String testStatus = "Ej avslutat";
 
         //Hur många svar finns det på frågorna?
-        for (Question q : test.getQuestions()) {
-            for (Response r : q.getResponses()) {
-                if (r.getUserId() == logic.getSelectedUser().getUserId()) {
-                    countReponse++;
+        for(Question q : test.getQuestions()){
+            for(Response r : q.getResponses()){
+                if(r.getUserId() == logic.getSelectedUser().getUserId()){
+                    countResponse++;
                 }
             }
         }
 
-        if (test.getQuestions().size() > 0) { //Om det finns någon fråga i testet
-            if (countQuestions == countReponse) { //och antalet frågor motsvarar antalet svar
-                testStatus = "Klart";
-            }
+        if (countQuestions == countResponse) {
+            testStatus = "Klart";
         }
-
+        
         test.setCurrentStatus(testStatus);
 
-    }
-
-    public void setResult(Test test) {
-        int studentResponse = 0;
-        String result = " ";
-        try {
-
-            if ("Klart".equals(test.getCurrentStatus())) { //Om testet är klart räknas resultatet ut
-                //Går igenom användarens test och plussar på countern när svaren är rätt
-                {
-                    for (Question question : test.getQuestions()) {
-                        for (QuestionOption option : question.getQuestionOptions()) {
-                            if (option.isTrueFalse()) {
-                                try {
-                                    for (Response response : question.getResponses()) {
-                                        if (response.getResponse().equals(option.getQuestionOption())) {
-                                            studentResponse++;
-                                        }
-                                    }
-                                } catch (NullPointerException ex) {
-                                }
-                            }
-                            result = studentResponse + "/" + test.getQuestions().size();
-                        }
-                    }
-                }
-            } else {
-                //Gör ingenting
-            }
-            test.setCurrentResult(result);
-        } catch (NullPointerException e) {
-
-        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
         logic = Logic.getInstance();
+        selectedUser = logic.getSelectedUser();
         selectedCourse = logic.getSelectedCourse();
         labelCourse.setText(selectedCourse.getName());
         testList = FXCollections.observableArrayList();
-
-        //Fyller testList med användarens test plus värdena status och resultat
+        
+        
         selectedCourse.getTests().forEach((a) -> {
-            setStatus(a);
-            setResult(a);
+            setColumnStatus(a);
             testList.add(a);
         });
 
-        columnTest.setCellValueFactory(new PropertyValueFactory<>("title")); //"title" är färltvariabel i klassen Test
+        columnTest.setCellValueFactory(new PropertyValueFactory<>("title"));
         columnStart.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         columnStop.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("currentStatus"));
-        columnResult.setCellValueFactory(new PropertyValueFactory<>("currentResult"));
 
         columnTest.setCellFactory(TextFieldTableCell.forTableColumn());
         columnStart.setCellFactory(TextFieldTableCell.forTableColumn());
         columnStop.setCellFactory(TextFieldTableCell.forTableColumn());
         columnStatus.setCellFactory(TextFieldTableCell.forTableColumn());
-        columnResult.setCellFactory(TextFieldTableCell.forTableColumn());
 
         tableTests.setItems(testList);
 
