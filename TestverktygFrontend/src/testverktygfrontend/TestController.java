@@ -50,7 +50,7 @@ public class TestController implements Initializable {
     private List<QuestionOption> savedAnswers;
     private IntegerProperty counter;
     private boolean ended = false;
-    
+
     @FXML
     Label labelTestName, labelQuestionId, labelProgress;
 
@@ -68,152 +68,136 @@ public class TestController implements Initializable {
     ProgressBar progressBar; //Går att koppla till property med bind
 
     public void handleButtonNextAction(ActionEvent event) {
-        
-        
-        
 
-        if(checkBox1.isSelected()){
-            if(!savedAnswers.contains(checkBox1.getUserData())){
-                QuestionOption q = (QuestionOption)checkBox1.getUserData();
+        if (checkBox1.isSelected()) {
+            if (!savedAnswers.contains(checkBox1.getUserData())) {
+                QuestionOption q = (QuestionOption) checkBox1.getUserData();
                 q.setQuestion(selectedQuestion);
                 exist(q.getQuestion());
-                
+
                 savedAnswers.add((QuestionOption) checkBox1.getUserData());
-                
-            }   
-        }
-        else if(checkBox2.isSelected()){
-            if(!savedAnswers.contains(checkBox2.getUserData())){
-                QuestionOption q = (QuestionOption)checkBox2.getUserData();
+
+            }
+        } else if (checkBox2.isSelected()) {
+            if (!savedAnswers.contains(checkBox2.getUserData())) {
+                QuestionOption q = (QuestionOption) checkBox2.getUserData();
                 q.setQuestion(selectedQuestion);
                 exist(q.getQuestion());
                 savedAnswers.add((QuestionOption) checkBox2.getUserData());
-                
+
             }
-        }
-        else if(checkBox3.isSelected()){
-            if(!savedAnswers.contains(checkBox3.getUserData())){
-                QuestionOption q = (QuestionOption)checkBox3.getUserData();
+        } else if (checkBox3.isSelected()) {
+            if (!savedAnswers.contains(checkBox3.getUserData())) {
+                QuestionOption q = (QuestionOption) checkBox3.getUserData();
                 q.setQuestion(selectedQuestion);
                 exist(q.getQuestion());
                 savedAnswers.add((QuestionOption) checkBox3.getUserData());
-                
+
             }
-        }
-        else if(checkBox4.isSelected()){
-            if(!savedAnswers.contains(checkBox4.getUserData())){
-                QuestionOption q = (QuestionOption)checkBox4.getUserData();
+        } else if (checkBox4.isSelected()) {
+            if (!savedAnswers.contains(checkBox4.getUserData())) {
+                QuestionOption q = (QuestionOption) checkBox4.getUserData();
                 q.setQuestion(selectedQuestion);
                 exist(q.getQuestion());
                 savedAnswers.add((QuestionOption) checkBox4.getUserData());
-                
+
             }
         }
-        
+
         buttonPrevious.setDisable(false);
         counter.set(counter.getValue() + 1);
         seeIfChecked();
     }
-    
-    private void exist(Question q){
-           for(int i = 0; i < savedAnswers.size(); i++){
-               if(savedAnswers.get(i).getQuestion().equals(q)){
-                   savedAnswers.remove(i); 
-               }
-           } 
+
+    private void exist(Question q) {
+        for (int i = 0; i < savedAnswers.size(); i++) {
+            if (savedAnswers.get(i).getQuestion().equals(q)) {
+                savedAnswers.remove(i);
+            }
+        }
     }
-    
+
     public void handleButtonBackAction(ActionEvent event) {
         counter.set(counter.getValue() - 1);
-        
+
         seeIfChecked();
-        
+
         if (questionList.get(0) == selectedQuestion) {
             buttonPrevious.setDisable(true);
         }
     }
 
     public void handleButtonSaveTestAction(ActionEvent event) throws IOException {
-        
-        if(checkBox1.isSelected()){
+
+        if (checkBox1.isSelected()) {
             savedAnswers.add((QuestionOption) checkBox1.getUserData());
-                savedAnswers.get(counter.getValue()).setQuestion(selectedQuestion);
-        }
-        else if(checkBox2.isSelected()){
+            savedAnswers.get(counter.getValue()).setQuestion(selectedQuestion);
+        } else if (checkBox2.isSelected()) {
             savedAnswers.add((QuestionOption) checkBox2.getUserData());
-                savedAnswers.get(counter.getValue()).setQuestion(selectedQuestion);
-        }
-        else if(checkBox3.isSelected()){
+            savedAnswers.get(counter.getValue()).setQuestion(selectedQuestion);
+        } else if (checkBox3.isSelected()) {
             savedAnswers.add((QuestionOption) checkBox3.getUserData());
-                savedAnswers.get(counter.getValue()).setQuestion(selectedQuestion);
-        }
-        else if(checkBox4.isSelected()){
+            savedAnswers.get(counter.getValue()).setQuestion(selectedQuestion);
+        } else if (checkBox4.isSelected()) {
             savedAnswers.add((QuestionOption) checkBox3.getUserData());
-                savedAnswers.get(counter.getValue()).setQuestion(selectedQuestion);
+            savedAnswers.get(counter.getValue()).setQuestion(selectedQuestion);
         }
-        
+
         Response addedResponse;
-        
+
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Bekräfta ditt val.");
         alert.setContentText("Är du säker på att du vill spara och avsluta testet?");
-        
+
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            
+
             for (QuestionOption q : savedAnswers) {
 
                 addedResponse = logic.addResponse(q, selectedUser.getUserId(), q.getQuestion().getQuestionId());
                 q.getQuestion().setResponse(addedResponse);
 
             }
-            
+
             URL studentCourse = getClass().getResource("StudSelectedCourse.fxml");
             LogInController.getRoot().setCenter(FXMLLoader.load(studentCourse));
-            
+
         } else {
 
         }
 
     }
-    
-    public void seeIfChecked(){
-        
+
+    public void seeIfChecked() {
+
         QuestionOption q1 = (QuestionOption) checkBox1.getUserData();
         QuestionOption q2 = (QuestionOption) checkBox2.getUserData();
         QuestionOption q3 = (QuestionOption) checkBox3.getUserData();
         QuestionOption q4 = (QuestionOption) checkBox4.getUserData();
-        
-        
-        try{
-            for(QuestionOption q : savedAnswers){
-                if(q.equals(checkBox1.getUserData())){
-                    
+
+        try {
+            for (QuestionOption q : savedAnswers) {
+                if (q.equals(checkBox1.getUserData())) {
+
                     checkBox1.setSelected(true);
-                    
-                }
-                else if(q2.getQuestionOptionId()==q.getQuestionOptionId()){
-                    
+
+                } else if (q2.getQuestionOptionId() == q.getQuestionOptionId()) {
+
                     checkBox2.setSelected(true);
-                }
-                else if(q3.getQuestionOptionId()==q.getQuestionOptionId()){
-                    
+                } else if (q3.getQuestionOptionId() == q.getQuestionOptionId()) {
+
                     checkBox3.setSelected(true);
-                }
-                else if(q4.getQuestionOptionId()==q.getQuestionOptionId()){
-                    
+                } else if (q4.getQuestionOptionId() == q.getQuestionOptionId()) {
+
                     checkBox4.setSelected(true);
                 }
-              
-                
+
             }
-        }catch(ConcurrentModificationException cme){
+        } catch (ConcurrentModificationException cme) {
         }
     }
 
-
-
-     ChangeListener checkIfChecked1 = new ChangeListener<Boolean>() {
+    ChangeListener checkIfChecked1 = new ChangeListener<Boolean>() {
 
         @Override
         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -222,25 +206,23 @@ public class TestController implements Initializable {
                 checkBox3.setDisable(true);
                 checkBox4.setDisable(true);
                 buttonNext.setDisable(false);
-                
-                if(selectedQuestion == questionList.get(questionList.size()-1) && newValue == true) {
+
+                if (selectedQuestion == questionList.get(questionList.size() - 1) && newValue == true) {
                     buttonNext.setDisable(true);
                     buttonSaveTest.setDisable(false);
                 }
-                
 
             } else {
                 checkBox2.setDisable(false);
                 checkBox3.setDisable(false);
                 checkBox4.setDisable(false);
                 buttonNext.setDisable(true);
-                
-                if(selectedQuestion == questionList.get(questionList.size()-1) && newValue == false){
+
+                if (selectedQuestion == questionList.get(questionList.size() - 1) && newValue == false) {
                     buttonNext.setDisable(true);
                     buttonSaveTest.setDisable(true);
                 }
-               
-                
+
             }
 
         }
@@ -255,20 +237,19 @@ public class TestController implements Initializable {
                 checkBox3.setDisable(true);
                 checkBox4.setDisable(true);
                 buttonNext.setDisable(false);
-                
-                if(selectedQuestion == questionList.get(questionList.size()-1) && newValue == true) {
+
+                if (selectedQuestion == questionList.get(questionList.size() - 1) && newValue == true) {
                     buttonNext.setDisable(true);
                     buttonSaveTest.setDisable(false);
                 }
 
-   
             } else {
                 checkBox1.setDisable(false);
                 checkBox3.setDisable(false);
                 checkBox4.setDisable(false);
                 buttonNext.setDisable(true);
-                
-                if(selectedQuestion == questionList.get(questionList.size()-1) && newValue == false){
+
+                if (selectedQuestion == questionList.get(questionList.size() - 1) && newValue == false) {
                     buttonNext.setDisable(true);
                     buttonSaveTest.setDisable(true);
                 }
@@ -287,20 +268,19 @@ public class TestController implements Initializable {
                 checkBox1.setDisable(true);
                 checkBox4.setDisable(true);
                 buttonNext.setDisable(false);
-                
-                if(selectedQuestion == questionList.get(questionList.size()-1) && newValue == true) {
+
+                if (selectedQuestion == questionList.get(questionList.size() - 1) && newValue == true) {
                     buttonNext.setDisable(true);
                     buttonSaveTest.setDisable(false);
                 }
-                
-                
+
             } else {
                 checkBox2.setDisable(false);
                 checkBox1.setDisable(false);
                 checkBox4.setDisable(false);
                 buttonNext.setDisable(true);
-                
-                if(selectedQuestion == questionList.get(questionList.size()-1) && newValue == false){
+
+                if (selectedQuestion == questionList.get(questionList.size() - 1) && newValue == false) {
                     buttonNext.setDisable(true);
                     buttonSaveTest.setDisable(true);
                 }
@@ -319,20 +299,19 @@ public class TestController implements Initializable {
                 checkBox3.setDisable(true);
                 checkBox1.setDisable(true);
                 buttonNext.setDisable(false);
-                
-                if(selectedQuestion == questionList.get(questionList.size()-1) && newValue == true) {
+
+                if (selectedQuestion == questionList.get(questionList.size() - 1) && newValue == true) {
                     buttonNext.setDisable(true);
                     buttonSaveTest.setDisable(false);
                 }
 
-                
             } else {
                 checkBox2.setDisable(false);
                 checkBox3.setDisable(false);
                 checkBox1.setDisable(false);
                 buttonNext.setDisable(true);
-                
-                if(selectedQuestion == questionList.get(questionList.size()-1) && newValue == false){
+
+                if (selectedQuestion == questionList.get(questionList.size() - 1) && newValue == false) {
                     buttonNext.setDisable(true);
                     buttonSaveTest.setDisable(true);
                 }
@@ -346,18 +325,22 @@ public class TestController implements Initializable {
     /*
     Lyssnar efter ändringar från IntegerProperty 'counter'. Counter bestämmer
     de värden som skall sättas på testsidan.
-    */
+     */
     ChangeListener changeListener = new ChangeListener() {
         @Override
         public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+            try {
 
-            selectedQuestion = selectedTest.getQuestions().get((int) newValue);
-            
-            textAreaQuestion.setText(selectedQuestion.getQuestion());
+                selectedQuestion = selectedTest.getQuestions().get((int) newValue);
+                textAreaQuestion.setText(selectedQuestion.getQuestion());
+            } catch (IndexOutOfBoundsException e) {
+            }
+
             labelTestName.setText(selectedTest.getTitle());
-            labelQuestionId.setText(String.valueOf(selectedQuestion.getQuestionId()));
-            labelProgress.setText(String.valueOf(selectedQuestion.getQuestionId()) + " / " + questionList.size());
-      
+            labelQuestionId.setText(Integer.toString(counter.get()));
+
+            labelProgress.setText(Integer.toString(counter.get()) + " / " + questionList.size());
+
             checkBox1.setText(selectedQuestion.getQuestionOptions().get(0).getQuestionOption());
             checkBox2.setText(selectedQuestion.getQuestionOptions().get(1).getQuestionOption());
             checkBox3.setText(selectedQuestion.getQuestionOptions().get(2).getQuestionOption());
@@ -370,7 +353,6 @@ public class TestController implements Initializable {
             checkBox2.setSelected(false);
             checkBox3.setSelected(false);
             checkBox4.setSelected(false);
-            
 
         }
     };
@@ -383,6 +365,7 @@ public class TestController implements Initializable {
         selectedCourse = logic.getSelectedCourse();
         savedAnswers = new ArrayList();
         counter = new SimpleIntegerProperty();
+        counter.set(1);
         buttonNext.setDisable(true);
         buttonPrevious.setDisable(true);
         buttonSaveTest.setDisable(true);
@@ -409,8 +392,8 @@ public class TestController implements Initializable {
         selectedQuestion = selectedTest.getQuestions().get(0);
         textAreaQuestion.setText(selectedQuestion.getQuestion());
         labelTestName.setText(selectedTest.getTitle());
-        labelQuestionId.setText(String.valueOf(selectedQuestion.getQuestionId()));
-        labelProgress.setText(String.valueOf(selectedQuestion.getQuestionId()) + " / " + questionList.size());
+        labelQuestionId.setText(Integer.toString(counter.get()));
+        labelProgress.setText(Integer.toString(counter.get()) + " / " + questionList.size());
         checkBox1.setText(selectedQuestion.getQuestionOptions().get(0).getQuestionOption());
         checkBox2.setText(selectedQuestion.getQuestionOptions().get(1).getQuestionOption());
         checkBox3.setText(selectedQuestion.getQuestionOptions().get(2).getQuestionOption());
@@ -419,15 +402,14 @@ public class TestController implements Initializable {
         checkBox2.setUserData(selectedQuestion.getQuestionOptions().get(1));
         checkBox3.setUserData(selectedQuestion.getQuestionOptions().get(2));
         checkBox4.setUserData(selectedQuestion.getQuestionOptions().get(3));
-        
+
         /* 
         Alla allListeners som finns: 
         För progressbar som håller koll på vilka frågor man gjort. 
         För counter som räknar alla frågor som man gör. 
         Sen för alla checkboxar, som ska sätta/ta bort från en lokal lista när man klickar på de olika valen som finns.
          */
-//        progressBar.progressProperty().bind(counter.divide(questionList.size() * 1.0));
-        
+        progressBar.progressProperty().bind(counter.divide(questionList.size() * 1.0));
         counter.addListener(changeListener);
         checkBox1.selectedProperty().addListener(checkIfChecked1);
         checkBox2.selectedProperty().addListener(checkIfChecked2);
