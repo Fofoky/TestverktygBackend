@@ -69,12 +69,21 @@ public class Test implements Serializable {
     public void setStartTime(String startTime) {
         if (startTime != null) {
             try {
-                LocalDateTime ld = LocalDateTime.parse(startTime); // kontrollerar att det är rätt format
+                if (startTime.length() == 10) {
+                    startTime += "T00:00";
+
+                } else {
+                    startTime = startTime.replaceFirst(" ", "T");
+                }
+                
+                LocalDateTime ldt = LocalDateTime.parse(startTime); // kontrollerar att det är rätt format
+                
                 this.startTime = new SimpleStringProperty(startTime);
+
             } catch (DateTimeParseException e) {
             }
         } else {
-            this.startTime = new SimpleStringProperty(" ");
+            this.startTime = new SimpleStringProperty("yyyy-mm-dd 00:00");
         }
     }
 
@@ -89,13 +98,27 @@ public class Test implements Serializable {
     public void setEndTime(String endTime) {
         if (endTime != null) {
             try {
-                LocalDateTime ld = LocalDateTime.parse(endTime); // kontrollerar att det är rätt format
+                if(endTime.length() == 10){
+                    endTime += "T00:00";
+                }else{
+                    endTime = endTime.replaceFirst(" ", "T");
+                }
+                
+                LocalDateTime end = LocalDateTime.parse(endTime); // kontrollerar att det är rätt format
+                
+                if(startTime != null && !startTime.equals("yyyy-mm-dd 00:00")){
+                    LocalDateTime start = LocalDateTime.parse(startTime.get());
+                    
+                    if(end.compareTo(start) < 0){ // kollar att endTime ligger efter startTime
+                       throw new NullPointerException();
+                    }
+                }
                 this.endTime = new SimpleStringProperty(endTime);
-            } catch (DateTimeParseException e) {
+            } catch (DateTimeParseException | NullPointerException e) {
             }
 
         } else {
-            this.endTime = new SimpleStringProperty(" ");
+            this.endTime = new SimpleStringProperty("yyyy-mm-dd 00:00");
         }
     }
 
@@ -110,13 +133,13 @@ public class Test implements Serializable {
     public Course getCourse() {
         return course;
     }
-    
+
     //Denna variabel sparas inte i databasen, behöver inte konverteras till primitiv datatyp
-    public void setCurrentStatus(String currentStatus){
+    public void setCurrentStatus(String currentStatus) {
         this.currentStatus = new SimpleStringProperty(currentStatus);
     }
-    
-    public String getCurrentStatus(){
+
+    public String getCurrentStatus() {
         return currentStatus.get();
     }
 

@@ -166,6 +166,14 @@ public class DBconnector {
 
     }
     
+    public void updateTest(Test test, int userId, int courseId) {
+        String target = url + userId + "/courses/" + courseId + "/tests/" + test.getIdTest();
+        client.target(target)
+                .request()
+                .put(Entity.entity(testToTestConverter(test), MediaType.APPLICATION_JSON));
+        
+    }
+    
     public void deleteTest(int testId, int userId, int courseId) {
         String target = url + userId + "/courses/" + courseId + "/tests/" + testId;
         
