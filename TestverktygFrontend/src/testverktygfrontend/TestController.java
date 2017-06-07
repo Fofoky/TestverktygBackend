@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testverktygfrontend;
 
 import java.io.IOException;
@@ -29,9 +24,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
-
 import testverktygfrontend.logic.Logic;
-import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Question;
 import testverktygfrontend.model.QuestionOption;
 import testverktygfrontend.model.Response;
@@ -49,7 +42,6 @@ public class TestController implements Initializable {
     private Test selectedTest;
     private User selectedUser;
     private Question selectedQuestion;
-    private Course selectedCourse;
     private List<Question> questionList;
     private ObservableList<QuestionOption> questionOptionList;
     private List<QuestionOption> savedAnswers;
@@ -87,9 +79,12 @@ public class TestController implements Initializable {
         checkBox4.setSelected(false);
 
         try {
-            if (selectedQuestion == (questionList.get(questionList.size() - 1))) {
-                storeAnswers();
+            if (selectedQuestion == (questionList.get(questionList.size() - 1)) && !ended) {
+                buttonNext.setText("Spara");
+                buttonNext.setDisable(false);
                 ended = true;
+            }else if(ended){
+                storeAnswers();
             }
         } catch (IndexOutOfBoundsException e) {
 
@@ -113,6 +108,7 @@ public class TestController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             System.out.println("Storlek på savedAnswers " + savedAnswers.size());
+            
             for (QuestionOption q : savedAnswers) {
 
                 System.out.println("I loopen");
@@ -268,12 +264,17 @@ public class TestController implements Initializable {
     ChangeListener changeListener = new ChangeListener() {
         @Override
         public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+            try{
 
             selectedQuestion = selectedTest.getQuestions().get((int) newValue);
             textAreaQuestion.setText(selectedQuestion.getQuestion());
+            }catch(IndexOutOfBoundsException e){}
             labelTestName.setText(selectedTest.getTitle());
-            labelQuestionId.setText(String.valueOf(selectedQuestion.getQuestionId()));
-            labelProgress.setText(String.valueOf(selectedQuestion.getQuestionId()) + " / " + questionList.size());
+
+            labelQuestionId.setText(Integer.toString(counter.get()));
+
+            labelProgress.setText(Integer.toString(counter.get()) + " / " + questionList.size());
+
             checkBox1.setText(selectedQuestion.getQuestionOptions().get(0).getQuestionOption());
             checkBox2.setText(selectedQuestion.getQuestionOptions().get(1).getQuestionOption());
             checkBox3.setText(selectedQuestion.getQuestionOptions().get(2).getQuestionOption());
@@ -291,10 +292,12 @@ public class TestController implements Initializable {
         logic = Logic.getInstance();
         selectedTest = logic.getSelectedTest();
         selectedUser = logic.getSelectedUser();
-        selectedCourse = logic.getSelectedCourse();
+
         savedAnswers = new ArrayList();
         counter = new SimpleIntegerProperty();
-        counter = new SimpleIntegerProperty();
+        counter.set(1);
+
+
         buttonNext.setDisable(true);
         buttonPrevious.setDisable(true);
         buttonSaveTest.setDisable(true);
@@ -319,13 +322,14 @@ public class TestController implements Initializable {
         selectedQuestion = selectedTest.getQuestions().get(0);
         textAreaQuestion.setText(selectedQuestion.getQuestion());
         labelTestName.setText(selectedTest.getTitle());
-        labelQuestionId.setText(String.valueOf(selectedQuestion.getQuestionId()));
-        labelProgress.setText(String.valueOf(selectedQuestion.getQuestionId()) + " / " + questionList.size());
+        labelQuestionId.setText(Integer.toString(counter.get()));
+
+        labelProgress.setText(Integer.toString(counter.get()) + " / " + questionList.size());
         checkBox1.setText(selectedQuestion.getQuestionOptions().get(0).getQuestionOption());
         checkBox2.setText(selectedQuestion.getQuestionOptions().get(1).getQuestionOption());
         checkBox3.setText(selectedQuestion.getQuestionOptions().get(2).getQuestionOption());
         checkBox4.setText(selectedQuestion.getQuestionOptions().get(3).getQuestionOption());
-        
+
         checkBox1.setUserData(selectedQuestion.getQuestionOptions().get(0));
         checkBox2.setUserData(selectedQuestion.getQuestionOptions().get(1));
         checkBox3.setUserData(selectedQuestion.getQuestionOptions().get(2));
@@ -339,6 +343,7 @@ public class TestController implements Initializable {
          */
         progressBar.progressProperty().bind(counter.divide(questionList.size() * 1.0));
         counter.addListener(changeListener);
+
         checkBox1.selectedProperty().addListener(checkIfChecked1);
         checkBox2.selectedProperty().addListener(checkIfChecked2);
         checkBox3.selectedProperty().addListener(checkIfChecked3);
