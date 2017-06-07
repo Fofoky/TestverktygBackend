@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="501.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@pictures/Kursida.png" />
+            <Image url="@pictures/Testssida.png" />
          </image>
       </ImageView>
       <TableView fx:id="tableTests" layoutX="29.0" layoutY="95.0" prefHeight="300.0" prefWidth="442.0" styleClass="tableviews" stylesheets="@styling.css">
@@ -26,6 +26,6 @@
         </columns>
       </TableView>
       <Button fx:id="buttonToTest" disable="true" layoutX="397.0" layoutY="396.0" mnemonicParsing="false" onAction="#handleButtonToTest" text="Gå till prov" />
-      <Label fx:id="labelCourse" layoutX="29.0" layoutY="77.0" text="Label: namn på kurs" />
+      <Label fx:id="labelCourse" layoutX="29.0" layoutY="76.0" text="Label: namn på kurs" />
    </children>
 </AnchorPane>
