@@ -76,7 +76,7 @@ public class StudSelectedCourseController implements Initializable {
 
         int countQuestions = test.getQuestions().size();
         int countReponse = 0;
-        String testStatus = "Ej avslutat";
+        String testStatus = "Gör testet";
 
         //Hur många svar finns det på frågorna?
         for (Question q : test.getQuestions()) {
@@ -87,10 +87,10 @@ public class StudSelectedCourseController implements Initializable {
             }
         }
 
-        System.out.println("Antal svar på testet " + countReponse + "/" + countQuestions);
-
-        if (countQuestions == countReponse) {
-            testStatus = "Klart";
+        if (test.getQuestions().size() > 0) { //Om det finns någon fråga i testet
+            if (countQuestions == countReponse) { //och antalet frågor motsvarar antalet svar
+                testStatus = "Klart";
+            }
         }
 
         test.setCurrentStatus(testStatus);
@@ -102,8 +102,8 @@ public class StudSelectedCourseController implements Initializable {
         String result = " ";
         try {
 
-            if ("Klart".equals(test.getCurrentStatus())) {
-                //Går igenom användarens test och lägger plussar på countern när svaren är rätt
+            if ("Klart".equals(test.getCurrentStatus())) { //Om testet är klart räknas resultatet ut
+                //Går igenom användarens test och plussar på countern när svaren är rätt
                 {
                     for (Question question : test.getQuestions()) {
                         for (QuestionOption option : question.getQuestionOptions()) {
@@ -117,14 +117,12 @@ public class StudSelectedCourseController implements Initializable {
                                 } catch (NullPointerException ex) {
                                 }
                             }
-
                             result = studentResponse + "/" + test.getQuestions().size();
-
                         }
                     }
                 }
             } else {
-
+                //Gör ingenting
             }
             test.setCurrentResult(result);
         } catch (NullPointerException e) {
