@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="72.0" fitWidth="200.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@upper.png" />
+            <Image url="@pictures/upper.png" />
          </image>
       </ImageView>
       <TreeView fx:id="treeViewMenu" layoutY="57.0" onContextMenuRequested="#handleTreeView" onMouseClicked="#handleTreeView" prefHeight="443.0" prefWidth="200.0" stylesheets="@styling.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0" />
