@@ -21,6 +21,7 @@ public class Test implements Serializable {
     private StringProperty startTime;
     private StringProperty endTime;
     private StringProperty currentStatus;
+    private StringProperty currentResult;
 
     List<Question> questions;
 
@@ -141,6 +142,15 @@ public class Test implements Serializable {
 
     public String getCurrentStatus() {
         return currentStatus.get();
+    }
+    
+    //Denna variabel sparas inte i databasen, behöver inte konverteras till primitiv datatyp
+    public void setCurrentResult(String currentResult) {
+        this.currentResult = new SimpleStringProperty(currentResult);
+    }
+
+    public String getCurrentResult() {
+        return currentResult.get();
     }
 
 }
