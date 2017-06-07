@@ -119,7 +119,7 @@ public class StudSelectedCourseController implements Initializable {
                             }
 
                             result = studentResponse + "/" + test.getQuestions().size();
-                            
+
                         }
                     }
                 }
