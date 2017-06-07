@@ -42,18 +42,18 @@
                   </VBox>
                   <HBox alignment="CENTER" layoutX="1.0" layoutY="260.0" prefHeight="46.0" prefWidth="442.0" spacing="10.0">
                      <children>
-                        <Button fx:id="buttonPrevious" mnemonicParsing="false" prefHeight="20.0" prefWidth="110.0" text="Föregående" />
+                        <Button fx:id="buttonPrevious" mnemonicParsing="false" onAction="#handleButtonBackAction" prefHeight="20.0" prefWidth="110.0" text="Föregående" />
                         <VBox alignment="TOP_CENTER" prefHeight="84.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="labelProgress" text="1 / 20" />
                               <ProgressBar fx:id="progressBar" prefWidth="200.0" progress="0.1" />
                            </children>
                         </VBox>
-                        <Button fx:id="buttonNext" mnemonicParsing="false" prefHeight="20.0" prefWidth="110.0" text="Nästa" />
+                        <Button fx:id="buttonNext" mnemonicParsing="false" onAction="#handleButtonNextAction" prefHeight="20.0" prefWidth="110.0" text="Nästa" />
                      </children>
                   </HBox>
                   <Label fx:id="labelQuestionId" layoutX="1.0" layoutY="61.0" text="Frågans nummer" />
-                  <Button fx:id="buttonSaveTest" layoutX="333.0" layoutY="303.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="110.0" text="Lämna in test" />
+                  <Button fx:id="buttonSaveTest" layoutX="333.0" layoutY="303.0" mnemonicParsing="false" onAction="#handleButtonSaveTestAction" prefHeight="20.0" prefWidth="110.0" text="Lämna in test" />
                </children>
             </Pane>
          </center>

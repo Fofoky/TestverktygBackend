@@ -24,7 +24,7 @@ public class DBconnector {
     Client client;
 
     private String url = "http://localhost:8080/testverktygbackend/webapi/users/";
-    // private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
+    //private String url = "http://localhost:8080/TestverktygBackend/webapi/users/"; // Annas URL
 
     public DBconnector() {
         client = ClientBuilder.newClient();
@@ -64,7 +64,7 @@ public class DBconnector {
         return userCourses;
     }
 
-    private List<Test> getTests(int courseId, int userId) {
+    public List<Test> getTests(int courseId, int userId) {
         String target = url + userId + "/courses/" + courseId + "/tests";
 
         ArrayList<Test> tests = new ArrayList();
@@ -202,13 +202,23 @@ public class DBconnector {
     }
 
     // Farhads code starts here  
-    public Response addResponse(Response response, int userId, int courseId, int testId, int questionId) {
-        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/responses";
-        Response r = client.target(target)
-                .request(MediaType.APPLICATION_JSON)
-                .post(Entity.json(response), Response.class);
+    public Response addResponse(QuestionOption q, int userId, int courseId, int testId, int questionId) {
+        
+        QuestionOptionConverter newOption = optionToOptionConverter(q);
+        
+        Response r = new Response();
+        
+        r.setResponse(newOption.getQuestionOption());
+        r.setUserId(userId);
 
-        return r;
+        String target = url + userId + "/courses/" + courseId + "/tests/" + testId + "/questions/" + questionId + "/responses";
+        
+        Response response = client.target(target)
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(r), Response.class);
+        
+        return response;
+      
     }
 
     public void updateQuestionOption(QuestionOption qO, int userId, int courseId, int testId, int questionId, int questionOptionId) {
