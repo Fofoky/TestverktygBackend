@@ -33,7 +33,7 @@ public class TreeViewController implements Initializable {
 
     private TreeItem<String> root;
     private TreeItem<String> node1;
-    private TreeItem<String> subNode1;
+//    private TreeItem<String> subNode1;
 
     public void loadTreeViewMenu() {
         root = new TreeItem<>("Kurser");
@@ -41,12 +41,12 @@ public class TreeViewController implements Initializable {
         try {
             for (int i = 0; i < logic.getSelectedUser().getCourses().size(); i++) {
                 node1 = new TreeItem<>(logic.getSelectedUser().getCourses().get(i).getName());
-                if (logic.getSelectedUser().getUserRole().equals("Student")) {
-                    for (int j = 0; j < logic.getSelectedUser().getCourses().get(i).getTests().size(); j++) {
-                        subNode1 = new TreeItem<>("Test: " + logic.getSelectedUser().getCourses().get(i).getTests().get(j).getTitle());
-                        node1.getChildren().add(subNode1);
-                    }
-                }
+//                if (logic.getSelectedUser().getUserRole().equals("Student")) {
+//                    for (int j = 0; j < logic.getSelectedUser().getCourses().get(i).getTests().size(); j++) {
+//                        subNode1 = new TreeItem<>("Test: " + logic.getSelectedUser().getCourses().get(i).getTests().get(j).getTitle());
+//                        node1.getChildren().add(subNode1);
+//                    }
+//                }
 
                 root.getChildren().add(node1);
             }
