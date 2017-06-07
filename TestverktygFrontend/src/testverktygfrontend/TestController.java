@@ -50,6 +50,7 @@ public class TestController implements Initializable {
     private List<QuestionOption> savedAnswers;
     private IntegerProperty counter;
     private boolean ended = false;
+    private double test;
 
     @FXML
     Label labelTestName, labelQuestionId, labelProgress;
@@ -330,29 +331,26 @@ public class TestController implements Initializable {
         @Override
         public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
             try {
-
                 selectedQuestion = selectedTest.getQuestions().get((int) newValue);
-                textAreaQuestion.setText(selectedQuestion.getQuestion());
+
+                labelQuestionId.setText(Integer.toString(counter.get() + 1));
+                labelProgress.setText(Integer.toString(counter.get() + 1) + " / " + questionList.size());
+                progressBar.progressProperty().setValue((double) counter.getValue() / questionList.size() + test);
+                checkBox1.setText(selectedQuestion.getQuestionOptions().get(0).getQuestionOption());
+                checkBox2.setText(selectedQuestion.getQuestionOptions().get(1).getQuestionOption());
+                checkBox3.setText(selectedQuestion.getQuestionOptions().get(2).getQuestionOption());
+                checkBox4.setText(selectedQuestion.getQuestionOptions().get(3).getQuestionOption());
+                checkBox1.setUserData(selectedQuestion.getQuestionOptions().get(0));
+                checkBox2.setUserData(selectedQuestion.getQuestionOptions().get(1));
+                checkBox3.setUserData(selectedQuestion.getQuestionOptions().get(2));
+                checkBox4.setUserData(selectedQuestion.getQuestionOptions().get(3));
+                checkBox1.setSelected(false);
+                checkBox2.setSelected(false);
+                checkBox3.setSelected(false);
+                checkBox4.setSelected(false);
             } catch (IndexOutOfBoundsException e) {
+                textAreaQuestion.setText(selectedQuestion.getQuestion());
             }
-
-            labelTestName.setText(selectedTest.getTitle());
-            labelQuestionId.setText(Integer.toString(counter.get()));
-
-            labelProgress.setText(Integer.toString(counter.get()) + " / " + questionList.size());
-
-            checkBox1.setText(selectedQuestion.getQuestionOptions().get(0).getQuestionOption());
-            checkBox2.setText(selectedQuestion.getQuestionOptions().get(1).getQuestionOption());
-            checkBox3.setText(selectedQuestion.getQuestionOptions().get(2).getQuestionOption());
-            checkBox4.setText(selectedQuestion.getQuestionOptions().get(3).getQuestionOption());
-            checkBox1.setUserData(selectedQuestion.getQuestionOptions().get(0));
-            checkBox2.setUserData(selectedQuestion.getQuestionOptions().get(1));
-            checkBox3.setUserData(selectedQuestion.getQuestionOptions().get(2));
-            checkBox4.setUserData(selectedQuestion.getQuestionOptions().get(3));
-            checkBox1.setSelected(false);
-            checkBox2.setSelected(false);
-            checkBox3.setSelected(false);
-            checkBox4.setSelected(false);
 
         }
     };
@@ -365,7 +363,6 @@ public class TestController implements Initializable {
         selectedCourse = logic.getSelectedCourse();
         savedAnswers = new ArrayList();
         counter = new SimpleIntegerProperty();
-        counter.set(1);
         buttonNext.setDisable(true);
         buttonPrevious.setDisable(true);
         buttonSaveTest.setDisable(true);
@@ -392,8 +389,8 @@ public class TestController implements Initializable {
         selectedQuestion = selectedTest.getQuestions().get(0);
         textAreaQuestion.setText(selectedQuestion.getQuestion());
         labelTestName.setText(selectedTest.getTitle());
-        labelQuestionId.setText(Integer.toString(counter.get()));
-        labelProgress.setText(Integer.toString(counter.get()) + " / " + questionList.size());
+        labelQuestionId.setText(Integer.toString(counter.get() + 1));
+        labelProgress.setText(Integer.toString(counter.get() + 1) + " / " + questionList.size());
         checkBox1.setText(selectedQuestion.getQuestionOptions().get(0).getQuestionOption());
         checkBox2.setText(selectedQuestion.getQuestionOptions().get(1).getQuestionOption());
         checkBox3.setText(selectedQuestion.getQuestionOptions().get(2).getQuestionOption());
@@ -403,13 +400,15 @@ public class TestController implements Initializable {
         checkBox3.setUserData(selectedQuestion.getQuestionOptions().get(2));
         checkBox4.setUserData(selectedQuestion.getQuestionOptions().get(3));
 
+        test = 1.0 / questionList.size();
+        progressBar.progressProperty().setValue(test);
+
         /* 
         Alla allListeners som finns: 
         För progressbar som håller koll på vilka frågor man gjort. 
         För counter som räknar alla frågor som man gör. 
         Sen för alla checkboxar, som ska sätta/ta bort från en lokal lista när man klickar på de olika valen som finns.
          */
-        progressBar.progressProperty().bind(counter.divide(questionList.size() * 1.0));
         counter.addListener(changeListener);
         checkBox1.selectedProperty().addListener(checkIfChecked1);
         checkBox2.selectedProperty().addListener(checkIfChecked2);
