@@ -21,6 +21,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import testverktygfrontend.logic.Logic;
 import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Question;
+import testverktygfrontend.model.QuestionOption;
 import testverktygfrontend.model.Response;
 import testverktygfrontend.model.Test;
 
@@ -37,7 +38,7 @@ public class StudSelectedCourseController implements Initializable {
     private TableView<Test> tableTests;
 
     @FXML
-    private TableColumn<Test, String> columnTest, columnStatus, columnStart, columnStop;
+    private TableColumn<Test, String> columnTest, columnStatus, columnStart, columnStop, columnResult;
 
     @FXML
     private Button buttonToTest;
@@ -71,31 +72,62 @@ public class StudSelectedCourseController implements Initializable {
 
     }
 
-    public void setColumnStatus(Test test) {
+    public void setStatus(Test test) {
 
         int countQuestions = test.getQuestions().size();
         int countReponse = 0;
-        String testStatus = "Ej avslutat";
+        String testStatus = "Gör testet";
 
         //Hur många svar finns det på frågorna?
-        for(Question q : test.getQuestions()){
-            for(Response r : q.getResponses()){
-                if(r.getUserId() == logic.getSelectedUser().getUserId()){
+        for (Question q : test.getQuestions()) {
+            for (Response r : q.getResponses()) {
+                if (r.getUserId() == logic.getSelectedUser().getUserId()) {
                     countReponse++;
                 }
             }
         }
-        
-        
-            System.out.println("Antal svar på testet " + countReponse + "/" + countQuestions);
-        
 
-        if (countQuestions == countReponse) {
-            testStatus = "Klart";
+        if (test.getQuestions().size() > 0) { //Om det finns någon fråga i testet
+            if (countQuestions == countReponse) { //och antalet frågor motsvarar antalet svar
+                testStatus = "Klart";
+            }
         }
 
         test.setCurrentStatus(testStatus);
 
+    }
+
+    public void setResult(Test test) {
+        int studentResponse = 0;
+        String result = " ";
+        try {
+
+            if ("Klart".equals(test.getCurrentStatus())) { //Om testet är klart räknas resultatet ut
+                //Går igenom användarens test och plussar på countern när svaren är rätt
+                {
+                    for (Question question : test.getQuestions()) {
+                        for (QuestionOption option : question.getQuestionOptions()) {
+                            if (option.isTrueFalse()) {
+                                try {
+                                    for (Response response : question.getResponses()) {
+                                        if (response.getResponse().equals(option.getQuestionOption())) {
+                                            studentResponse++;
+                                        }
+                                    }
+                                } catch (NullPointerException ex) {
+                                }
+                            }
+                            result = studentResponse + "/" + test.getQuestions().size();
+                        }
+                    }
+                }
+            } else {
+                //Gör ingenting
+            }
+            test.setCurrentResult(result);
+        } catch (NullPointerException e) {
+
+        }
     }
 
     @Override
@@ -106,20 +138,24 @@ public class StudSelectedCourseController implements Initializable {
         labelCourse.setText(selectedCourse.getName());
         testList = FXCollections.observableArrayList();
 
+        //Fyller testList med användarens test plus värdena status och resultat
         selectedCourse.getTests().forEach((a) -> {
-            setColumnStatus(a);
+            setStatus(a);
+            setResult(a);
             testList.add(a);
         });
 
-        columnTest.setCellValueFactory(new PropertyValueFactory<>("title"));
+        columnTest.setCellValueFactory(new PropertyValueFactory<>("title")); //"title" är färltvariabel i klassen Test
         columnStart.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         columnStop.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("currentStatus"));
+        columnResult.setCellValueFactory(new PropertyValueFactory<>("currentResult"));
 
         columnTest.setCellFactory(TextFieldTableCell.forTableColumn());
         columnStart.setCellFactory(TextFieldTableCell.forTableColumn());
         columnStop.setCellFactory(TextFieldTableCell.forTableColumn());
         columnStatus.setCellFactory(TextFieldTableCell.forTableColumn());
+        columnResult.setCellFactory(TextFieldTableCell.forTableColumn());
 
         tableTests.setItems(testList);
 

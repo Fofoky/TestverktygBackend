@@ -19,9 +19,10 @@
       <TableView fx:id="tableTests" layoutX="29.0" layoutY="95.0" prefHeight="300.0" prefWidth="442.0" styleClass="tableviews" stylesheets="@styling.css">
         <columns>
           <TableColumn fx:id="columnTest" prefWidth="90.0" text="Prov" />
-          <TableColumn fx:id="columnStart" prefWidth="130.0" text="Starttid" />
-            <TableColumn fx:id="columnStop" prefWidth="130.0" text="Sluttid" />
-            <TableColumn fx:id="columnStatus" prefWidth="91.0" text="Status" />
+          <TableColumn fx:id="columnStart" prefWidth="105.0" text="Starttid" />
+            <TableColumn fx:id="columnStop" prefWidth="105.0" text="Sluttid" />
+            <TableColumn fx:id="columnStatus" prefWidth="70.0" text="Status" />
+            <TableColumn fx:id="columnResult" prefWidth="70.0" text="Resultat" />
         </columns>
       </TableView>
       <Button fx:id="buttonToTest" disable="true" layoutX="397.0" layoutY="396.0" mnemonicParsing="false" onAction="#handleButtonToTest" text="Gå till prov" />
