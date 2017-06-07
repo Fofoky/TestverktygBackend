@@ -3,6 +3,7 @@ package testverktygfrontend;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Optional;
@@ -332,18 +333,19 @@ public class TestController implements Initializable {
         public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
             try {
                 selectedQuestion = selectedTest.getQuestions().get((int) newValue);
+                List<QuestionOption> options = shuffelArray(selectedQuestion); // shufflar options
 
                 labelQuestionId.setText(Integer.toString(counter.get() + 1));
                 labelProgress.setText(Integer.toString(counter.get() + 1) + " / " + questionList.size());
                 progressBar.progressProperty().setValue((double) counter.getValue() / questionList.size() + test);
-                checkBox1.setText(selectedQuestion.getQuestionOptions().get(0).getQuestionOption());
-                checkBox2.setText(selectedQuestion.getQuestionOptions().get(1).getQuestionOption());
-                checkBox3.setText(selectedQuestion.getQuestionOptions().get(2).getQuestionOption());
-                checkBox4.setText(selectedQuestion.getQuestionOptions().get(3).getQuestionOption());
-                checkBox1.setUserData(selectedQuestion.getQuestionOptions().get(0));
-                checkBox2.setUserData(selectedQuestion.getQuestionOptions().get(1));
-                checkBox3.setUserData(selectedQuestion.getQuestionOptions().get(2));
-                checkBox4.setUserData(selectedQuestion.getQuestionOptions().get(3));
+                checkBox1.setText(options.get(0).getQuestionOption());
+                checkBox2.setText(options.get(1).getQuestionOption());
+                checkBox3.setText(options.get(2).getQuestionOption());
+                checkBox4.setText(options.get(3).getQuestionOption());
+                checkBox1.setUserData(options.get(0));
+                checkBox2.setUserData(options.get(1));
+                checkBox3.setUserData(options.get(2));
+                checkBox4.setUserData(options.get(3));
                 checkBox1.setSelected(false);
                 checkBox2.setSelected(false);
                 checkBox3.setSelected(false);
@@ -391,14 +393,20 @@ public class TestController implements Initializable {
         labelTestName.setText(selectedTest.getTitle());
         labelQuestionId.setText(Integer.toString(counter.get() + 1));
         labelProgress.setText(Integer.toString(counter.get() + 1) + " / " + questionList.size());
-        checkBox1.setText(selectedQuestion.getQuestionOptions().get(0).getQuestionOption());
-        checkBox2.setText(selectedQuestion.getQuestionOptions().get(1).getQuestionOption());
-        checkBox3.setText(selectedQuestion.getQuestionOptions().get(2).getQuestionOption());
-        checkBox4.setText(selectedQuestion.getQuestionOptions().get(3).getQuestionOption());
-        checkBox1.setUserData(selectedQuestion.getQuestionOptions().get(0));
-        checkBox2.setUserData(selectedQuestion.getQuestionOptions().get(1));
-        checkBox3.setUserData(selectedQuestion.getQuestionOptions().get(2));
-        checkBox4.setUserData(selectedQuestion.getQuestionOptions().get(3));
+        
+        List<QuestionOption> options = shuffelArray(selectedQuestion); // shufflar options
+        
+        checkBox1.setText(options.get(0).getQuestionOption());
+        checkBox2.setText(options.get(1).getQuestionOption());
+        checkBox3.setText(options.get(2).getQuestionOption());
+        checkBox4.setText(options.get(3).getQuestionOption());
+        
+       
+        
+        checkBox1.setUserData(options.get(0));
+        checkBox2.setUserData(options.get(1));
+        checkBox3.setUserData(options.get(2));
+        checkBox4.setUserData(options.get(3));
 
         test = 1.0 / questionList.size();
         progressBar.progressProperty().setValue(test);
@@ -415,6 +423,14 @@ public class TestController implements Initializable {
         checkBox3.selectedProperty().addListener(checkIfChecked3);
         checkBox4.selectedProperty().addListener(checkIfChecked4);
 
+    }
+    
+    
+    private List<QuestionOption> shuffelArray(Question question){
+        List<QuestionOption> options = question.getQuestionOptions();
+        
+        Collections.shuffle(options);
+        return options;
     }
 
 }

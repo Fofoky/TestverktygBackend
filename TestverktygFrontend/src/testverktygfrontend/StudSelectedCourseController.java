@@ -2,6 +2,8 @@ package testverktygfrontend;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -50,11 +52,21 @@ public class StudSelectedCourseController implements Initializable {
 
         //Spara markerat test
         Test selectedTest = tableTests.getSelectionModel().getSelectedItem();
+        boolean overdue = true;
 
         try {
+            try {
+                LocalDateTime end = LocalDateTime.parse(selectedTest.getEndTime());
+                LocalDateTime now = LocalDateTime.now();
+
+                overdue = end.isAfter(now);
+
+            } catch (DateTimeParseException ex) {
+
+            }
 
             //Om testets status inte är "klart" - byt scen till sidan för att göra testet
-            if (!"Klart".equals(selectedTest.getCurrentStatus())) {
+            if (!"Klart".equals(selectedTest.getCurrentStatus()) && overdue) {
 
                 for (Course c : logic.getSelectedUser().getCourses()) {
                     for (Test tests : c.getTests()) {
@@ -119,6 +131,18 @@ public class StudSelectedCourseController implements Initializable {
 
     public void setStatus(Test test) {
 
+        boolean overdue = true;
+
+        try {
+            LocalDateTime end = LocalDateTime.parse(test.getEndTime());
+            LocalDateTime now = LocalDateTime.now();
+
+            overdue = end.isAfter(now);
+
+        } catch (DateTimeParseException ex) {
+
+        }
+
         int countQuestions = test.getQuestions().size();
 
         int countResponse = 0;
@@ -133,7 +157,7 @@ public class StudSelectedCourseController implements Initializable {
             }
         }
 
-        if (test.getQuestions().size() > 0) {
+        if (test.getQuestions().size() > 0 && overdue) {
             if (countQuestions == countResponse) {
                 testStatus = "Klart";
             }
