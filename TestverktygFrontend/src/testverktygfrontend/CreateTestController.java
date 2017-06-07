@@ -72,7 +72,7 @@ public class CreateTestController implements Initializable {
                 questions = new ArrayList();
                 options = new ArrayList();
                 textFieldTestName.setEditable(false);
-                buttonSaveTest.setText("Uppdatera");
+                buttonSaveTest.setText("Spara ändringar");
             }
 
             for (TemporaryQuestionCreate temp : questionList) {
