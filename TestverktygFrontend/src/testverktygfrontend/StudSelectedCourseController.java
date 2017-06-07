@@ -88,32 +88,31 @@ public class StudSelectedCourseController implements Initializable {
         int studentResponse = 0;
         String result = " ";
 
-        try{
-        if ("Klart".equals(test.getCurrentStatus())) {
-            //Går igenom test och plussar på countern när svaren är rätt
-            for (Question question : test.getQuestions()) {
-                for (QuestionOption option : question.getQuestionOptions()) {
-                    if (option.isTrueFalse()) {
-                        try {
-                            for (Response response : question.getResponses()) {
-                                if (response.getResponse().equals(option.getQuestionOption())) {
-                                    studentResponse++;
+        try {
+            if ("Klart".equals(test.getCurrentStatus())) {
+                //Går igenom test och plussar på countern när svaren är rätt
+                for (Question question : test.getQuestions()) {
+                    for (QuestionOption option : question.getQuestionOptions()) {
+                        if (option.isTrueFalse()) {
+                            try {
+                                for (Response response : question.getResponses()) {
+                                    if (response.getResponse().equals(option.getQuestionOption())) {
+                                        studentResponse++;
+                                    }
                                 }
-                            }
 
-                        } catch (NullPointerException ex) {
-                            System.out.println(ex);
+                            } catch (NullPointerException ex) {
+                                System.out.println(ex);
+                            }
                         }
+                        result = studentResponse + "/" + test.getQuestions().size();
                     }
-                    result = studentResponse + "/" + test.getQuestions().size();
                 }
+            } else {
+                //Gör ingenting
             }
-        }
-        else{
-            //Gör ingenting
-        }
-        test.setCurrentResult(result);}
-        catch(NullPointerException ex){
+            test.setCurrentResult(result);
+        } catch (NullPointerException ex) {
             System.out.println(ex);
         }
     }
@@ -134,8 +133,13 @@ public class StudSelectedCourseController implements Initializable {
             }
         }
 
-        if (countQuestions == countResponse) {
-            testStatus = "Klart";
+        if (test.getQuestions().size() > 0) {
+            if (countQuestions == countResponse) {
+                testStatus = "Klart";
+            }
+
+        } else {
+            testStatus = "Ej tillgängligt";
         }
 
         test.setCurrentStatus(testStatus);
@@ -163,14 +167,12 @@ public class StudSelectedCourseController implements Initializable {
         columnStop.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("currentStatus"));
         columnResult.setCellValueFactory(new PropertyValueFactory<>("currentResult"));
-        
 
         columnTest.setCellFactory(TextFieldTableCell.forTableColumn());
         columnStart.setCellFactory(TextFieldTableCell.forTableColumn());
         columnStop.setCellFactory(TextFieldTableCell.forTableColumn());
         columnStatus.setCellFactory(TextFieldTableCell.forTableColumn());
         columnResult.setCellFactory(TextFieldTableCell.forTableColumn());
-
 
         tableTests.setItems(testList);
 
