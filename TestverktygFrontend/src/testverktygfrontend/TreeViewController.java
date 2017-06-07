@@ -9,9 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import testverktygfrontend.logic.Logic;
 import testverktygfrontend.model.Course;
 import testverktygfrontend.model.Test;
@@ -34,6 +36,8 @@ public class TreeViewController implements Initializable {
     private TreeItem<String> root;
     private TreeItem<String> node1;
 //    private TreeItem<String> subNode1;
+    @FXML
+    private Text logouttext;
 
     public void loadTreeViewMenu() {
         root = new TreeItem<>("Kurser");
@@ -147,6 +151,15 @@ public class TreeViewController implements Initializable {
         logic = Logic.getInstance();
         labelUserName.setText("Inloggad som " + logic.getSelectedUser().getName());
         loadTreeViewMenu();
+    }
+
+    @FXML
+    private void handleTreeView(ContextMenuEvent event) {
+    }
+
+    @FXML
+    private void handlelogout(MouseEvent event) {
+        
     }
 
 }
