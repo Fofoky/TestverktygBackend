@@ -84,7 +84,6 @@ public class StudSelectedCourseController implements Initializable {
             }
 
         } catch (NullPointerException ex) {
-            System.out.println("Inget test markerat");
         }
 
     }
@@ -105,10 +104,6 @@ public class StudSelectedCourseController implements Initializable {
                 }
             }
         }
-        
-        
-            System.out.println("Antal svar på testet " + countResponse + "/" + countQuestions);
-        
 
         if (countQuestions == countResponse) {
             testStatus = "Klart";
@@ -127,7 +122,6 @@ public class StudSelectedCourseController implements Initializable {
         selectedCourse = logic.getSelectedCourse();
         labelCourse.setText(selectedCourse.getName());
         testList = FXCollections.observableArrayList();
-        System.out.println(selectedUser.getName() + " " + selectedCourse.getName());
         
         
         selectedCourse.getTests().forEach((a) -> {

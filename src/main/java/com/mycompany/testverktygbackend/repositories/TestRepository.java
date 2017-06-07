@@ -47,4 +47,12 @@ public class TestRepository {
         session.close();
     }
 
+    public Test updateTest(Test test) {
+        session.beginTransaction();
+        session.update(test);
+        session.getTransaction().commit();
+        session.close();
+        return test;
+    }
+
 }
