@@ -17,9 +17,9 @@
       </ImageView>
       <Label fx:id="labelTestName" layoutX="354.0" layoutY="108.0" text="Testets namn" />
       <Label fx:id="labelQuestionId" layoutX="76.0" layoutY="108.0" text="Frågans nummer" />
-      <Button fx:id="buttonSaveTest" layoutX="210.0" layoutY="431.0" mnemonicParsing="false" onAction="#handleButtonSaveTestAction" prefHeight="25.0" prefWidth="90.0" text="Lämna in test" />
-      <Button fx:id="buttonPrevious" layoutX="73.0" layoutY="376.0" mnemonicParsing="false" onAction="#handleButtonBackAction" prefHeight="25.0" prefWidth="43.0" text="&lt;&lt;" />
-      <Button fx:id="buttonNext" layoutX="382.0" layoutY="377.0" mnemonicParsing="false" onAction="#handleButtonNextAction" prefHeight="25.0" prefWidth="43.0" text="&gt;&gt;" />
+      <Button fx:id="buttonSaveTest" layoutX="210.0" layoutY="431.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Lämna in test" />
+      <Button fx:id="buttonPrevious" layoutX="73.0" layoutY="376.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="43.0" text="&lt;&lt;" />
+      <Button fx:id="buttonNext" layoutX="382.0" layoutY="377.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="43.0" text="&gt;&gt;" />
       <Label fx:id="labelProgress" layoutX="239.0" layoutY="361.0" text="1 / 20" />
       <ProgressBar fx:id="progressBar" layoutX="153.0" layoutY="381.0" prefWidth="200.0" progress="0.1" />
       <TextArea fx:id="textAreaQuestion" layoutX="73.0" layoutY="134.0" prefHeight="102.0" prefWidth="354.0" promptText="Skriv din fråga här" text="Här kommer frågan stå" />
