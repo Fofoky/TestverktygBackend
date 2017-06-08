@@ -80,7 +80,7 @@ public class LogInController implements Initializable {
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
 
                 for (User user : logic.getUsers()) {
-                    if (user.getName().equals(newValue)) {
+                    if (user.getEmail().equals(newValue)) {
                         textFieldPassword.disableProperty().set(false);
                         selectedUser = user;
                         break;
